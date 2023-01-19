@@ -1,0 +1,5 @@
+- use display for model select
+- train againsat wall/airplane cutout on a stick (maybe handle is a problem)
+  - can also use rod mounted to wall/not visible to cam
+- pi 4/batter/display unit on left side, camera on right
+- use some kind of cramping/clip thing to attach to hat brim
