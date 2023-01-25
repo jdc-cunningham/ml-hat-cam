@@ -77,6 +77,7 @@ def step_8():
 
 def stepper_clockwise(steps):
     for i in range(steps):
+        print(i)
         step_8() # could put these in an array, call them that way, reverse
         step_7()
         step_6()
@@ -88,6 +89,7 @@ def stepper_clockwise(steps):
 
 def stepper_counter_clockwise(steps):
     for i in range(steps):
+        print(i)
         step_1()
         step_2()
         step_3()
