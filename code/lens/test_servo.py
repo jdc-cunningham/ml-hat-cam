@@ -11,7 +11,7 @@ tele_servo = 13
 tele_pos = 500
 
 def min_max():
-  pi.set_servo_pulsewidth(focus_servo, 500)
+  pi.set_servo_pulsewidth(focus_servo, 2500)
   time.sleep(5)
 
   for pw in range(2500,500,-1):
