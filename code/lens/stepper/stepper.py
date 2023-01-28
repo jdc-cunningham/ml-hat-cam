@@ -16,8 +16,29 @@ class Stepper:
     self.min_pos = 0 # assumes calibrated at max stop one side
     self.max_pos = max
     self.cur_pos = 0
+    self.stop_moving = False
 
     self.init_gpio_pins()
+
+  # this is a manual process, you need to catch the max pos by typing on keyboard/ssh
+  # this should not have to be ran often
+  # this is because the current physical design has no physical feedback on rotation position
+  # other than focus of image
+  def zero_steppers(self, which):
+    self.step_wait_time = 0.0001 # really slow it down for safety
+
+    if (which == 'tele'):
+      try:
+	while True:
+          self.zoom_out(300)
+      except KeyboardInterrupt:
+        self.stop_moving = True
+
+    if (which == 'zoom'):
+      try:
+        while True:
+      except KeyboardInterrupt:
+        self.stop_moving = True
 
   def update_cur_pos(self, step):
     if self.cur_pos < step:
@@ -91,6 +112,9 @@ class Stepper:
 
   def stepper_clockwise(self, steps):
     for i in range(steps):
+      if (self.stop_moving == True):
+        return
+
       self.update_cur_pos(i)
 
       print(i)
@@ -105,6 +129,9 @@ class Stepper:
 
   def stepper_counter_clockwise(self, steps):
     for i in range(steps):
+      if (self.stop_moving == True):
+        return
+
       self.update_cur_pos(i)
 
       print(i)
@@ -124,7 +151,7 @@ class Stepper:
   def zoom_out(self, steps):
     self.stepper_clockwise(steps)
 
-  def focus_close(self, steps):
+  def focus_near(self, steps):
     self.stepper_clockwise(steps)
 
   def focus_far(self, steps):
