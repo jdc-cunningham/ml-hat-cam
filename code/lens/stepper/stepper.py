@@ -25,7 +25,7 @@ class Stepper:
   # this is because the current physical design has no physical feedback on rotation position
   # other than focus of image
   def zero_stepper(self):
-    self.step_wait_time = 0.0001 # really slow it down for safety
+    self.step_wait_time = 0.01 # really slow it down for safety
 
     try:
       while True:
