@@ -1,5 +1,11 @@
+import os
+import sys
 import time as og_time
-from stepper_motion import *
+
+base_path = os.getcwd()
+sys.path.insert(1, base_path)
+
+from stepper.Stepper import *
 
 init_gpio_pins()
 
