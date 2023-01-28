@@ -6,16 +6,16 @@ import RPi.GPIO as GPIO
 
 class Stepper:
   def __init__(self, pin1, pin2, pin3, pin4, name, max_pos):
-    IN1 = pin1
-    IN2 = pin2
-    IN3 = pin3
-    IN4 = pin4
+    self.IN1 = pin1
+    self.IN2 = pin2
+    self.IN3 = pin3
+    self.IN4 = pin4
 
-    step_wait_time = 0.001
-    name = name
-    min_pos = 0 # assumes calibrated at max stop one side
-    max_pos = max
-    cur_pos = 0
+    self.step_wait_time = 0.001
+    self.name = name
+    self.min_pos = 0 # assumes calibrated at max stop one side
+    self.max_pos = max
+    self.cur_pos = 0
 
     self.init_gpio_pins()
 
@@ -26,6 +26,9 @@ class Stepper:
       self.cur_pos = self.cur_pos + 1
 
   def init_gpio_pins(self):
+    GPIO.setwarnings(False) # this is not great, but this class instance is not intended to be destroyed
+    GPIO.setmode(GPIO.BCM)
+
     # set GPIO pins
     GPIO.setup(self.IN1,GPIO.OUT)
     GPIO.setup(self.IN2,GPIO.OUT)
@@ -91,28 +94,28 @@ class Stepper:
       self.update_cur_pos(i)
 
       print(i)
-      step_8() # could put these in an array, call them that way, reverse
-      step_7()
-      step_6()
-      step_5()
-      step_4()
-      step_3()
-      step_2()
-      step_1()
+      self.step_8() # could put these in an array, call them that way, reverse
+      self.step_7()
+      self.step_6()
+      self.step_5()
+      self.step_4()
+      self.step_3()
+      self.step_2()
+      self.step_1()
 
   def stepper_counter_clockwise(self, steps):
     for i in range(steps):
       self.update_cur_pos(i)
 
       print(i)
-      step_8() # could put these in an array, call them that way, reverse
-      step_7()
-      step_6()
-      step_5()
-      step_4()
-      step_3()
-      step_2()
-      step_1()
+      self.step_8() # could put these in an array, call them that way, reverse
+      self.step_7()
+      self.step_6()
+      self.step_5()
+      self.step_4()
+      self.step_3()
+      self.step_2()
+      self.step_1()
   
   # the steppers face each other/rotations are flipped
   def zoom_in(self, steps):
