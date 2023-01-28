@@ -7,16 +7,16 @@ GPIO.setmode(GPIO.BCM)
 
 # stepper pins
 # focus ring
-# IN1 = 6
-# IN2 = 13
-# IN3 = 19
-# IN4 = 26
+IN1 = 6
+IN2 = 13
+IN3 = 19
+IN4 = 26
 
 # tele ring
-IN1 = 25
-IN2 = 8
-IN3 = 7
-IN4 = 1
+# IN1 = 25
+# IN2 = 8
+# IN3 = 7
+# IN4 = 1
 
 # waiting time - speed motor turns
 time = 0.001

@@ -9,8 +9,13 @@ def rotate(steps):
 
 og_time.sleep(5)
 
-rotate(10)
+rotate(350)
 
 
 # 350 focus ring
+# left (back view) near, right far
+# clockwise (left)
+
 # 300 tele
+# left (tele), right (wide)
+# counterclockwise (left)
