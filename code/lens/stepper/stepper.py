@@ -24,12 +24,12 @@ class Stepper:
   # this should not have to be ran often
   # this is because the current physical design has no physical feedback on rotation position
   # other than focus of image
-  def zero_stepper(self, which):
+  def zero_stepper(self):
     self.step_wait_time = 0.0001 # really slow it down for safety
 
     try:
       while True:
-        if (which == 'tele'):
+        if (self.name == 'tele'):
           self.zoom_out(1)
         else:
           self.focus_far(1)
