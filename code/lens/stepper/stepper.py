@@ -118,7 +118,7 @@ class Stepper:
 
       self.update_cur_pos(i)
 
-      print(i)
+      print("c " + str(i))
       self.step_8() # could put these in an array, call them that way, reverse
       self.step_7()
       self.step_6()
@@ -135,15 +135,15 @@ class Stepper:
 
       self.update_cur_pos(i)
 
-      print(i)
-      self.step_8() # could put these in an array, call them that way, reverse
-      self.step_7()
-      self.step_6()
-      self.step_5()
-      self.step_4()
-      self.step_3()
-      self.step_2()
+      print("cc " + str(i))
       self.step_1()
+      self.step_2()
+      self.step_3()
+      self.step_4()
+      self.step_5()
+      self.step_6()
+      self.step_7()
+      self.step_8()
   
   # the steppers face each other/rotations are flipped
   def zoom_in(self, steps):
