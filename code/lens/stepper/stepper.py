@@ -43,49 +43,49 @@ class Stepper:
 
   def step_1(self):
       GPIO.output(self.IN4, True)
-      sleep (self.time)
+      sleep (self.step_wait_time)
       GPIO.output(self.IN4, False)
 
   def step_2(self):
       GPIO.output(self.IN4, True)
       GPIO.output(self.IN3, True)
-      sleep (self.time)
+      sleep (self.step_wait_time)
       GPIO.output(self.IN4, False)
       GPIO.output(self.IN3, False)
 
   def step_3(self):
       GPIO.output(self.IN3, True)
-      sleep (self.time)
+      sleep (self.step_wait_time)
       GPIO.output(self.IN3, False)
 
   def step_4(self):
       GPIO.output(self.IN2, True)
       GPIO.output(self.IN3, True)
-      sleep (self.time)
+      sleep (self.step_wait_time)
       GPIO.output(self.IN2, False)
       GPIO.output(self.IN3, False)
 
   def step_5(self):
       GPIO.output(self.IN2, True)
-      sleep (self.time)
+      sleep (self.step_wait_time)
       GPIO.output(self.IN2, False)
 
   def step_6(self):
       GPIO.output(self.IN1, True)
       GPIO.output(self.IN2, True)
-      sleep (self.time)
+      sleep (self.step_wait_time)
       GPIO.output(self.IN1, False)
       GPIO.output(self.IN2, False)
 
   def step_7(self):
       GPIO.output(self.IN1, True)
-      sleep (self.time)
+      sleep (self.step_wait_time)
       GPIO.output(self.IN1, False)
 
   def step_8(self):
       GPIO.output(self.IN4, True)
       GPIO.output(self.IN1, True)
-      sleep (self.time)
+      sleep (self.step_wait_time)
       GPIO.output(self.IN4, False)
       GPIO.output(self.IN1, False)
 
