@@ -42,15 +42,15 @@ class Stepper:
       self.stop_moving = True
 
   def update_cur_pos(self, step):
+    if (step < 0 or step > self.max_pos):
+      return False
+
     if self.cur_pos < step:
       self.cur_pos = self.cur_pos - 1
     else:
       self.cur_pos = self.cur_pos + 1
 
-    if (step < 0 or step > self.max_pos):
-      return False
-
-     return True
+    return True
 
   def init_gpio_pins(self):
     GPIO.setwarnings(False) # this is not great, but this class instance is not intended to be destroyed
