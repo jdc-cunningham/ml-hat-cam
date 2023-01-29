@@ -2,7 +2,7 @@
 
 An auto-zoom hat-mounted camera using Raspberry Pi HQ cam and ML for rc plane detection
 
-<img src="./devlog/images/first-assembly.JPG"/>
+<img src="./devlog/images/ml-hat-cam.JPG"/>
 
 ### Note
 
