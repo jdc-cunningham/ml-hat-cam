@@ -32,13 +32,13 @@ class Stepper:
         if (self.name == 'tele'):
           self.zoom_out(1)
         else:
-          self.focus_far(1)
+          self.focus_near(1)
     except KeyboardInterrupt:
       # back up, this is a source of error
       if (self.name == 'tele'):
         self.zoom_in(5)
       else:
-        self.focus_near(5)
+        self.focus_far(5)
       self.stop_moving = True
 
   def update_cur_pos(self, step):
@@ -147,13 +147,13 @@ class Stepper:
   
   # the steppers face each other/rotations are flipped
   def zoom_in(self, steps):
-    self.stepper_counter_clockwise(steps)
+    self.stepper_clockwise(steps)
 
   def zoom_out(self, steps):
-    self.stepper_clockwise(steps)
+    self.stepper_counter_clockwise(steps)
 
   def focus_near(self, steps):
-    self.stepper_clockwise(steps)
+    self.stepper_counter_clockwise(steps)
 
   def focus_far(self, steps):
-    self.stepper_counter_clockwise(steps)
+    self.stepper_clockwise(steps)
