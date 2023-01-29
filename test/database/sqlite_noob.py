@@ -33,6 +33,7 @@ def update_pos(name, pos, cur):
     while writing:
       if (not writing):
         break
+      time.sleep(0.005)
 
   writing = True
   cur.execute("UPDATE stepper_pos SET name = ?, pos = ? WHERE name = ?", [name, pos, name])
@@ -42,8 +43,8 @@ def update_pos(name, pos, cur):
 
 # cur = con.cursor()
 # drop_db(cur)
-init_db('zoom')
-init_db('focus')
+# init_db('zoom')
+# init_db('focus')
 
 # threading test
 def focus_stepper():

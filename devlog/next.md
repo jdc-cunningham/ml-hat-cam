@@ -1,0 +1,2 @@
+- fix the max positions being ignored
+- integrate db, use main top level file
