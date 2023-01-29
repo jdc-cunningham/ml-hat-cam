@@ -14,7 +14,7 @@ class Stepper:
     self.step_wait_time = 0.001
     self.name = name
     self.min_pos = 0 # assumes calibrated at max stop one side
-    self.max_pos = max
+    self.max_pos = max_pos
     self.cur_pos = 0
     self.stop_moving = False
 

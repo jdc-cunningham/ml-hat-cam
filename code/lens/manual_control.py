@@ -4,14 +4,31 @@ from stepper.stepper import Stepper
 
 step_incr = 10
 
-def stepper_controls(key):
-  if (key == 'up'): # zoom_in
+tele_ring = Stepper(25, 8, 7, 1, 'tele', 300)
+focus_ring = Stepper(6, 13, 19, 26, 'focus', 350)
 
-  if (key == 'down'): # zoom_out
-    
+def stepper_controls(key):
+  if (key == 'up' or key == 'down'):
+    print("pos " + str(tele_ring.cur_pos))
+
+  if (key == 'left' or key == 'right'):
+    print("pos " + str(focus_ring.cur_pos))
+
+  if (key == 'up'):
+    tele_ring.zoom_in(step_incr)
+
+  if (key == 'down'):
+    tele_ring.zoom_out(step_incr)
+
+  if (key == 'left'):
+    focus_ring.focus_near(step_incr)
+
+  if (key == 'right'):
+    focus_ring.focus_far(step_incr)
 
 def press(key):
   print(f"'{key}' pressed")
+  stepper_controls(key)
 
 def release(key):
   print(f"'{key}' released")
