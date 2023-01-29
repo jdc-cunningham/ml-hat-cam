@@ -26,3 +26,4 @@ It can be avoided if you don't have a shared ground connected but requires a swi
   - basic mask frame by frame find contours
 - [ ] machine learning
   - train small shots of plane sillhouette against wall
+  - record actual flying footage, label samples, train model
