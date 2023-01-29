@@ -5,6 +5,8 @@ from threading import Thread
 
 con = sqlite3.connect("ml_hat_cam.db", check_same_thread=False)
 
+writing = False
+
 try:
   cur = con.cursor()
   cur.execute("CREATE TABLE stepper_pos(name, pos)")
@@ -25,9 +27,18 @@ def drop_db(cur):
   cur.execute("DROP TABLE stepper_pos")
 
 def update_pos(name, pos, cur):
+  global writing
+
+  if (writing):
+    while writing:
+      if (not writing):
+        break
+
+  writing = True
   cur.execute("UPDATE stepper_pos SET name = ?, pos = ? WHERE name = ?", [name, pos, name])
   con.commit()
   print('updated ' + name + ' pos ' + str(pos) + ' ' + str(time.time()))
+  writing = False
 
 # cur = con.cursor()
 # drop_db(cur)
