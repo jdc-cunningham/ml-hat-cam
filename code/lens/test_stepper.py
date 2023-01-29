@@ -4,8 +4,8 @@ import time as og_time
 
 from stepper.stepper import Stepper
 
-tele_ring = Stepper(25, 8, 7, 1, 'tele', 300)
 focus_ring = Stepper(6, 13, 19, 26, 'focus', 350)
+tele_ring = Stepper(12, 16, 20, 21, 'tele', 300)
 
 # back view looking to front of camera
 # tele - right (wide)
