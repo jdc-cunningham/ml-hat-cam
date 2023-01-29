@@ -47,6 +47,11 @@ class Stepper:
     else:
       self.cur_pos = self.cur_pos + 1
 
+    if (step < 0 or step > self.max_pos):
+      return False
+
+     return True
+
   def init_gpio_pins(self):
     GPIO.setwarnings(False) # this is not great, but this class instance is not intended to be destroyed
     GPIO.setmode(GPIO.BCM)
@@ -116,7 +121,8 @@ class Stepper:
       if (self.stop_moving == True):
         return
 
-      self.update_cur_pos(i)
+      if (not self.update_cur_pos(i)):
+        return
 
       print("c " + str(i))
       self.step_8() # could put these in an array, call them that way, reverse
@@ -133,7 +139,8 @@ class Stepper:
       if (self.stop_moving == True):
         return
 
-      self.update_cur_pos(i)
+      if (not self.update_cur_pos(i)):
+        return
 
       print("cc " + str(i))
       self.step_1()
