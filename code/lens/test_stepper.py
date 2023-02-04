@@ -17,6 +17,7 @@ tele_ring = Stepper(12, 16, 20, 21, 'tele', 300)
 
 # tele_ring.zoom_out(250)
 # focus_ring.focus_far(50)
+# focus_ring.focus_near(50)
 
 # 350 focus ring
 # left (back view) near, right far
