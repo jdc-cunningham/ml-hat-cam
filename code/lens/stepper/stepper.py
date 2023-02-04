@@ -46,7 +46,7 @@ class Stepper:
       self.stop_moving = True
 
   def update_cur_pos(self, step):
-    if (step < 0 or step > self.max_pos):
+    if ((self.cur_pos - step) < 0 or (step + self.cur_pos) > self.max_pos):
       return False
 
     if self.cur_pos < step:
