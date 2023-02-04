@@ -40,9 +40,9 @@ class Stepper:
     except KeyboardInterrupt:
       # back up, this is a source of error
       if (self.name == 'tele'):
-        self.zoom_in(5)
+        self.zoom_in(15)
       else:
-        self.focus_far(5)
+        self.focus_far(15)
       self.stop_moving = True
 
   def update_cur_pos(self, step):
