@@ -15,5 +15,10 @@ print(focus_ring.get_pos())
 
 focus_ring.focus_near(50)
 
+print("at 0 " + focus_ring.get_pos())
+
+# at 0 here should not be able to go beyond
+focus_ring.focus_near(50)
+
 print(focus_ring.get_pos())
 

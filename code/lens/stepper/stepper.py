@@ -31,6 +31,7 @@ class Stepper:
     step_per_mm = 7.14 # (50-8/300)
     return self.cur_pos * step_per_mm
 
+  # automatic based on stored DB pos
   def zero_stepper():
     print("write code")
 
@@ -53,6 +54,7 @@ class Stepper:
         self.zoom_in(15)
       else:
         self.focus_far(15)
+      self.update_stepper_db_pos(0)
       self.stop_moving = True
 
   def update_cur_pos(self, step):
@@ -60,9 +62,9 @@ class Stepper:
       return False
 
     if self.cur_pos < step:
-      self.cur_pos = self.cur_pos - 1
-    else:
       self.cur_pos = self.cur_pos + 1
+    else:
+      self.cur_pos = self.cur_pos - 1
 
     return True
 
