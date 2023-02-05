@@ -136,10 +136,10 @@ class Stepper:
   def stepper_clockwise(self, steps):
     for i in range(steps):
       if (self.stop_moving == True):
-        return
+        return False
 
       if (not self.update_cur_pos(i)):
-        return
+        return False
 
       # print("c " + str(i))
       self.step_8() # could put these in an array, call them that way, reverse
@@ -151,13 +151,15 @@ class Stepper:
       self.step_2()
       self.step_1()
 
+    return True
+
   def stepper_counter_clockwise(self, steps):
     for i in range(steps):
       if (self.stop_moving == True):
-        return
+        return False
 
       if (not self.update_cur_pos(i)):
-        return
+        return False
 
       # print("cc " + str(i))
       self.step_1()
@@ -168,20 +170,22 @@ class Stepper:
       self.step_6()
       self.step_7()
       self.step_8()
+    
+    return True
   
   # the steppers face each other/rotations are flipped
   def zoom_in(self, steps):
-    self.stepper_clockwise(steps)
-    self.update_stepper_db_pos(self.cur_pos + steps)
+    moved = self.stepper_clockwise(steps)
+    if moved: self.update_stepper_db_pos(self.cur_pos + steps)
 
   def zoom_out(self, steps):
-    self.stepper_counter_clockwise(steps)
-    self.update_stepper_db_pos(self.cur_pos - steps)
+    moved = self.stepper_counter_clockwise(steps)
+    if moved: self.update_stepper_db_pos(self.cur_pos - steps)
 
   def focus_near(self, steps):
-    self.stepper_counter_clockwise(steps)
-    self.update_stepper_db_pos(self.cur_pos - steps)
+    moved = self.stepper_counter_clockwise(steps)
+    if moved: self.update_stepper_db_pos(self.cur_pos - steps)
 
   def focus_far(self, steps):
-    self.stepper_clockwise(steps)
-    self.update_stepper_db_pos(self.cur_pos + steps)
+    moved = self.stepper_clockwise(steps)
+    if moved: self.update_stepper_db_pos(self.cur_pos + steps)
