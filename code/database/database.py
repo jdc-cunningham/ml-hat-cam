@@ -45,3 +45,11 @@ class Database:
     con.commit()
     print('updated ' + name + ' pos ' + str(pos) + ' ' + str(time.time()))
 
+  def get_stepper_pos(self, cur, name):
+    stepper_pos = cur.execute("SELECT pos FROM stepper_pos WHERE name = ?", [name])
+    res = stepper_pos.fetchall()
+
+    if (len(res) == 0):
+      return 0
+    
+    return res[0]
