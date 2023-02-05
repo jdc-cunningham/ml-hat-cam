@@ -1,8 +1,10 @@
 from sshkeyboard import listen_keyboard
-
+from database.database import Database
 from stepper.stepper import Stepper
 
 step_incr = 10
+
+db = Database()
 
 tele_ring = Stepper(12, 16, 20, 21, 'tele', 300)
 focus_ring = Stepper(6, 13, 19, 26, 'focus', 350)
