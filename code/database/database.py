@@ -1,14 +1,15 @@
 import time
 import sqlite3
+import traceback
 
 from threading import Thread
 
 class Database:
   def __init__(self):
-    self.init_db()
     self.con = sqlite3.connect("ml_hat_cam.db", check_same_thread=False)
-    self.init_table('zoom')
-    self.init_table('focus')
+    self.init_stepper_pos_table()
+    self.init_stepper_pos('zoom')
+    self.init_stepper_pos('focus')
 
   def get_con(self):
     return self.con
@@ -16,14 +17,15 @@ class Database:
   def get_cursor(self):
     return self.con.cursor()
 
-  def init_db(self):
+  def init_stepper_pos_table(self):
     try:
       cur = self.get_cursor()
       cur.execute("CREATE TABLE stepper_pos(name, pos)")
-    except:
-      print("db exists or error")
+    except Exception:
+      print("create table error")
+      traceback.print_exc()
   
-  def init_table(self, name):
+  def init_stepper_pos(self, name):
     con = self.get_con()
     cur = self.get_cursor()
     stepper_pos = cur.execute("SELECT pos FROM stepper_pos WHERE name = ?", [name])
