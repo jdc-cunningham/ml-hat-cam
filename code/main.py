@@ -11,4 +11,9 @@ print(focus_ring.get_pos())
 
 focus_ring.focus_far(50)
 
-print(focus.ring.get_pos())
+print(focus_ring.get_pos())
+
+focus_ring.focus_near(50)
+
+print(focus_ring.get_pos())
+

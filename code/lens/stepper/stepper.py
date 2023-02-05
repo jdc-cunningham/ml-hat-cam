@@ -31,11 +31,14 @@ class Stepper:
     step_per_mm = 7.14 # (50-8/300)
     return self.cur_pos * step_per_mm
 
+  def zero_stepper():
+    print("write code")
+
   # this is a manual process, you need to catch the max pos by typing on keyboard/ssh
   # this should not have to be ran often
   # this is because the current physical design has no physical feedback on rotation position
   # other than focus of image
-  def zero_stepper(self):
+  def zero_stepper_manual(self):
     self.step_wait_time = 0.01 # really slow it down for safety
 
     try:
@@ -138,7 +141,7 @@ class Stepper:
       if (not self.update_cur_pos(i)):
         return
 
-      print("c " + str(i))
+      # print("c " + str(i))
       self.step_8() # could put these in an array, call them that way, reverse
       self.step_7()
       self.step_6()
@@ -156,7 +159,7 @@ class Stepper:
       if (not self.update_cur_pos(i)):
         return
 
-      print("cc " + str(i))
+      # print("cc " + str(i))
       self.step_1()
       self.step_2()
       self.step_3()
