@@ -17,6 +17,9 @@ class Database:
   def get_cursor(self):
     return self.con.cursor()
 
+  def get_pos(self, cur, name):
+    return cur.execute("SELECT pos FROM stepper_pos WHERE name = ?", [name])
+
   def init_stepper_pos_table(self):
     try:
       cur = self.get_cursor()

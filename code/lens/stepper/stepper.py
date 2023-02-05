@@ -18,11 +18,12 @@ class Stepper:
     self.cur_pos = 0
     self.stop_moving = False
     self.db = db
+    self.db_cur = db.get_cursor()
 
     self.init_gpio_pins()
 
   def get_pos(self):
-    return db.get_pos(self.name)
+    return self.db.get_pos(self.db_cur, self.name)
 
   def get_current_focal_length(self):
     step_per_mm = 7.14 # (50-8/300)
