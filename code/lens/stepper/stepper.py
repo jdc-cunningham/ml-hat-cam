@@ -21,6 +21,7 @@ class Stepper:
     self.db_con = db.get_con()
     self.db_cur = db.get_cursor()
     self.db_update_pos = db.update_pos
+    self.ignore_db = False
 
     self.init_gpio_pins()
 
@@ -41,6 +42,7 @@ class Stepper:
   # other than focus of image
   def zero_stepper_manual(self):
     self.step_wait_time = 0.01 # really slow it down for safety
+    self.ignore_db = True
 
     try:
       while True:
@@ -56,6 +58,7 @@ class Stepper:
         self.focus_far(15)
       self.update_stepper_db_pos(0)
       self.stop_moving = True
+      self.ignore_db = False
 
   def update_cur_pos(self, step, step_op):
     if (step_op == 'subtract' and (self.cur_pos - step) < 0):
@@ -181,16 +184,20 @@ class Stepper:
   # the steppers face each other/rotations are flipped
   def zoom_in(self, steps):
     moved = self.stepper_clockwise(steps, 'add')
+    if self.ignore_db: return
     if moved: self.update_stepper_db_pos(self.cur_pos + steps)
 
   def zoom_out(self, steps):
     moved = self.stepper_counter_clockwise(steps, 'subtract')
+    if self.ignore_db: return
     if moved: self.update_stepper_db_pos(self.cur_pos - steps)
 
   def focus_near(self, steps):
     moved = self.stepper_counter_clockwise(steps, 'subtract')
+    if self.ignore_db: return
     if moved: self.update_stepper_db_pos(self.cur_pos - steps)
 
   def focus_far(self, steps):
     moved = self.stepper_clockwise(steps, 'add')
+    if self.ignore_db: return
     if moved: self.update_stepper_db_pos(self.cur_pos + steps)
