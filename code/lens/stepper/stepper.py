@@ -15,11 +15,11 @@ class Stepper:
     self.name = name
     self.min_pos = 0 # assumes calibrated at max stop one side
     self.max_pos = max_pos
-    self.cur_pos = 0
     self.stop_moving = False
     self.db = db
     self.db_con = db.get_con()
     self.db_cur = db.get_cursor()
+    self.cur_pos = db.get_stepper_pos(self.db_cur, self.name)
     self.db_update_pos = db.update_pos
     self.ignore_db = False
 
@@ -184,6 +184,7 @@ class Stepper:
   # the steppers face each other/rotations are flipped
   def zoom_in(self, steps):
     moved = self.stepper_clockwise(steps, 'add')
+    print("moved " + str(moved))
     if self.ignore_db: return
     if moved: self.update_stepper_db_pos(self.cur_pos + steps)
 

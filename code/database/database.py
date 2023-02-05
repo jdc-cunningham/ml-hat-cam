@@ -39,7 +39,7 @@ class Database:
       cur.execute("INSERT INTO stepper_pos VALUES(?, ?)", [name, 0])
       con.commit()
     else:
-      print(len(res))
+      print("table entry exists")
 
   def drop_db(self):
     self.get_cursor().execute("DROP TABLE stepper_pos")
