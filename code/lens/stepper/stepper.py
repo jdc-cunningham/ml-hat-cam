@@ -57,8 +57,11 @@ class Stepper:
       self.update_stepper_db_pos(0)
       self.stop_moving = True
 
-  def update_cur_pos(self, step):
-    if ((self.cur_pos - step) < 0 or (step + self.cur_pos) > self.max_pos):
+  def update_cur_pos(self, step, step_op):
+    if (step_op == 'subtract' and (self.cur_pos - step) < 0):
+      return False
+
+    if (step_op == 'add' and (step + self.cur_pos) > self.max_pos):
       return False
 
     if self.cur_pos < step:
@@ -178,16 +181,16 @@ class Stepper:
   # the steppers face each other/rotations are flipped
   def zoom_in(self, steps):
     moved = self.stepper_clockwise(steps)
-    if moved: self.update_stepper_db_pos(self.cur_pos + steps)
+    if moved: self.update_stepper_db_pos(self.cur_pos + steps, 'add')
 
   def zoom_out(self, steps):
     moved = self.stepper_counter_clockwise(steps)
-    if moved: self.update_stepper_db_pos(self.cur_pos - steps)
+    if moved: self.update_stepper_db_pos(self.cur_pos - steps, 'subtract')
 
   def focus_near(self, steps):
     moved = self.stepper_counter_clockwise(steps)
-    if moved: self.update_stepper_db_pos(self.cur_pos - steps)
+    if moved: self.update_stepper_db_pos(self.cur_pos - steps, 'subtract')
 
   def focus_far(self, steps):
     moved = self.stepper_clockwise(steps)
-    if moved: self.update_stepper_db_pos(self.cur_pos + steps)
+    if moved: self.update_stepper_db_pos(self.cur_pos + steps, 'add')
