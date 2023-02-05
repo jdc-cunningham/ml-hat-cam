@@ -5,7 +5,7 @@ from time import sleep
 import RPi.GPIO as GPIO
 
 class Stepper:
-  def __init__(self, pin1, pin2, pin3, pin4, name, max_pos):
+  def __init__(self, pin1, pin2, pin3, pin4, name, max_pos, db):
     self.IN1 = pin1
     self.IN2 = pin2
     self.IN3 = pin3
@@ -17,6 +17,8 @@ class Stepper:
     self.max_pos = max_pos
     self.cur_pos = 0
     self.stop_moving = False
+    self.db_con = db.get_con()
+    self.db_cur = db.get_cursor()
 
     self.init_gpio_pins()
 
