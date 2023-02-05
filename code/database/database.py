@@ -18,7 +18,8 @@ class Database:
     return self.con.cursor()
 
   def get_pos(self, cur, name):
-    return cur.execute("SELECT pos FROM stepper_pos WHERE name = ?", [name])
+    stepper_pos = cur.execute("SELECT pos FROM stepper_pos WHERE name = ?", [name])
+    return stepper_pos.fetchall()[0][0]
 
   def init_stepper_pos_table(self):
     try:
