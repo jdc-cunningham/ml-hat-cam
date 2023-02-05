@@ -1,11 +1,14 @@
-# based on
+# references
 # https://github.com/custom-build-robots/Stepper-motor-28BYJ-48-Raspberry-Pi/blob/master/decision-maker.py
+# https://raspberrypi.stackexchange.com/questions/5100/detect-that-a-python-program-is-running-on-the-pi
+import os
 
 from time import sleep
 import RPi.GPIO as GPIO
 
 class Stepper:
   def __init__(self, pin1, pin2, pin3, pin4, name, max_pos, db):
+    self.on_pi = os.uname()[4][:3] == 'arm' # can be Apple too
     self.IN1 = pin1
     self.IN2 = pin2
     self.IN3 = pin3
@@ -182,23 +185,24 @@ class Stepper:
     return True
   
   # the steppers face each other/rotations are flipped
+  # self.on_pi check skips calling steppers if no on pi
   def zoom_in(self, steps):
-    moved = self.stepper_clockwise(steps, 'add')
+    moved = True if not self.on_pi else self.stepper_clockwise(steps, 'add')
     print("moved " + str(moved))
     if self.ignore_db: return
     if moved: self.update_stepper_db_pos(self.cur_pos + steps)
 
   def zoom_out(self, steps):
-    moved = self.stepper_counter_clockwise(steps, 'subtract')
+    moved = True if not self.on_pi else self.stepper_counter_clockwise(steps, 'subtract')
     if self.ignore_db: return
     if moved: self.update_stepper_db_pos(self.cur_pos - steps)
 
   def focus_near(self, steps):
-    moved = self.stepper_counter_clockwise(steps, 'subtract')
+    moved = True if not self.on_pi else self.stepper_counter_clockwise(steps, 'subtract')
     if self.ignore_db: return
     if moved: self.update_stepper_db_pos(self.cur_pos - steps)
 
   def focus_far(self, steps):
-    moved = self.stepper_clockwise(steps, 'add')
+    moved = True if not self.on_pi else self.stepper_clockwise(steps, 'add')
     if self.ignore_db: return
     if moved: self.update_stepper_db_pos(self.cur_pos + steps)
