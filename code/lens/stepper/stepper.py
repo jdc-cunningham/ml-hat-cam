@@ -20,7 +20,7 @@ class Stepper:
     self.db = db
     self.db_con = db.get_con()
     self.db_cur = db.get_cursor()
-    self.db_update_pos = db.update_pos()
+    self.db_update_pos = db.update_pos
 
     self.init_gpio_pins()
 
@@ -64,7 +64,7 @@ class Stepper:
     return True
 
   def update_stepper_db_pos(self, step):
-    self.db_update_pos(self.name, step, self.con, self.cur)
+    self.db_update_pos(self.name, step, self.db_con, self.db_cur)
 
   def init_gpio_pins(self):
     GPIO.setwarnings(False) # this is not great, but this class instance is not intended to be destroyed
