@@ -18,7 +18,9 @@ class Stepper:
     self.cur_pos = 0
     self.stop_moving = False
     self.db = db
+    self.db_con = db.get_con()
     self.db_cur = db.get_cursor()
+    self.db_update_pos = db.update_pos()
 
     self.init_gpio_pins()
 
@@ -60,6 +62,9 @@ class Stepper:
       self.cur_pos = self.cur_pos + 1
 
     return True
+
+  def update_stepper_db_pos(self, step):
+    self.db_update_pos(self.name, step, self.con, self.cur)
 
   def init_gpio_pins(self):
     GPIO.setwarnings(False) # this is not great, but this class instance is not intended to be destroyed
@@ -164,12 +169,16 @@ class Stepper:
   # the steppers face each other/rotations are flipped
   def zoom_in(self, steps):
     self.stepper_clockwise(steps)
+    self.update_stepper_db_pos(self.cur_pos + steps)
 
   def zoom_out(self, steps):
     self.stepper_counter_clockwise(steps)
+    self.update_stepper_db_pos(self.cur_pos - steps)
 
   def focus_near(self, steps):
     self.stepper_counter_clockwise(steps)
+    self.update_stepper_db_pos(self.cur_pos - steps)
 
   def focus_far(self, steps):
     self.stepper_clockwise(steps)
+    self.update_stepper_db_pos(self.cur_pos + steps)
