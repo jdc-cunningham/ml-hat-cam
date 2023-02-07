@@ -28,6 +28,8 @@ class Stepper:
 
     self.init_gpio_pins()
 
+  from stepper_steps import stepper_clockwise, stepper_counter_clockwise
+
   def get_pos(self):
     return self.db.get_pos(self.db_cur, self.name)
 
@@ -80,110 +82,6 @@ class Stepper:
   def update_stepper_db_pos(self, step):
     self.db_update_pos(self.name, step, self.db_con, self.db_cur)
 
-  def init_gpio_pins(self):
-    GPIO.setwarnings(False) # this is not great, but this class instance is not intended to be destroyed
-    GPIO.setmode(GPIO.BCM)
-
-    # set GPIO pins
-    GPIO.setup(self.IN1,GPIO.OUT)
-    GPIO.setup(self.IN2,GPIO.OUT)
-    GPIO.setup(self.IN3,GPIO.OUT)
-    GPIO.setup(self.IN4,GPIO.OUT)
-
-    # set pins to false
-    GPIO.output(self.IN1, False)
-    GPIO.output(self.IN2, False)
-    GPIO.output(self.IN3, False)
-    GPIO.output(self.IN4, False)
-
-  def step_1(self):
-      GPIO.output(self.IN4, True)
-      sleep (self.step_wait_time)
-      GPIO.output(self.IN4, False)
-
-  def step_2(self):
-      GPIO.output(self.IN4, True)
-      GPIO.output(self.IN3, True)
-      sleep (self.step_wait_time)
-      GPIO.output(self.IN4, False)
-      GPIO.output(self.IN3, False)
-
-  def step_3(self):
-      GPIO.output(self.IN3, True)
-      sleep (self.step_wait_time)
-      GPIO.output(self.IN3, False)
-
-  def step_4(self):
-      GPIO.output(self.IN2, True)
-      GPIO.output(self.IN3, True)
-      sleep (self.step_wait_time)
-      GPIO.output(self.IN2, False)
-      GPIO.output(self.IN3, False)
-
-  def step_5(self):
-      GPIO.output(self.IN2, True)
-      sleep (self.step_wait_time)
-      GPIO.output(self.IN2, False)
-
-  def step_6(self):
-      GPIO.output(self.IN1, True)
-      GPIO.output(self.IN2, True)
-      sleep (self.step_wait_time)
-      GPIO.output(self.IN1, False)
-      GPIO.output(self.IN2, False)
-
-  def step_7(self):
-      GPIO.output(self.IN1, True)
-      sleep (self.step_wait_time)
-      GPIO.output(self.IN1, False)
-
-  def step_8(self):
-      GPIO.output(self.IN4, True)
-      GPIO.output(self.IN1, True)
-      sleep (self.step_wait_time)
-      GPIO.output(self.IN4, False)
-      GPIO.output(self.IN1, False)
-
-  def stepper_clockwise(self, steps, step_op):
-    for i in range(steps):
-      if (self.stop_moving == True):
-        return False
-
-      if (not self.update_cur_pos(i, step_op)):
-        return False
-
-      # print("c " + str(i))
-      self.step_8() # could put these in an array, call them that way, reverse
-      self.step_7()
-      self.step_6()
-      self.step_5()
-      self.step_4()
-      self.step_3()
-      self.step_2()
-      self.step_1()
-
-    return True
-
-  def stepper_counter_clockwise(self, steps, step_op):
-    for i in range(steps):
-      if (self.stop_moving == True):
-        return False
-
-      if (not self.update_cur_pos(i, step_op)):
-        return False
-
-      # print("cc " + str(i))
-      self.step_1()
-      self.step_2()
-      self.step_3()
-      self.step_4()
-      self.step_5()
-      self.step_6()
-      self.step_7()
-      self.step_8()
-    
-    return True
-  
   # the steppers face each other/rotations are flipped
   # self.on_pi check skips calling steppers if no on pi
   def zoom_in(self, steps):
