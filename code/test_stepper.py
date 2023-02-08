@@ -27,7 +27,7 @@ def set_manual_values(pos):
 
 
 # tele_ring.zero_stepper()
-tele_ring.zero_stepper_manual()
+# tele_ring.zero_stepper_manual()
 
 # focus_ring.zero_stepper()
 # focus_ring.zero_stepper_manual()

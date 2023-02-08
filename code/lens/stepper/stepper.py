@@ -4,11 +4,16 @@
 import os
 
 from time import sleep
-import RPi.GPIO as GPIO
+
+on_pi = not(os.name == 'nt') # assumes only two OS environments
+
+if on_pi: import RPi.GPIO as GPIO
+
+from lens.stepper_steps import *
 
 class Stepper:
   def __init__(self, pin1, pin2, pin3, pin4, name, max_pos, db):
-    self.on_pi = os.uname()[4][:3] == 'arm' # can be Apple too
+    self.on_pi = on_pi
     self.IN1 = pin1
     self.IN2 = pin2
     self.IN3 = pin3
@@ -26,9 +31,24 @@ class Stepper:
     self.db_update_pos = db.update_pos
     self.ignore_db = False
 
-    self.init_gpio_pins()
+    if on_pi:
+      self.init_gpio_pins()
 
-  from stepper_steps import stepper_clockwise, stepper_counter_clockwise
+  def init_gpio_pins(self):
+    GPIO.setwarnings(False) # this is not great, but this class instance is not intended to be destroyed
+    GPIO.setmode(GPIO.BCM)
+
+    # set GPIO pins
+    GPIO.setup(self.IN1,GPIO.OUT)
+    GPIO.setup(self.IN2,GPIO.OUT)
+    GPIO.setup(self.IN3,GPIO.OUT)
+    GPIO.setup(self.IN4,GPIO.OUT)
+
+    # set pins to false
+    GPIO.output(self.IN1, False)
+    GPIO.output(self.IN2, False)
+    GPIO.output(self.IN3, False)
+    GPIO.output(self.IN4, False)
 
   def get_pos(self):
     return self.db.get_pos(self.db_cur, self.name)

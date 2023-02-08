@@ -1,19 +1,3 @@
-def init_gpio_pins(self):
-  GPIO.setwarnings(False) # this is not great, but this class instance is not intended to be destroyed
-  GPIO.setmode(GPIO.BCM)
-
-  # set GPIO pins
-  GPIO.setup(self.IN1,GPIO.OUT)
-  GPIO.setup(self.IN2,GPIO.OUT)
-  GPIO.setup(self.IN3,GPIO.OUT)
-  GPIO.setup(self.IN4,GPIO.OUT)
-
-  # set pins to false
-  GPIO.output(self.IN1, False)
-  GPIO.output(self.IN2, False)
-  GPIO.output(self.IN3, False)
-  GPIO.output(self.IN4, False)
-
 def step_1(self):
     GPIO.output(self.IN4, True)
     sleep (self.step_wait_time)
