@@ -46,12 +46,9 @@ def step_8(self):
     GPIO.output(self.IN4, False)
     GPIO.output(self.IN1, False)
 
-def stepper_clockwise(self, steps, step_op):
+def stepper_clockwise(self, steps):
   for i in range(steps):
     if (self.stop_moving == True):
-      return False
-
-    if (not self.update_cur_pos(i, step_op)):
       return False
 
     # print("c " + str(i))
@@ -66,12 +63,9 @@ def stepper_clockwise(self, steps, step_op):
 
   return True
 
-def stepper_counter_clockwise(self, steps, step_op):
+def stepper_counter_clockwise(self, steps):
   for i in range(steps):
     if (self.stop_moving == True):
-      return False
-
-    if (not self.update_cur_pos(i, step_op)):
       return False
 
     # print("cc " + str(i))

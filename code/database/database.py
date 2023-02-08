@@ -8,7 +8,7 @@ class Database:
   def __init__(self):
     self.con = sqlite3.connect("ml_hat_cam.db", check_same_thread=False)
     self.init_stepper_pos_table()
-    self.init_stepper_pos('zoom')
+    self.init_stepper_pos('tele')
     self.init_stepper_pos('focus')
 
   def get_con(self):
@@ -19,23 +19,32 @@ class Database:
 
   def get_pos(self, cur, name):
     stepper_pos = cur.execute("SELECT pos FROM stepper_pos WHERE name = ?", [name])
-    return stepper_pos.fetchall()[0][0]
+    return stepper_pos.fetchone()[0]
 
   def init_stepper_pos_table(self):
+    cur = self.get_cursor()
+    table_exists = False
+
     try:
-      cur = self.get_cursor()
-      cur.execute("CREATE TABLE stepper_pos(name, pos)")
+      table_exists = cur.execute("SELECT * FROM stepper_pos")
     except Exception:
-      print("create table error")
       traceback.print_exc()
+      table_exists = False
+
+    if (not(table_exists)):
+      try:
+        cur.execute("CREATE TABLE stepper_pos(name, pos)")
+      except Exception:
+        print("create table error")
+        traceback.print_exc()
   
   def init_stepper_pos(self, name):
     con = self.get_con()
     cur = self.get_cursor()
     stepper_pos = cur.execute("SELECT pos FROM stepper_pos WHERE name = ?", [name])
-    res = stepper_pos.fetchall()
+    res = stepper_pos.fetchone()
 
-    if (len(res) == 0):
+    if (res is None):
       cur.execute("INSERT INTO stepper_pos VALUES(?, ?)", [name, 0])
       con.commit()
     else:
@@ -51,9 +60,9 @@ class Database:
 
   def get_stepper_pos(self, cur, name):
     stepper_pos = cur.execute("SELECT pos FROM stepper_pos WHERE name = ?", [name])
-    res = stepper_pos.fetchall()
+    res = stepper_pos.fetchone()
 
-    if (len(res) == 0):
+    if (res is None):
       return 0
     
     return res[0]

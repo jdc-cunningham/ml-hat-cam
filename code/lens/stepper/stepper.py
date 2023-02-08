@@ -85,17 +85,17 @@ class Stepper:
       self.stop_moving = True
       self.ignore_db = False
 
-  def update_cur_pos(self, step, step_op):
-    if (step_op == 'subtract' and (self.cur_pos - step) < 0):
+  def update_cur_pos(self, steps, step_op):
+    if (step_op == 'subtract' and (self.cur_pos - steps) < 0):
       return False
 
-    if (step_op == 'add' and (step + self.cur_pos) > self.max_pos):
+    if (step_op == 'add' and (steps + self.cur_pos) > self.max_pos):
       return False
 
-    if self.cur_pos < step:
-      self.cur_pos = self.cur_pos + 1
+    if step_op == 'add':
+      self.cur_pos = self.cur_pos + steps
     else:
-      self.cur_pos = self.cur_pos - 1
+      self.cur_pos = self.cur_pos - steps
 
     return True
 
@@ -105,22 +105,29 @@ class Stepper:
   # the steppers face each other/rotations are flipped
   # self.on_pi check skips calling steppers if no on pi
   def zoom_in(self, steps):
-    moved = True if not self.on_pi else self.stepper_clockwise(steps, 'add')
-    print("moved " + str(moved))
-    if self.ignore_db: return
-    if moved: self.update_stepper_db_pos(self.cur_pos + steps)
+    if (self.name == 'focus'): return False
+    if (not self.update_cur_pos(steps, 'add')): return False
+    moved = True if not self.on_pi else self.stepper_clockwise(steps)
+    if self.ignore_db: return False
+    if moved: self.update_stepper_db_pos(self.cur_pos)
 
   def zoom_out(self, steps):
+    if (self.name == 'focus'): return False
+    if (not self.update_cur_pos(steps, 'subtract')): return False
     moved = True if not self.on_pi else self.stepper_counter_clockwise(steps, 'subtract')
-    if self.ignore_db: return
-    if moved: self.update_stepper_db_pos(self.cur_pos - steps)
+    if self.ignore_db: return False
+    if moved: self.update_stepper_db_pos(self.cur_pos)
 
   def focus_near(self, steps):
-    moved = True if not self.on_pi else self.stepper_counter_clockwise(steps, 'subtract')
-    if self.ignore_db: return
-    if moved: self.update_stepper_db_pos(self.cur_pos - steps)
+    if (self.name == 'tele'): return False
+    if (not self.update_cur_pos(steps, 'subtract')): return False
+    moved = True if not self.on_pi else self.stepper_counter_clockwise(steps)
+    if self.ignore_db: return False
+    if moved: self.update_stepper_db_pos(self.cur_pos)
 
   def focus_far(self, steps):
-    moved = True if not self.on_pi else self.stepper_clockwise(steps, 'add')
-    if self.ignore_db: return
-    if moved: self.update_stepper_db_pos(self.cur_pos + steps)
+    if (self.name == 'tele'): return False
+    if (not self.update_cur_pos(steps, 'add')): return False
+    moved = True if not self.on_pi else self.stepper_clockwise(steps)
+    if self.ignore_db: return False
+    if moved: self.update_stepper_db_pos(self.cur_pos)
