@@ -9,7 +9,7 @@ on_pi = not(os.name == 'nt') # assumes only two OS environments
 
 if on_pi: import RPi.GPIO as GPIO
 
-import lens
+from stepper_steps import stepper_clockwise, stepper_counter_clockwise
 
 class Stepper:
   def __init__(self, pin1, pin2, pin3, pin4, name, max_pos, db):
@@ -30,8 +30,6 @@ class Stepper:
     self.cur_pos = db.get_stepper_pos(self.db_cur, self.name)
     self.db_update_pos = db.update_pos
     self.ignore_db = False
-    self.stepper_clockwise = lens.stepper.stepper_clockwise
-    self.stepper_counter_clockwise = lens.stepper_counter_clockwise
 
     if on_pi:
       self.init_gpio_pins()
@@ -109,27 +107,27 @@ class Stepper:
   def zoom_in(self, steps):
     if (self.name == 'focus'): return False
     if (not self.update_cur_pos(steps, 'add')): return False
-    moved = True if not self.on_pi else self.stepper_clockwise(steps)
+    moved = True if not self.on_pi else stepper_clockwise(steps)
     if self.ignore_db: return False
     if moved: self.update_stepper_db_pos(self.cur_pos)
 
   def zoom_out(self, steps):
     if (self.name == 'focus'): return False
     if (not self.update_cur_pos(steps, 'subtract')): return False
-    moved = True if not self.on_pi else self.stepper_counter_clockwise(steps, 'subtract')
+    moved = True if not self.on_pi else stepper_counter_clockwise(steps, 'subtract')
     if self.ignore_db: return False
     if moved: self.update_stepper_db_pos(self.cur_pos)
 
   def focus_near(self, steps):
     if (self.name == 'tele'): return False
     if (not self.update_cur_pos(steps, 'subtract')): return False
-    moved = True if not self.on_pi else self.stepper_counter_clockwise(steps)
+    moved = True if not self.on_pi else stepper_counter_clockwise(steps)
     if self.ignore_db: return False
     if moved: self.update_stepper_db_pos(self.cur_pos)
 
   def focus_far(self, steps):
     if (self.name == 'tele'): return False
     if (not self.update_cur_pos(steps, 'add')): return False
-    moved = True if not self.on_pi else self.stepper_clockwise(steps)
+    moved = True if not self.on_pi else stepper_clockwise(steps)
     if self.ignore_db: return False
     if moved: self.update_stepper_db_pos(self.cur_pos)
