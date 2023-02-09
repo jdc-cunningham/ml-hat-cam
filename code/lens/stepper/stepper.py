@@ -32,6 +32,7 @@ class Stepper:
     self.cur_pos = db.get_stepper_pos(self.db_cur, self.name)
     self.db_update_pos = db.update_pos
     self.ignore_db = False
+    self.GPIO = GPIO
 
     if on_pi:
       self.init_gpio_pins()
@@ -116,7 +117,7 @@ class Stepper:
   def zoom_out(self, steps):
     if (self.name == 'focus'): return False
     if (not self.update_cur_pos(steps, 'subtract')): return False
-    moved = True if not self.on_pi else self.stepper_counter_clockwise(steps, 'subtract')
+    moved = True if not self.on_pi else self.stepper_counter_clockwise(steps)
     if self.ignore_db: return False
     if moved: self.update_stepper_db_pos(self.cur_pos)
 
