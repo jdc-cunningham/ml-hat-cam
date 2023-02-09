@@ -70,10 +70,6 @@ class Stepper:
     step_per_mm = 7.14 # (50-8/300)
     return self.cur_pos * step_per_mm
 
-  # automatic based on stored DB pos
-  def zero_stepper():
-    print("write code")
-
   # this is a manual process, you need to catch the max pos by typing on keyboard/ssh
   # this should not have to be ran often
   # this is because the current physical design has no physical feedback on rotation position
