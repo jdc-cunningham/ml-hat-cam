@@ -24,7 +24,7 @@ It can be avoided if you don't have a shared ground connected but requires a swi
 - [ ] functionality code
   - [ ] steppers and position tracking
     - [x] motion (01/28/2023)
-    - [ ] track in db for boot resume
+    - [x] track in db for boot resume (02/09/2023)
   - [ ] menu design
   - [ ] dpad bindings
 - [ ] auto zoom
