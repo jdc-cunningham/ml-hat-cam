@@ -52,14 +52,14 @@ def stepper_clockwise(self, steps):
       return False
 
     # print("c " + str(i))
-    step_8() # could put these in an array, call them that way, reverse
-    step_7()
-    step_6()
-    step_5()
-    step_4()
-    step_3()
-    step_2()
-    step_1()
+    step_8(self) # could put these in an array, call them that way, reverse
+    step_7(self)
+    step_6(self)
+    step_5(self)
+    step_4(self)
+    step_3(self)
+    step_2(self)
+    step_1(self)
 
   return True
 
@@ -69,14 +69,14 @@ def stepper_counter_clockwise(self, steps):
       return False
 
     # print("cc " + str(i))
-    step_1()
-    step_2()
-    step_3()
-    step_4()
-    step_5()
-    step_6()
-    step_7()
-    step_8()
+    step_1(self)
+    step_2(self)
+    step_3(self)
+    step_4(self)
+    step_5(self)
+    step_6(self)
+    step_7(self)
+    step_8(self)
   
   return True
   
