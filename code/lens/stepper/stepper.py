@@ -37,6 +37,15 @@ class Stepper:
 
     if on_pi:
       self.init_gpio_pins()
+      self.zero_stepper()
+
+  def zero_stepper(self):
+    prev_pos = self.get_pos()
+
+    if self.name == 'tele':
+      self.focus_near(prev_pos)
+    else:
+      self.zoom_out(prev_pos)
 
   def init_gpio_pins(self):
     GPIO.setwarnings(False) # this is not great, but this class instance is not intended to be destroyed
