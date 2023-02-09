@@ -6,7 +6,7 @@ def step_1(self):
 def step_2(self):
   self.GPIO.output(self.IN4, True)
   self.GPIO.output(self.IN3, True)
-  self.self.sleep(self.step_wait_time)
+  self.sleep(self.step_wait_time)
   self.GPIO.output(self.IN4, False)
   self.GPIO.output(self.IN3, False)
 
