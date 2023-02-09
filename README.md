@@ -22,7 +22,7 @@ It can be avoided if you don't have a shared ground connected but requires a swi
   - [ ] display and dpad
   - [ ] full design (attachable to hat)
 - [ ] functionality code
-  - [ ] steppers and position tracking
+  - [x] steppers and position tracking (02/09/2023)
     - [x] motion (01/28/2023)
     - [x] track in db for boot resume (02/09/2023)
   - [ ] menu design
