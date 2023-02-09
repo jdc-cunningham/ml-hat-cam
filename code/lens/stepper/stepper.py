@@ -9,8 +9,6 @@ on_pi = not(os.name == 'nt') # assumes only two OS environments
 
 if on_pi: import RPi.GPIO as GPIO
 
-# from stepper_steps import stepper_clockwise, stepper_counter_clockwise
-
 class Stepper:
   from .stepper_steps import stepper_clockwise, stepper_counter_clockwise
 
@@ -20,7 +18,6 @@ class Stepper:
     self.IN2 = pin2
     self.IN3 = pin3
     self.IN4 = pin4
-
     self.step_wait_time = 0.001
     self.name = name
     self.min_pos = 0 # assumes calibrated at max stop one side
