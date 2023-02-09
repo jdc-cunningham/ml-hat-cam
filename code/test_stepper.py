@@ -22,7 +22,8 @@ tele_ring = Stepper(12, 16, 20, 21, 'tele', 300, db)
 # focus_ring.zero_stepper()
 # focus_ring.zero_stepper_manual()
 
-# tele_ring.zoom_out(250)
+tele_ring.zoom_in(100)
+tele_ring.zoom_out(100)
 
 # focus_ring.focus_far(50)
 # focus_ring.focus_near(50)
