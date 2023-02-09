@@ -1,50 +1,48 @@
-from time import sleep
-
 def step_1(self):
   self.GPIO.output(self.IN4, True)
-  sleep (self.step_wait_time)
+  self.sleep(self.step_wait_time)
   self.GPIO.output(self.IN4, False)
 
 def step_2(self):
   self.GPIO.output(self.IN4, True)
   self.GPIO.output(self.IN3, True)
-  self.sleep (self.step_wait_time)
+  self.self.sleep(self.step_wait_time)
   self.GPIO.output(self.IN4, False)
   self.GPIO.output(self.IN3, False)
 
 def step_3(self):
   self.GPIO.output(self.IN3, True)
-  sleep (self.step_wait_time)
+  self.sleep(self.step_wait_time)
   self.GPIO.output(self.IN3, False)
 
 def step_4(self):
   self.GPIO.output(self.IN2, True)
   self.GPIO.output(self.IN3, True)
-  sleep (self.step_wait_time)
+  self.sleep(self.step_wait_time)
   self.GPIO.output(self.IN2, False)
   self.GPIO.output(self.IN3, False)
 
 def step_5(self):
   self.GPIO.output(self.IN2, True)
-  sleep (self.step_wait_time)
+  self.sleep(self.step_wait_time)
   self.GPIO.output(self.IN2, False)
 
 def step_6(self):
   self.GPIO.output(self.IN1, True)
   self.GPIO.output(self.IN2, True)
-  sleep (self.step_wait_time)
+  self.sleep(self.step_wait_time)
   self.GPIO.output(self.IN1, False)
   self.GPIO.output(self.IN2, False)
 
 def step_7(self):
   self.GPIO.output(self.IN1, True)
-  sleep (self.step_wait_time)
+  self.sleep(self.step_wait_time)
   self.GPIO.output(self.IN1, False)
 
 def step_8(self):
   self.GPIO.output(self.IN4, True)
   self.GPIO.output(self.IN1, True)
-  sleep (self.step_wait_time)
+  self.sleep(self.step_wait_time)
   self.GPIO.output(self.IN4, False)
   self.GPIO.output(self.IN1, False)
 

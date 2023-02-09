@@ -3,6 +3,8 @@
 # https://raspberrypi.stackexchange.com/questions/5100/detect-that-a-python-program-is-running-on-the-pi
 import os
 
+from time import sleep
+
 on_pi = not(os.name == 'nt') # assumes only two OS environments
 
 if on_pi: import RPi.GPIO as GPIO
@@ -31,6 +33,7 @@ class Stepper:
     self.db_update_pos = db.update_pos
     self.ignore_db = False
     self.GPIO = GPIO
+    self.sleep = sleep
 
     if on_pi:
       self.init_gpio_pins()
