@@ -6,8 +6,8 @@ step_incr = 10
 
 db = Database()
 
-tele_ring = Stepper(12, 16, 20, 21, 'tele', 300)
-focus_ring = Stepper(6, 13, 19, 26, 'focus', 350)
+tele_ring = Stepper(12, 16, 20, 21, 'tele', 300, db)
+focus_ring = Stepper(6, 13, 19, 26, 'focus', 350, db)
 
 def stepper_controls(key):
   if (key == 'up' or key == 'down'):
