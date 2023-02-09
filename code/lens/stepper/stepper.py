@@ -3,8 +3,6 @@
 # https://raspberrypi.stackexchange.com/questions/5100/detect-that-a-python-program-is-running-on-the-pi
 import os
 
-from time import sleep
-
 on_pi = not(os.name == 'nt') # assumes only two OS environments
 
 if on_pi: import RPi.GPIO as GPIO
