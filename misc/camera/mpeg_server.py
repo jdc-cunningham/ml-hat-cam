@@ -12,8 +12,8 @@ import io
 import logging
 import socketserver
 import time
-import cStringIO
 
+from io import StringIO
 from http import server
 from threading import Condition, Thread
 from picamera2 import Picamera2
