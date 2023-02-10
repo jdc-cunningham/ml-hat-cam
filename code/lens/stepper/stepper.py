@@ -44,6 +44,8 @@ class Stepper:
     else:
       self.zoom_out(prev_pos)
 
+    self.focus_far(340) # neutral zoom
+
   def init_gpio_pins(self):
     GPIO.setwarnings(False) # this is not great, but this class instance is not intended to be destroyed
     GPIO.setmode(GPIO.BCM)
