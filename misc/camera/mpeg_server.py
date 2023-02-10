@@ -76,6 +76,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     sample_img = Image.frombuffer("L", (4, 4), frame, "raw", "L", 0, 1)
                     sample_img.save("test.jpg")
                     print(time.time())
+                    return
 
             except Exception as e:
                 logging.warning(
