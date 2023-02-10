@@ -13,7 +13,7 @@ import logging
 import socketserver
 import time
 
-from io import StringIO
+from io import BytesIO
 from http import server
 from threading import Condition, Thread
 from picamera2 import Picamera2
