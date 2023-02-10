@@ -75,7 +75,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     self.end_headers()
                     self.wfile.write(frame)
                     self.wfile.write(b'\r\n')
-                    sample_img = im = Image.open(StringIO.StringIO(frame))
+                    sample_img = im = Image.open(BytesIO(frame))
                     sample_img.save("test", "JPEG")
                     print(time.time())
                     return
