@@ -10,9 +10,10 @@
 import io
 import logging
 import socketserver
+import time
+
 from http import server
 from threading import Condition, Thread
-
 from picamera2 import Picamera2
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
@@ -74,6 +75,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     self.wfile.write(b'\r\n')
                     sample_img = Image.frombuffer("L", (4, 4), frame, "raw", "L", 0, 1)
                     sample_img.save("test.jpg")
+                    print(time.time())
 
             except Exception as e:
                 logging.warning(
