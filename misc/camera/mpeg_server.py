@@ -6,11 +6,13 @@
 
 # resources
 # https://www.geeksforgeeks.org/python-pil-image-frombuffer-method/
+# https://stackoverflow.com/questions/22879991/buffer-to-image-with-pil
 
 import io
 import logging
 import socketserver
 import time
+import cStringIO
 
 from http import server
 from threading import Condition, Thread
@@ -73,8 +75,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     self.end_headers()
                     self.wfile.write(frame)
                     self.wfile.write(b'\r\n')
-                    sample_img = Image.frombuffer("L", (4, 4), frame, "raw", "L", 0, 1)
-                    sample_img.save("test.jpg")
+                    sample_img = im = Image.open(cStringIO.StringIO(frame))
+                    sample_img.save("test", "JPEG")
                     print(time.time())
                     return
 
