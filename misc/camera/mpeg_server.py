@@ -4,6 +4,9 @@
 # Run this script, then point a web browser at http:<this-ip-address>:8000
 # Note: needs simplejpeg to be installed (pip3 install simplejpeg).
 
+# resources
+# https://www.geeksforgeeks.org/python-pil-image-frombuffer-method/
+
 import io
 import logging
 import socketserver
@@ -13,6 +16,7 @@ from threading import Condition, Thread
 from picamera2 import Picamera2
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
+from PIL import Image
 
 PAGE = """\
 <html>
@@ -68,6 +72,9 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     self.end_headers()
                     self.wfile.write(frame)
                     self.wfile.write(b'\r\n')
+                    sample_img = Image.frombuffer("L", (4, 4), frame, "raw", "L", 0, 1)
+                    sample_img.save("test.jpg")
+
             except Exception as e:
                 logging.warning(
                     'Removed streaming client %s: %s',
