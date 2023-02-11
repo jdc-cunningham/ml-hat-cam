@@ -58,10 +58,11 @@ def get_img_edge_count(frame_buffer):
     return sum_edges
 
 prev_edge_count = 0
-stream_count = 0
 
 class StreamingHandler(server.BaseHTTPRequestHandler):
     def do_GET(self):
+        stream_count = 0
+
         if self.path == '/':
             self.send_response(301)
             self.send_header('Location', '/index.html')
