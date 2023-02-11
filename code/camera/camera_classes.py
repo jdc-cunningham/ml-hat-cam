@@ -4,7 +4,6 @@ import socketserver
 import cv2 as cv
 import numpy as np
 
-
 from http import server
 from threading import Condition, Thread
 
