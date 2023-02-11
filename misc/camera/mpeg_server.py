@@ -15,13 +15,11 @@ import time
 import cv2 as cv
 import numpy as np
 
-from io import BytesIO
 from http import server
-from threading import Condition, Thread
+from threading import Condition
 from picamera2 import Picamera2
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
-from PIL import Image
 
 PAGE = """\
 <html>
@@ -34,7 +32,6 @@ PAGE = """\
 </html>
 """
 
-
 class StreamingOutput(io.BufferedIOBase):
     def __init__(self):
         self.frame = None
@@ -44,7 +41,6 @@ class StreamingOutput(io.BufferedIOBase):
         with self.condition:
             self.frame = buf
             self.condition.notify_all()
-
 
 # https://stackoverflow.com/a/55360543/2710227
 def get_img_edge_count(frame_buffer):
@@ -93,9 +89,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     self.wfile.write(frame)
                     self.wfile.write(b'\r\n')
 
-                    # print('')
                     stream_count += 1
-                    # print(time.time())
 
                     if (stream_count % 2 == 0):
                         sample_img = np.fromstring(frame, np.uint8)
@@ -103,19 +97,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
                         print(edges)
 
-                    # if (edges > 0 and edges > prev_edge_count):
-                    #     print("better")
-                    # else:
-                    #     print("worse")
-
-                    # print()
-                    # print(time.time())
                     print('')
-
-                    # sample_img = Image.open(BytesIO(frame))
-                    # sample_img.save("test.jpeg", "JPEG")
-                    # print(time.time())
-                    # return
 
             except Exception as e:
                 logging.warning(
