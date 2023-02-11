@@ -15,16 +15,7 @@ from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
 
 class Camera:
-  PAGE = """\
-  <html>
-  <head>
-  <title>picamera2 MJPEG streaming demo</title>
-  </head>
-  <body>
-  <img src="stream.mjpg" width="640" height="480" />
-  </body>
-  </html>
-  """
+  output = None
 
   class StreamingOutput(io.BufferedIOBase):
     def __init__(self):
@@ -37,7 +28,18 @@ class Camera:
         self.condition.notify_all()
 
   class StreamingHandler(server.BaseHTTPRequestHandler):
-    def do_GET(self, camera):
+    def do_GET(self):
+      PAGE = """\
+        <html>
+        <head>
+        <title>picamera2 MJPEG streaming demo</title>
+        </head>
+        <body>
+        <img src="stream.mjpg" width="640" height="480" />
+        </body>
+        </html>
+        """
+
       if self.path == '/':
         self.send_response(301)
         self.send_header('Location', '/index.html')
@@ -60,8 +62,8 @@ class Camera:
 
         try:
           while True:
-            with camera.output.condition:
-              camera.output.condition.wait()
+            with output.condition:
+              output.condition.wait()
               frame = output.frame
 
             self.wfile.write(b'--FRAME\r\n')
