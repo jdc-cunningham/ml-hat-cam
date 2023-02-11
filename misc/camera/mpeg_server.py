@@ -91,8 +91,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
                     print('')
                     print(time.time())
-                    sample_img = Image.open(BytesIO(frame))
-                    print(get_img_edge_count(np.float32(sample_img)))
+                    sample_img = np.fromstring(frame, np.uint8)
+                    print(get_img_edge_count(sample_img))
                     print(time.time())
                     print('')
 
