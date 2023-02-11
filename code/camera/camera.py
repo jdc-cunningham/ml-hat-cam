@@ -21,6 +21,7 @@ frame_counter = 0 # used for sampling even frames modulus
 prev_var = 0
 var_largest = 0
 focused_far = False
+best_focus_reached = False
 focus_ring = None
 tele_ring = None
 
@@ -51,7 +52,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
     return round(cv.Laplacian(img, cv.CV_64F).var(), 2)
 
   def do_GET(self):
-    global focus_ring, tele_ring, frame_counter, prev_var, var_largest, focused_far
+    global focus_ring, tele_ring, frame_counter, prev_var, var_largest, focused_far, best_focus_reached
 
     if self.path == '/':
       self.send_response(301)
@@ -89,7 +90,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
           print('frame')
 
-          if (frame_counter % 4 == 0):
+          if (frame_counter % 4 == 0 and not best_focus_reached):
             frame_buf = np.fromstring(frame, np.uint8)
             cur_var = self.get_variance(frame_buf)
                         
@@ -115,6 +116,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
               else:
                 focus_ring.focus_far(step_size)
                 focused_far = True
+            else:
+              best_focus_reached = True
 
             if (cur_var > var_largest):
               var_largest = cur_var
