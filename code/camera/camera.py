@@ -86,6 +86,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
           frame_counter += 1
 
+          print('frame')
+
           if (frame_counter % 4 == 0):
             frame_buf = np.fromstring(frame, np.uint8)
             cur_var = self.get_variance(frame_buf)
