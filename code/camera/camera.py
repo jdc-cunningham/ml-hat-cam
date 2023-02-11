@@ -99,8 +99,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
-    allow_reuse_address = True
-    daemon_threads = True
+  allow_reuse_address = True
+  daemon_threads = True
 
 def start_web_stream(focus_ring, tele_ring):
   global output
