@@ -44,7 +44,7 @@ class StreamingOutput(io.BufferedIOBase):
 class StreamingHandler(server.BaseHTTPRequestHandler):
   global focus_ring, tele_ring, frame_counter
 
-  def get_variance(frame_buffer):
+  def get_variance(self, frame_buffer):
     img = cv.imdecode(frame_buffer, cv.IMREAD_COLOR)
     return cv.Laplacian(img, cv.CV_64F).var()
 
@@ -81,9 +81,9 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
           self.wfile.write(frame)
           self.wfile.write(b'\r\n')
 
-          self.stream_count += 1
+          stream_count += 1
 
-          if (self.stream_count % 2 == 0):
+          if (stream_count % 2 == 0):
             frame_buf = np.fromstring(frame, np.uint8)
             print(self.get_variance(frame_buf))
 
