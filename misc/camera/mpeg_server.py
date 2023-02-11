@@ -53,7 +53,7 @@ def get_img_edge_count(frame_buffer):
     sum_edges = 0
 
     for i in range (0, len(edges), 1):
-        sum_edges += numpy.count_nonzero(edges[0])
+        sum_edges += np.count_nonzero(edges[0])
 
     return sum_edges
 
@@ -91,7 +91,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
                     print('')
                     print(time.time())
-                    print(get_img_edge_count(BytesIO(frame)))
+                    sample_img = Image.open(BytesIO(frame))
+                    print(get_img_edge_count(sample_img))
                     print(time.time())
                     print('')
 
