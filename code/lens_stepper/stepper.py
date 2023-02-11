@@ -39,10 +39,11 @@ class Stepper:
   def zero_stepper(self):
     prev_pos = self.get_pos()
 
-    if self.name == 'focus':
-      self.focus_near(prev_pos)
-    else:
-      self.zoom_out(prev_pos)
+    if (prev_pos > 0):
+      if self.name == 'focus':
+        self.focus_near(prev_pos)
+      else:
+        self.zoom_out(prev_pos)
 
     self.focus_far(310) # neutral zoom about 13" away
 
