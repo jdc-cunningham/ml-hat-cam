@@ -1,6 +1,10 @@
 from database.database import Database
 from lens_stepper.stepper import Stepper
-from camera import start_web_stream
+
+output = None # nasty
+
+from camera.camera_classes import *
+from camera.camera import start_web_stream
 
 db = Database()
 
