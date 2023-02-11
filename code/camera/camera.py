@@ -42,13 +42,13 @@ class StreamingOutput(io.BufferedIOBase):
 
 
 class StreamingHandler(server.BaseHTTPRequestHandler):
-  global focus_ring, tele_ring, frame_counter
-
   def get_variance(self, frame_buffer):
     img = cv.imdecode(frame_buffer, cv.IMREAD_COLOR)
     return cv.Laplacian(img, cv.CV_64F).var()
 
   def do_GET(self):
+    global focus_ring, tele_ring, frame_counter
+
     if self.path == '/':
       self.send_response(301)
       self.send_header('Location', '/index.html')
