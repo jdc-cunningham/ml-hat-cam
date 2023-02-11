@@ -4,19 +4,12 @@
 # Run this script, then point a web browser at http:<this-ip-address>:8000
 # Note: needs simplejpeg to be installed (pip3 install simplejpeg).
 
-# resources
-# https://www.geeksforgeeks.org/python-pil-image-frombuffer-method/
-# https://stackoverflow.com/questions/22879991/buffer-to-image-with-pil
-
 import io
 import logging
 import socketserver
-import time
-import cv2 as cv
-import numpy as np
-
 from http import server
-from threading import Condition
+from threading import Condition, Thread
+
 from picamera2 import Picamera2
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
@@ -32,6 +25,7 @@ PAGE = """\
 </html>
 """
 
+
 class StreamingOutput(io.BufferedIOBase):
     def __init__(self):
         self.frame = None
@@ -42,29 +36,9 @@ class StreamingOutput(io.BufferedIOBase):
             self.frame = buf
             self.condition.notify_all()
 
-# https://stackoverflow.com/a/55360543/2710227
-def get_img_edge_count(frame_buffer):
-    img = cv.imdecode(frame_buffer, cv.IMREAD_COLOR)
-    edges = cv.Canny(img,100,200)
-    sum_edges = 0
-
-    for i in range (0, len(edges), 1):
-        sum_edges += np.count_nonzero(edges[0])
-
-    return sum_edges
-
-prev_edge_count = 0
-
-def get_variance(frame_buffer):
-    img = cv.imdecode(frame_buffer, cv.IMREAD_COLOR)
-    return cv.Laplacian(img, cv.CV_64F).var()
-
-prev_var = 0
 
 class StreamingHandler(server.BaseHTTPRequestHandler):
     def do_GET(self):
-        stream_count = 0
-
         if self.path == '/':
             self.send_response(301)
             self.send_header('Location', '/index.html')
@@ -94,17 +68,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     self.end_headers()
                     self.wfile.write(frame)
                     self.wfile.write(b'\r\n')
-
-                    stream_count += 1
-
-                    if (stream_count % 2 == 0):
-                        frame_buf = np.fromstring(frame, np.uint8)
-                        # edges = get_img_edge_count(frame_buf)
-
-                        # print(edges)
-
-                        print(get_variance(frame_buf))
-
             except Exception as e:
                 logging.warning(
                     'Removed streaming client %s: %s',
@@ -120,8 +83,7 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
 
 
 picam2 = Picamera2()
-# picam2.configure(picam2.create_video_configuration(main={"size": (1024, 720)}))
-picam2.configure(picam2.create_video_configuration(main={"size": (600, 400)}))
+picam2.configure(picam2.create_video_configuration(main={"size": (1024, 720)}))
 output = StreamingOutput()
 picam2.start_recording(JpegEncoder(), FileOutput(output))
 

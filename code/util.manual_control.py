@@ -1,6 +1,6 @@
 from sshkeyboard import listen_keyboard
 from database.database import Database
-from lens.stepper.stepper import Stepper
+from lensstepper.stepper import Stepper
 
 step_incr = 10
 
