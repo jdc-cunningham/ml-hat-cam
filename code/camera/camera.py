@@ -88,41 +88,53 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
           frame_counter += 1
 
-          print('frame')
+          # print('frame')
 
-          if (frame_counter % 4 == 0 and not best_focus_reached):
+          if (frame_counter % 4 == 0 and (not best_focus_reached)):
             frame_buf = np.fromstring(frame, np.uint8)
             cur_var = self.get_variance(frame_buf)
-                        
-            focus_ring_pos = focus_ring.get_pos()
-            focus_ring_max_pos = focus_ring.max_pos
-
             step_size = 25
 
-            print(cur_var, var_largest)
-
-            if (var_largest == 0):
-              if (focus_ring_pos + step_size < focus_ring_max_pos):
-                focus_ring.focus_far(step_size)
-                focused_far = True
-              else:
-                focus_ring.focus_near(step_size)
-                focused_far = False
-
             if (cur_var < var_largest):
-              if (cur_var < prev_var and focused_far):
+              if (focused_far):
                 focus_ring.focus_near(step_size)
                 focused_far = False
               else:
                 focus_ring.focus_far(step_size)
                 focused_far = True
-            else:
-              best_focus_reached = True
-
+            
             if (cur_var > var_largest):
               var_largest = cur_var
 
             prev_var = cur_var
+                        
+            # focus_ring_pos = focus_ring.cur_pos
+            # focus_ring_max_pos = focus_ring.max_pos
+
+            # print(cur_var, var_largest)
+
+            # if (var_largest == 0):
+            #   if (focus_ring_pos + step_size < focus_ring_max_pos):
+            #     focus_ring.focus_far(step_size)
+            #     focused_far = True
+            #   else:
+            #     focus_ring.focus_near(step_size)
+            #     focused_far = False
+
+            # if (cur_var < var_largest):
+            #   if (cur_var < prev_var and focused_far):
+            #     focus_ring.focus_near(step_size)
+            #     focused_far = False
+            #   else:
+            #     focus_ring.focus_far(step_size)
+            #     focused_far = True
+            # else:
+            #   best_focus_reached = True
+
+            # if (cur_var > var_largest):
+            #   var_largest = cur_var
+
+            # prev_var = cur_var
             
 
       except Exception as e:
