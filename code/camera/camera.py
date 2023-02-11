@@ -40,7 +40,6 @@ class StreamingOutput(io.BufferedIOBase):
       self.frame = buf
       self.condition.notify_all()
 
-
 class StreamingHandler(server.BaseHTTPRequestHandler):
   def get_variance(self, frame_buffer):
     img = cv.imdecode(frame_buffer, cv.IMREAD_COLOR)
