@@ -98,12 +98,12 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     stream_count += 1
 
                     if (stream_count % 2 == 0):
-                        # sample_img = np.fromstring(frame, np.uint8)
-                        # edges = get_img_edge_count(sample_img)
+                        frame_buf = np.fromstring(frame, np.uint8)
+                        # edges = get_img_edge_count(frame_buf)
 
                         # print(edges)
 
-                        print(get_variance(frame))
+                        print(get_variance(frame_buf))
 
             except Exception as e:
                 logging.warning(
