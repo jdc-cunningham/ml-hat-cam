@@ -96,6 +96,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             focus_ring_pos = focus_ring.get_pos()
             focus_ring_max_pos = focus_ring.max_pos
 
+            print(cur_var, var_largest)
+
             if (var_largest == 0):
               if (focus_ring_pos + 10 < focus_ring_max_pos):
                 focus_ring.focus_far(10)
