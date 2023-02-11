@@ -12,6 +12,8 @@ import io
 import logging
 import socketserver
 import time
+import cv2 as cv
+import numpy as np
 
 from io import BytesIO
 from http import server
@@ -44,6 +46,17 @@ class StreamingOutput(io.BufferedIOBase):
             self.condition.notify_all()
 
 
+# https://stackoverflow.com/a/55360543/2710227
+def get_img_edge_count(frame_buffer):
+    img = cv.imdecode(frame_buffer)
+    edges = cv.Canny(img,100,200)
+    sum_edges = 0
+
+    for i in range (0, len(edges), 1):
+        sum_edges += numpy.count_nonzero(edges[0])
+
+    return sum_edges
+
 class StreamingHandler(server.BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/':
@@ -75,6 +88,13 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     self.end_headers()
                     self.wfile.write(frame)
                     self.wfile.write(b'\r\n')
+
+                    print('')
+                    print(time.time())
+                    print(get_img_edge_count(frame))
+                    print(time.time())
+                    print('')
+
                     # sample_img = Image.open(BytesIO(frame))
                     # sample_img.save("test.jpeg", "JPEG")
                     # print(time.time())
