@@ -85,12 +85,14 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
           frame_counter += 1
 
-          if (frame_counter % 2 == 0):
+          if (frame_counter % 4 == 0):
             frame_buf = np.fromstring(frame, np.uint8)
             cur_var = self.get_variance(frame_buf)
                         
             focus_ring_pos = focus_ring.get_pos()
             focus_ring_max_pos = focus_ring.max_pos
+
+            print(var_samples)
 
             if (len(var_samples) < 2):
               var_samples.append(cur_var)
