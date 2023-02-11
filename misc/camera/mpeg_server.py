@@ -55,6 +55,12 @@ def get_img_edge_count(frame_buffer):
 
 prev_edge_count = 0
 
+def get_variance(frame_buffer):
+    img = cv.imdecode(frame_buffer, cv.IMREAD_COLOR)
+    return cv.Laplacian(img, cv.CV_64F).var()
+
+prev_var = 0
+
 class StreamingHandler(server.BaseHTTPRequestHandler):
     def do_GET(self):
         stream_count = 0
@@ -92,12 +98,12 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     stream_count += 1
 
                     if (stream_count % 2 == 0):
-                        sample_img = np.fromstring(frame, np.uint8)
-                        edges = get_img_edge_count(sample_img)
+                        # sample_img = np.fromstring(frame, np.uint8)
+                        # edges = get_img_edge_count(sample_img)
 
-                        print(edges)
+                        # print(edges)
 
-                    print('')
+                        print(get_variance(frame))
 
             except Exception as e:
                 logging.warning(
