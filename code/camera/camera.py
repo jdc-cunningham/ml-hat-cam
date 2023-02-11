@@ -48,7 +48,7 @@ class StreamingOutput(io.BufferedIOBase):
 class StreamingHandler(server.BaseHTTPRequestHandler):
   def get_variance(self, frame_buffer):
     img = cv.imdecode(frame_buffer, cv.IMREAD_COLOR)
-    return cv.Laplacian(img, cv.CV_64F).var()
+    return round(cv.Laplacian(img, cv.CV_64F).var(), 2)
 
   def do_GET(self):
     global focus_ring, tele_ring, frame_counter, prev_var, var_largest, focused_far
@@ -111,7 +111,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 focus_ring.focus_near(10)
               else:
                 focus_ring.focus_far(10)
-
 
             if (cur_var > var_largest):
               var_largest = cur_var
