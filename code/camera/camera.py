@@ -90,23 +90,23 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
           # print('frame')
 
-          if (frame_counter % 4 == 0 and (not best_focus_reached)):
-            frame_buf = np.fromstring(frame, np.uint8)
-            cur_var = self.get_variance(frame_buf)
-            step_size = 25
+          # if (frame_counter % 4 == 0 and (not best_focus_reached)):
+          #   frame_buf = np.fromstring(frame, np.uint8)
+          #   cur_var = self.get_variance(frame_buf)
+          #   step_size = 25
 
-            if (cur_var < var_largest):
-              if (focused_far):
-                focus_ring.focus_near(step_size)
-                focused_far = False
-              else:
-                focus_ring.focus_far(step_size)
-                focused_far = True
+          #   if (cur_var < var_largest):
+          #     if (focused_far):
+          #       focus_ring.focus_near(step_size)
+          #       focused_far = False
+          #     else:
+          #       focus_ring.focus_far(step_size)
+          #       focused_far = True
             
-            if (cur_var > var_largest):
-              var_largest = cur_var
+          #   if (cur_var > var_largest):
+          #     var_largest = cur_var
 
-            prev_var = cur_var
+          #   prev_var = cur_var
                         
             # focus_ring_pos = focus_ring.cur_pos
             # focus_ring_max_pos = focus_ring.max_pos
