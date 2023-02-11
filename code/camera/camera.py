@@ -101,3 +101,6 @@ class Camera:
       server.serve_forever()
     finally:
       picam2.stop_recording()
+
+camera = Camera()
+camera.start_web_stream()
