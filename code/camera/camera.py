@@ -20,6 +20,7 @@ output = None
 frame_counter = 0 # used for sampling even frames modulus
 prev_var = 0
 var_largest = 0
+focused_far = False
 focus_ring = None
 tele_ring = None
 
@@ -50,7 +51,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
     return cv.Laplacian(img, cv.CV_64F).var()
 
   def do_GET(self):
-    global focus_ring, tele_ring, frame_counter, prev_var, var_largest
+    global focus_ring, tele_ring, frame_counter, prev_var, var_largest, focused_far
 
     if self.path == '/':
       self.send_response(301)
@@ -95,42 +96,26 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             focus_ring_pos = focus_ring.get_pos()
             focus_ring_max_pos = focus_ring.max_pos
 
-            print(var_largest)
+            if (var_largest == 0):
+              if (focus_ring_pos + 10 < focus_ring_max_pos):
+                focus_ring.focus_far(10)
+                focused_far = True
+              else:
+                focus_ring.focus_near(10)
+                focused_far = False
+
+            if (cur_var < var_largest):
+              if (focused_far):
+                focus_ring.focus_near(10)
+              else:
+                focus_ring.focus_far(10)
+
 
             if (cur_var > var_largest):
               var_largest = cur_var
 
-            if (prev_var == 0):
-              focus_ring.focus_far(focus_ring_pos + 10)
-            else:
-              if (prev_var < var_largest):
-                focus_ring.focus_near(focus_ring_pos - 10)
-              elif (var_largest > cur_var):
-                focus_ring.focus_far(focus_ring_pos + 10)
-              else:
-                continue # best case reached
-
             prev_var = cur_var
             
-
-            # if (len(var_samples) < 2):
-            #   var_samples.append(int(cur_var))
-
-            #   if (focus_ring_pos + 10 <= focus_ring_max_pos):
-            #     focus_ring.focus_far(focus_ring_pos + 10)
-            # else:
-            #   var_samples.pop(0)
-            #   var_samples.append(int(cur_var))
-
-            #   if (var_samples[1] > var_samples[0]):
-            #     focus_ring.focus_far(focus_ring_pos + 10)
-            #   elif (var_samples[0] == var_samples[1] and var_samples[0] < var_largest):
-            #     if (focus_ring_pos < focus_ring_max_pos):
-            #       focus_ring.focus_far(focus_ring_pos + 10)
-            #     else:
-            #       focus_ring.focus_near(focus_ring_pos - 10)
-            #   else:
-            #     focus_ring.focus_near(focus_ring_pos - 10)
 
       except Exception as e:
         logging.warning(
