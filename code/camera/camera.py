@@ -95,13 +95,13 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             print(var_samples)
 
             if (len(var_samples) < 2):
-              var_samples.append(cur_var)
+              var_samples.append(int(cur_var))
 
               if (focus_ring_pos + 10 <= focus_ring_max_pos):
                 focus_ring.focus_far(focus_ring_pos + 10)
             else:
               var_samples.pop(0)
-              var_samples.append(cur_var)
+              var_samples.append(int(cur_var))
 
               if (var_samples[1] > var_samples[0]):
                 focus_ring.focus_far(focus_ring_pos + 10)
