@@ -103,12 +103,12 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             if (prev_var == 0):
               focus_ring.focus_far(focus_ring_pos + 10)
             else:
-              if (prev_var < cur_var):
+              if (prev_var < var_largest):
                 focus_ring.focus_near(focus_ring_pos - 10)
-              elif (prev_var > cur_var):
+              elif (var_largest > cur_var):
                 focus_ring.focus_far(focus_ring_pos + 10)
               else:
-                pass # best case reached
+                continue # best case reached
 
             prev_var = cur_var
             
