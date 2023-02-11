@@ -50,7 +50,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
     return cv.Laplacian(img, cv.CV_64F).var()
 
   def do_GET(self):
-    global focus_ring, tele_ring, frame_counter, prev_var
+    global focus_ring, tele_ring, frame_counter, prev_var, var_largest
 
     if self.path == '/':
       self.send_response(301)
