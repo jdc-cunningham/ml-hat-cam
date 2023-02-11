@@ -102,8 +102,8 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
   allow_reuse_address = True
   daemon_threads = True
 
-def start_web_stream(focus_ring, tele_ring):
-  global output
+def start_web_stream():
+  global output, focus_ring, tele_ring
 
   picam2 = Picamera2()
   picam2.configure(picam2.create_video_configuration(main={"size": (640, 480)}))
@@ -112,7 +112,7 @@ def start_web_stream(focus_ring, tele_ring):
 
   try:
     address = ('', 8000)
-    server = StreamingServer(address, StreamingHandler(focus_ring, tele_ring))
+    server = StreamingServer(address, StreamingHandler)
     server.serve_forever()
   finally:
     picam2.stop_recording()
