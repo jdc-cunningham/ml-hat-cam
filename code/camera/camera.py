@@ -38,7 +38,7 @@ class StreamingOutput(io.BufferedIOBase):
       self.condition.notify_all()
 
 class StreamingHandler(server.BaseHTTPRequestHandler):
-  def do_GET(self):
+  def do_GET(self, camera):
     if self.path == '/':
       self.send_response(301)
       self.send_header('Location', '/index.html')
@@ -61,8 +61,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
       try:
         while True:
-          with output.condition:
-            output.condition.wait()
+          with camera.output.condition:
+            camera.output.condition.wait()
             frame = output.frame
 
           self.wfile.write(b'--FRAME\r\n')
@@ -97,7 +97,7 @@ class Camera:
 
     try:
       address = ('', 8000)
-      server = StreamingServer(address, StreamingHandler)
+      server = StreamingServer(address, StreamingHandler(self))
       server.serve_forever()
     finally:
       picam2.stop_recording()
