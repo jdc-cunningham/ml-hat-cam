@@ -81,9 +81,9 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
           self.wfile.write(frame)
           self.wfile.write(b'\r\n')
 
-          stream_count += 1
+          stream_counter += 1
 
-          if (stream_count % 2 == 0):
+          if (stream_counter % 2 == 0):
             frame_buf = np.fromstring(frame, np.uint8)
             print(self.get_variance(frame_buf))
 
