@@ -48,7 +48,7 @@ class StreamingOutput(io.BufferedIOBase):
 
 # https://stackoverflow.com/a/55360543/2710227
 def get_img_edge_count(frame_buffer):
-    img = cv.imdecode(frame_buffer)
+    img = cv.imdecode(frame_buffer, cv.IMREAD_COLOR)
     edges = cv.Canny(img,100,200)
     sum_edges = 0
 
