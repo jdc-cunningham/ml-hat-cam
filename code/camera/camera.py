@@ -81,7 +81,11 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
     daemon_threads = True
 
+output = None
+
 def start_web_stream():
+  global output
+
   picam2 = Picamera2()
   picam2.configure(picam2.create_video_configuration(main={"size": (1024, 720)}))
   output = StreamingOutput()
