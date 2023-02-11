@@ -109,8 +109,10 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             if (cur_var < var_largest):
               if (focused_far):
                 focus_ring.focus_near(10)
+                focused_far = False
               else:
                 focus_ring.focus_far(10)
+                focused_far = True
 
             if (cur_var > var_largest):
               var_largest = cur_var
