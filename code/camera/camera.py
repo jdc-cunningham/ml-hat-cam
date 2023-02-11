@@ -16,6 +16,7 @@ from picamera2 import Picamera2
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
 
+frame_counter = 0 # used for sampling even frames modulus
 output = None
 
 PAGE = """\
@@ -41,12 +42,7 @@ class StreamingOutput(io.BufferedIOBase):
 
 
 class StreamingHandler(server.BaseHTTPRequestHandler):
-  global focus_ring, tele_ring
-
-  def __init__(self):
-    self.focus_ring = focus_ring
-    self.tele_ring = tele_ring
-    self.stream_count = 0
+  global focus_ring, tele_ring, frame_counter
 
   def get_variance(frame_buffer):
     img = cv.imdecode(frame_buffer, cv.IMREAD_COLOR)
@@ -88,8 +84,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
           self.stream_count += 1
 
           if (self.stream_count % 2 == 0):
-            sample_img = np.fromstring(frame, np.uint8)
-            print(self.get_variance(frame))
+            frame_buf = np.fromstring(frame, np.uint8)
+            print(self.get_variance(frame_buf))
 
       except Exception as e:
         logging.warning(
