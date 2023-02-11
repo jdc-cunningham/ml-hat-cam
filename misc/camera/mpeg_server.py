@@ -75,10 +75,10 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     self.end_headers()
                     self.wfile.write(frame)
                     self.wfile.write(b'\r\n')
-                    sample_img = im = Image.open(BytesIO(frame))
-                    sample_img.save("test.jpeg", "JPEG")
-                    print(time.time())
-                    return
+                    # sample_img = Image.open(BytesIO(frame))
+                    # sample_img.save("test.jpeg", "JPEG")
+                    # print(time.time())
+                    # return
 
             except Exception as e:
                 logging.warning(
