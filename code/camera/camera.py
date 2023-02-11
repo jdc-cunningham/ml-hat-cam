@@ -108,13 +108,13 @@ class Camera:
     picam2 = Picamera2()
     # picam2.configure(picam2.create_video_configuration(main={"size": self.resolution}))
     picam2.configure(picam2.create_video_configuration(main={"size": self.resolution}))
-    output = self.StreamingOutput()
+    output = self.StreamingOutput(Camera)
     self.output = output
     picam2.start_recording(JpegEncoder(), FileOutput(output))
 
     try:
       address = ('', 8000)
-      server = self.StreamingServer(address, self.StreamingHandler())
+      server = self.StreamingServer(address, self.StreamingHandler(Camera))
       server.serve_forever()
     finally:
       picam2.stop_recording()
