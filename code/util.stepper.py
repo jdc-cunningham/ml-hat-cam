@@ -4,7 +4,7 @@ import sys
 import time as og_time
 
 from database.database import Database
-from lens.stepper.stepper import Stepper
+from lens_stepper.stepper import Stepper
 
 db = Database()
 
