@@ -19,6 +19,8 @@ from picamera2.outputs import FileOutput
 output = None
 frame_counter = 0 # used for sampling even frames modulus
 var_samples = [] # variance, higher = more focus
+focus_ring = None
+tele_ring = None
 
 PAGE = """\
 <html>
@@ -120,8 +122,11 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
   allow_reuse_address = True
   daemon_threads = True
 
-def start_web_stream():
-  global output
+def start_web_stream(fr, tr):
+  global output, focus_ring, tele_ring
+
+  focus_ring = fr
+  tele_ring = tr
 
   picam2 = Picamera2()
   picam2.configure(picam2.create_video_configuration(main={"size": (640, 480)}))
