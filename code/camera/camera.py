@@ -41,7 +41,9 @@ class StreamingOutput(io.BufferedIOBase):
 
 
 class StreamingHandler(server.BaseHTTPRequestHandler):
-  def __init__(self, focus_ring, tele_ring):
+  global focus_ring, tele_ring
+
+  def __init__(self):
     self.focus_ring = focus_ring
     self.tele_ring = tele_ring
     self.stream_count = 0
@@ -103,7 +105,7 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
   daemon_threads = True
 
 def start_web_stream():
-  global output, focus_ring, tele_ring
+  global output
 
   picam2 = Picamera2()
   picam2.configure(picam2.create_video_configuration(main={"size": (640, 480)}))
