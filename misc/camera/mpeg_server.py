@@ -91,7 +91,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
                     print('')
                     print(time.time())
-                    print(get_img_edge_count(frame))
+                    print(get_img_edge_count(BytesIO(frame)))
                     print(time.time())
                     print('')
 
