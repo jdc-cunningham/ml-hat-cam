@@ -58,6 +58,7 @@ def get_img_edge_count(frame_buffer):
     return sum_edges
 
 prev_edge_count = 0
+stream_count = 0
 
 class StreamingHandler(server.BaseHTTPRequestHandler):
     def do_GET(self):
@@ -91,20 +92,23 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     self.wfile.write(frame)
                     self.wfile.write(b'\r\n')
 
-                    print('')
-                    print(time.time())
-                    sample_img = np.fromstring(frame, np.uint8)
-                    edges = get_img_edge_count(sample_img)
+                    # print('')
+                    stream_count += 1
+                    # print(time.time())
 
-                    print(edges)
+                    if (stream_count % 2 == 0):
+                        sample_img = np.fromstring(frame, np.uint8)
+                        edges = get_img_edge_count(sample_img)
+
+                        print(edges)
 
                     # if (edges > 0 and edges > prev_edge_count):
                     #     print("better")
                     # else:
                     #     print("worse")
 
-                    print()
-                    print(time.time())
+                    # print()
+                    # print(time.time())
                     print('')
 
                     # sample_img = Image.open(BytesIO(frame))

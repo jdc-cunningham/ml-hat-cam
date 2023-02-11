@@ -7,7 +7,7 @@ import numpy
 from matplotlib import pyplot as plt
 
 # img = cv.imread('blurry.JPG',0)
-img = cv.imread('in-focus.JPG',0)
+img = cv.imread('check.JPG',0)
 
 print(time.time())
 edges = cv.Canny(img,100,200)
