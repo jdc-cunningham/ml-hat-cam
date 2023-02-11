@@ -3,7 +3,6 @@ from lens_stepper.stepper import Stepper
 
 output = None # nasty
 
-from camera.camera_classes import *
 from camera.camera import start_web_stream
 
 db = Database()
