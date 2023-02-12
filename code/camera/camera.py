@@ -26,6 +26,7 @@ dir_near = None
 reverse_dir = False
 max_found = False
 
+
 PAGE = """\
 <html>
 <head>
@@ -52,7 +53,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
     frame = np.fromstring(frame_buffer, np.uint8)
     img = cv.imdecode(frame, cv.IMREAD_COLOR)
     var = round(cv.Laplacian(img, cv.CV_64F).var(), 2)
-    print(var)
     return var
 
   # - get the first current value
@@ -61,26 +61,44 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
   def check_focus(self, frame_buffer):
     global prev_var, next_var, max_var, dir_near, reverse_dir, max_found
 
-    if (max_found):
-      return
+    print('max var ' + str(max_var))
+
+    # if (max_found):
+    #   print('max_found')
+    #   return
 
     step_size = 5
+
+    if(dir_near != None):
+      cur_var = self.get_variance(frame_buffer)
+
+      if (cur_var > max_var):
+        max_var = cur_var
 
     if (prev_var == 0):
       prev_var = self.get_variance(frame_buffer)
       max_var = prev_var
       # rotate in advance for next value
+      print('focus near')
       focus_ring.focus_near(step_size)
       return
 
     # get second sample
     if (next_var == 0):
+      print('next var 0')
       next_var = self.get_variance(frame_buffer)
 
       if (next_var > max_var):
         max_var = next_var
         return
     else: # decide direction to keep going
+      print('else')
+
+      # cur_var = self.get_variance(frame_buffer)
+
+      # if (cur_var == max_var):
+      #   return
+
       if (next_var > prev_var):
         dir_near = True
         if (focus_ring.cur_pos == focus_ring.max_pos):
@@ -95,26 +113,29 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
           focus_ring.focus_near(step_size)
         else:
           focus_ring.focus_far(step_size)
+      
       return
 
-    if (reverse_dir):
-      if (dir_near):
-        cur_var = self.get_variance(frame_buffer)
-      else:
-        cur_var = self.get_variance(frame_buffer)
-    else:
-      if (dir_near):
-        cur_var = self.get_variance(frame_buffer)
-      else:
-        cur_var = self.get_variance(frame_buffer)
+    # if (reverse_dir):
+    #   if (dir_near):
+    #     cur_var = self.get_variance(frame_buffer)
+    #   else:
+    #     cur_var = self.get_variance(frame_buffer)
+    # else:
+    #   if (dir_near):
+    #     cur_var = self.get_variance(frame_buffer)
+    #   else:
+    #     cur_var = self.get_variance(frame_buffer)
+
+    # print('cur var ' + str(cur_var))
     
-    # find max value and stop
-    if (cur_var):
-      if (cur_var > max_var):
-        max_var = cur_var
-      elif (cur_var <= max_var):
-        max_found = True
-        return
+    # # find max value and stop
+    # if (cur_var):
+    #   if (cur_var > max_var):
+    #     max_var = cur_var
+    #   elif (cur_var <= max_var):
+    #     # max_found = True
+    #     return
 
   def do_GET(self):
     global focus_ring, tele_ring
