@@ -23,6 +23,7 @@ prev_var = 0
 next_var = 0
 max_var = 0
 dir_near = None
+reverse_dir = False
 
 PAGE = """\
 <html>
@@ -46,23 +47,23 @@ class StreamingOutput(io.BufferedIOBase):
       self.condition.notify_all()
 
 class StreamingHandler(server.BaseHTTPRequestHandler):
-  def get_variance(self, frame_buffer, call_source):
+  def get_variance(self, frame_buffer):
     frame = np.fromstring(frame_buffer, np.uint8)
     img = cv.imdecode(frame, cv.IMREAD_COLOR)
     var = round(cv.Laplacian(img, cv.CV_64F).var(), 2)
-    print(call_source + str(var))
+    print(var)
     return var
 
   # - get the first current value
   # - find which direction increases next values
   # - find max value, stop
   def check_focus(self, frame_buffer):
-    global prev_var, next_var, max_var, dir_near
+    global prev_var, next_var, max_var, dir_near, reverse_dir
 
     step_size = 25
 
     if (prev_var == 0):
-      prev_var = self.get_variance(frame_buffer, 'if')
+      prev_var = self.get_variance(frame_buffer)
       max_var = prev_var
       # rotate in advance for next value
       focus_ring.focus_near(step_size)
@@ -70,7 +71,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
     # get second sample
     if (next_var == 0):
-      next_var = self.get_variance(frame_buffer, 'if 2')
+      next_var = self.get_variance(frame_buffer)
 
       if (next_var > max_var):
         max_var = next_var
@@ -79,16 +80,30 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
       print('else reached')
       if (next_var > prev_var):
         dir_near = True
-        focus_ring.focus_near(step_size)
+        if (focus_ring.pos == focus_ring.max_pos):
+          reverse_dir = True
+          focus_ring.focus_far(step_size)
+        else:
+          focus_ring.focus_near(step_size)
       else:
         dir_near = False
-        focus_ring.focus_far(step_size)
+        if (focus_ring.pos == focus_ring.max_pos):
+          reverse_dir = True
+          focus_ring.focus_near(step_size)
+        else:
+          focus_ring.focus_far(step_size)
       return
 
-    if (dir_near):
-      cur_var = self.get_variance(frame_buffer, 'if 3')
+    if (reverse_dir):
+      if (dir_near):
+        cur_var = self.get_variance(frame_buffer)
+      else:
+        cur_var = self.get_variance(frame_buffer)
     else:
-      cur_var = self.get_variance(frame_buffer, 'else')
+      if (dir_near):
+        cur_var = self.get_variance(frame_buffer)
+      else:
+        cur_var = self.get_variance(frame_buffer)
     
     # find max value and stop
     if (cur_var):
