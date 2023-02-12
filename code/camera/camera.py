@@ -49,7 +49,9 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
   def get_variance(self, frame_buffer):
     frame = np.fromstring(frame_buffer, np.uint8)
     img = cv.imdecode(frame, cv.IMREAD_COLOR)
-    return round(cv.Laplacian(img, cv.CV_64F).var(), 2)
+    var = round(cv.Laplacian(img, cv.CV_64F).var(), 2)
+    print(var)
+    return var
 
   # - get the first current value
   # - find which direction increases next values
