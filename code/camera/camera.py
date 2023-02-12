@@ -24,6 +24,7 @@ next_var = 0
 max_var = 0
 dir_near = None
 reverse_dir = False
+max_found = False
 
 PAGE = """\
 <html>
@@ -58,7 +59,10 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
   # - find which direction increases next values
   # - find max value, stop
   def check_focus(self, frame_buffer):
-    global prev_var, next_var, max_var, dir_near, reverse_dir
+    global prev_var, next_var, max_var, dir_near, reverse_dir, max_found
+
+    if (max_found):
+      return
 
     step_size = 5
 
@@ -109,6 +113,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
       if (cur_var > max_var):
         max_var = cur_var
       elif (cur_var <= max_var):
+        max_found = True
         return
 
   def do_GET(self):
