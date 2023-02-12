@@ -65,8 +65,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
   def check_focus(self, frame_buffer):
     global prev_var, next_var, max_var, dir_near, reverse_dir, max_found, prev_vars, wait_time, cur_wait
 
-    print('max var ' + str(max_var))
-
     step_size = 5
 
     if (max_found):
@@ -81,8 +79,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
     if(dir_near != None):
       cur_var = self.get_variance(frame_buffer)
-
-      print(str(cur_var) + ', ' + str(max_var))
 
       if (cur_var > max_var):
         max_var = cur_var
@@ -103,28 +99,21 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
           max_found = True
           return
 
-      print(prev_vars)
-
-
     if (prev_var == 0):
       prev_var = self.get_variance(frame_buffer)
       max_var = prev_var
       # rotate in advance for next value
-      print('focus near')
       focus_ring.focus_near(step_size)
       return
 
     # get second sample
     if (next_var == 0):
-      print('next var 0')
       next_var = self.get_variance(frame_buffer)
 
       if (next_var > max_var):
         max_var = next_var
         return
     else: # decide direction to keep going
-      print('else')
-
       if (next_var > prev_var):
         dir_near = True
         if (focus_ring.cur_pos == focus_ring.max_pos):
