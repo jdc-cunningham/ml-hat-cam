@@ -76,6 +76,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         max_var = next_var
         return
     else: # decide direction to keep going
+      print('else reached')
       if (next_var > prev_var):
         dir_near = True
         focus_ring.focus_near(step_size)
