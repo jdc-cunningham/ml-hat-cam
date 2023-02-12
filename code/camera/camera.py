@@ -46,11 +46,11 @@ class StreamingOutput(io.BufferedIOBase):
       self.condition.notify_all()
 
 class StreamingHandler(server.BaseHTTPRequestHandler):
-  def get_variance(self, frame_buffer):
+  def get_variance(self, frame_buffer, call_source):
     frame = np.fromstring(frame_buffer, np.uint8)
     img = cv.imdecode(frame, cv.IMREAD_COLOR)
     var = round(cv.Laplacian(img, cv.CV_64F).var(), 2)
-    print(var)
+    print(call_source + str(var))
     return var
 
   # - get the first current value
@@ -62,7 +62,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
     step_size = 25
 
     if (prev_var == 0):
-      prev_var = self.get_variance(frame_buffer)
+      prev_var = self.get_variance(frame_buffer, 'if')
       max_var = prev_var
       # rotate in advance for next value
       focus_ring.focus_near(step_size)
@@ -70,7 +70,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
     # get second sample
     if (next_var == 0):
-      next_var = self.get_variance(frame_buffer)
+      next_var = self.get_variance(frame_buffer, 'if 2')
 
       if (next_var > max_var):
         max_var = next_var
@@ -85,9 +85,9 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
       return
 
     if (dir_near):
-      cur_var = self.get_variance(frame_buffer)
+      cur_var = self.get_variance(frame_buffer, 'if 3')
     else:
-      cur_var = self.get_variance(frame_buffer)
+      cur_var = self.get_variance(frame_buffer, 'else')
     
     # find max value and stop
     if (cur_var):
