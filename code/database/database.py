@@ -56,7 +56,7 @@ class Database:
   def update_pos(self, name, pos, con, cur):
     cur.execute("UPDATE stepper_pos SET name = ?, pos = ? WHERE name = ?", [name, pos, name])
     con.commit()
-    print('updated ' + name + ' pos ' + str(pos) + ' ' + str(time.time()))
+    # print('updated ' + name + ' pos ' + str(pos) + ' ' + str(time.time()))
 
   def get_stepper_pos(self, cur, name):
     stepper_pos = cur.execute("SELECT pos FROM stepper_pos WHERE name = ?", [name])
