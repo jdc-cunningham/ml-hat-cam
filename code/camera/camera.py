@@ -60,7 +60,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
   def check_focus(self, frame_buffer):
     global prev_var, next_var, max_var, dir_near, reverse_dir
 
-    step_size = 25
+    step_size = 10
 
     if (prev_var == 0):
       prev_var = self.get_variance(frame_buffer)
