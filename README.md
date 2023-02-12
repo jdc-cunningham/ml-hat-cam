@@ -27,9 +27,11 @@ It can be avoided if you don't have a shared ground connected but requires a swi
     - [x] track in db for boot resume (02/09/2023)
   - [ ] menu design
   - [ ] dpad bindings
+- [x] auto focus
+  - [x] some method like comparing frames, more blurry go other way
+    - used laplace variance
 - [ ] auto zoom
-  - [ ] some method like comparing frames, more blurry go other way
-  - basic mask frame by frame find contours
+  - use ML to find target, then zoom
 - [ ] machine learning
   - train small shots of plane sillhouette against wall
   - record actual flying footage, label samples, train model
