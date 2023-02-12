@@ -20,11 +20,15 @@ output = None
 focus_ring = None
 tele_ring = None
 prev_var = 0
+prev_vars = []
 next_var = 0
+prev_max_var = 0
 max_var = 0
 dir_near = None
 reverse_dir = False
 max_found = False
+wait_time = 5
+cur_wait = 0
 
 
 PAGE = """\
@@ -59,21 +63,46 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
   # - find which direction increases next values
   # - find max value, stop
   def check_focus(self, frame_buffer):
-    global prev_var, next_var, max_var, dir_near, reverse_dir, max_found
+    global prev_var, next_var, max_var, dir_near, reverse_dir, max_found, prev_vars, wait_time, cur_wait
 
     print('max var ' + str(max_var))
 
-    # if (max_found):
-    #   print('max_found')
-    #   return
-
     step_size = 5
+
+    if (max_found):
+    #   if (cur_wait < wait_time):
+    #     cur_wait += 1
+    #   else:
+    #     cur_wait = 0
+    #     max_found = False
+      return
 
     if(dir_near != None):
       cur_var = self.get_variance(frame_buffer)
 
+      print(str(cur_var) + ', ' + str(max_var))
+
       if (cur_var > max_var):
         max_var = cur_var
+
+      if (len(prev_vars) != 3):
+        prev_vars.append(max_var)
+      else:
+        prev_vars.pop(0)
+        prev_vars.append(max_var)
+
+        if (max_var > 100 and prev_vars[0] == prev_vars[1] == prev_vars[2]):
+          # reverse one step
+          if (dir_near):
+            focus_ring.focus_far(step_size * 5)
+          else:
+            focus_ring.focus_near(step_size * 5)
+
+          max_found = True
+          return
+
+      print(prev_vars)
+
 
     if (prev_var == 0):
       prev_var = self.get_variance(frame_buffer)
@@ -94,11 +123,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
     else: # decide direction to keep going
       print('else')
 
-      # cur_var = self.get_variance(frame_buffer)
-
-      # if (cur_var == max_var):
-      #   return
-
       if (next_var > prev_var):
         dir_near = True
         if (focus_ring.cur_pos == focus_ring.max_pos):
@@ -115,27 +139,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
           focus_ring.focus_far(step_size)
       
       return
-
-    # if (reverse_dir):
-    #   if (dir_near):
-    #     cur_var = self.get_variance(frame_buffer)
-    #   else:
-    #     cur_var = self.get_variance(frame_buffer)
-    # else:
-    #   if (dir_near):
-    #     cur_var = self.get_variance(frame_buffer)
-    #   else:
-    #     cur_var = self.get_variance(frame_buffer)
-
-    # print('cur var ' + str(cur_var))
-    
-    # # find max value and stop
-    # if (cur_var):
-    #   if (cur_var > max_var):
-    #     max_var = cur_var
-    #   elif (cur_var <= max_var):
-    #     # max_found = True
-    #     return
 
   def do_GET(self):
     global focus_ring, tele_ring
