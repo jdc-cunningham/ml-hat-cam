@@ -17,13 +17,12 @@ from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
 
 output = None
-frame_counter = 0 # used for sampling even frames modulus
-prev_var = 0
-var_largest = 0
-focused_far = False
-best_focus_reached = False
 focus_ring = None
 tele_ring = None
+prev_var = 0
+next_var = 0
+max_var = 0
+dir_near = None
 
 PAGE = """\
 <html>
@@ -50,6 +49,49 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
   def get_variance(self, frame_buffer):
     img = cv.imdecode(frame_buffer, cv.IMREAD_COLOR)
     return round(cv.Laplacian(img, cv.CV_64F).var(), 2)
+
+  # - get the first current value
+  # - find which direction increases next values
+  # - find max value, stop
+  def check_focus(self, frame_buffer):
+    global prev_var, next_var, max_var, dir_near
+
+    step_size = 25
+
+    if (prev_var == 0):
+      prev_var = self.get_variance(frame_buffer)
+      max_var = prev_var
+      # rotate in advance for next value
+      focus_ring.focus_near(step_size)
+      return
+
+    # get second sample
+    if (next_var == 0):
+      next_var = self.get_variance(frame_buffer)
+
+      if (next_var > max_var):
+        max_var = next_var
+        return
+    else: # decide direction to keep going
+      if (next_var > prev_var):
+        dir_near = True
+        focus_ring.focus_near(step_size)
+      else:
+        dir_near = False
+        focus_ring.focus_far(step_size)
+      return
+
+    if (dir_near):
+      cur_var = self.get_variance(frame_buffer)
+    else:
+      cur_var = self.get_variance(frame_buffer)
+    
+    # find max value and stop
+    if (cur_var):
+      if (cur_var > max_var):
+        max_var = cur_var
+      elif (cur_var <= max_var):
+        return
 
   def do_GET(self):
     global focus_ring, tele_ring, frame_counter, prev_var, var_largest, focused_far, best_focus_reached
@@ -86,56 +128,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
           self.wfile.write(frame)
           self.wfile.write(b'\r\n')
 
-          frame_counter += 1
-
-          # print('frame')
-
-          # if (frame_counter % 4 == 0 and (not best_focus_reached)):
-          #   frame_buf = np.fromstring(frame, np.uint8)
-          #   cur_var = self.get_variance(frame_buf)
-          #   step_size = 25
-
-          #   if (cur_var < var_largest):
-          #     if (focused_far):
-          #       focus_ring.focus_near(step_size)
-          #       focused_far = False
-          #     else:
-          #       focus_ring.focus_far(step_size)
-          #       focused_far = True
-            
-          #   if (cur_var > var_largest):
-          #     var_largest = cur_var
-
-          #   prev_var = cur_var
-                        
-            # focus_ring_pos = focus_ring.cur_pos
-            # focus_ring_max_pos = focus_ring.max_pos
-
-            # print(cur_var, var_largest)
-
-            # if (var_largest == 0):
-            #   if (focus_ring_pos + step_size < focus_ring_max_pos):
-            #     focus_ring.focus_far(step_size)
-            #     focused_far = True
-            #   else:
-            #     focus_ring.focus_near(step_size)
-            #     focused_far = False
-
-            # if (cur_var < var_largest):
-            #   if (cur_var < prev_var and focused_far):
-            #     focus_ring.focus_near(step_size)
-            #     focused_far = False
-            #   else:
-            #     focus_ring.focus_far(step_size)
-            #     focused_far = True
-            # else:
-            #   best_focus_reached = True
-
-            # if (cur_var > var_largest):
-            #   var_largest = cur_var
-
-            # prev_var = cur_var
-            
+          self.check_focus(frame)
 
       except Exception as e:
         logging.warning(
