@@ -27,7 +27,7 @@ max_var = 0
 dir_near = None
 reverse_dir = False
 max_found = False
-wait_time = 5
+wait_time = 10
 cur_wait = 0
 
 
@@ -70,11 +70,13 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
     step_size = 5
 
     if (max_found):
-    #   if (cur_wait < wait_time):
-    #     cur_wait += 1
-    #   else:
-    #     cur_wait = 0
-    #     max_found = False
+      if (cur_wait < wait_time):
+        cur_wait += 1
+      else:
+        cur_wait = 0
+        max_found = False
+        prev_vars = []
+        max_var = 0
       return
 
     if(dir_near != None):
