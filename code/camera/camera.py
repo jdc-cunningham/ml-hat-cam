@@ -80,14 +80,14 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
       print('else reached')
       if (next_var > prev_var):
         dir_near = True
-        if (focus_ring.pos == focus_ring.max_pos):
+        if (focus_ring.cur_pos == focus_ring.max_pos):
           reverse_dir = True
           focus_ring.focus_far(step_size)
         else:
           focus_ring.focus_near(step_size)
       else:
         dir_near = False
-        if (focus_ring.pos == focus_ring.max_pos):
+        if (focus_ring.cur_pos == focus_ring.max_pos):
           reverse_dir = True
           focus_ring.focus_near(step_size)
         else:
