@@ -95,7 +95,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         return
 
   def do_GET(self):
-    global focus_ring, tele_ring, frame_counter, prev_var, var_largest, focused_far, best_focus_reached
+    global focus_ring, tele_ring
 
     if self.path == '/':
       self.send_response(301)
