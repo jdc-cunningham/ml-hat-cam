@@ -27,7 +27,7 @@ It can be avoided if you don't have a shared ground connected but requires a swi
     - [x] track in db for boot resume (02/09/2023)
   - [ ] menu design
   - [ ] dpad bindings
-- [x] auto focus
+- [x] auto focus (02/12/2023)
   - [x] some method like comparing frames, more blurry go other way
     - used laplace variance
 - [ ] auto zoom
