@@ -47,7 +47,8 @@ class StreamingOutput(io.BufferedIOBase):
 
 class StreamingHandler(server.BaseHTTPRequestHandler):
   def get_variance(self, frame_buffer):
-    img = cv.imdecode(frame_buffer, cv.IMREAD_COLOR)
+    frame = np.fromstring(frame_buffer, np.uint8)
+    img = cv.imdecode(frame, cv.IMREAD_COLOR)
     return round(cv.Laplacian(img, cv.CV_64F).var(), 2)
 
   # - get the first current value
