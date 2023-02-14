@@ -21,8 +21,7 @@ Need to
     - install python3-smbus
   - make sure pins match, their example was using what looks like a Pi 3
     - set in config.py of waveshare_OLED folder
-  - 
-
+  - DC and reset pin for me
 
 Resources
 - https://www.waveshare.com/wiki/1.5inch_RGB_OLED_Module
