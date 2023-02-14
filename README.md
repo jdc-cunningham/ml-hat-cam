@@ -8,7 +8,7 @@ An auto-zoom hat-mounted camera using an Arducam IMX477 with 8-50mm lens and ML 
 
 <img src="./devlog/images/layout.jpg"/>
 
-Actually I decide the camera will just dangle to reduce moment arm/closer to hat. I'll just rotate the video 90 deg before saving.
+<img src="./devlog/images/design.JPG"/>
 
 ### Note
 
