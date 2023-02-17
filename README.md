@@ -65,3 +65,7 @@ Legend
 
 - Steppers [S]
 - Display [D] (uses 3.3V Linear Regulator for power)
+
+### Disclaimer
+
+Most of the physical dimensions on part models are not 100% accurate. They are for modeling the major dimensions for mounting/fitting in terms of volume.
