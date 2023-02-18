@@ -10,6 +10,8 @@ An auto-zoom hat-mounted camera using an Arducam IMX477 with 8-50mm lens and ML 
 
 <img src="./devlog/images/design.JPG"/>
 
+<img src="./devlog/images/parts-aligned.JPG"/>
+
 ### Note
 
 Try to avoid using `GPIO 1` this affects the camera (not detected).
@@ -19,7 +21,7 @@ It can be avoided if you don't have a shared ground connected but requires a swi
 ### Progress
 - [ ] physical body
   - [x] usable lens focus/tele assembly (01/27/2023)
-  - [ ] display and dpad
+  - [x] display and dpad (02/17/2023)
   - [ ] full design (attachable to hat)
 - [ ] functionality code
   - [x] steppers and position tracking (02/09/2023)
