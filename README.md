@@ -50,13 +50,13 @@ It can be avoided if you don't have a shared ground connected but requires a swi
 | GPIO 17     | GPIO 18     |
 | GPIO 27     | Ground      |
 | GPIO 22     | GPIO 23     |
-| 3.3V        | GPIO 24     |
+| 3.3V        | GPIO 24 [I] |
 | GPIO 10 [D] | Ground      |
-| GPIO 09 [D] | GPIO 25 [D] |
+| GPIO 9 [D] | GPIO 25 [D] |
 | GPIO 11 [D] | GPIO 8  [D] |
-| Ground      | GPIO 7      |
-| GPIO 0      | GPIO 1      |
-| GPIO 5      | Ground      |
+| Ground      | GPIO 7  [I] |
+| GPIO 0  [I] | GPIO 1  [I] |
+| GPIO 5  [I] | Ground      |
 | GPIO 6  [S] | GPIO 12 [S] |
 | GPIO 13 [S] | Ground      |
 | GPIO 19 [S] | GPIO 16 [S] |
@@ -67,6 +67,7 @@ Legend
 
 - Steppers [S]
 - Display [D] (uses 3.3V Linear Regulator for power)
+- dpad [I] (input)
 
 ### Disclaimer
 
