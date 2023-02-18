@@ -6,7 +6,7 @@ This is the basic interface to select model, start recording, transfer files, et
 
 ### Wiring
 
-<img src="./wiring-diagram.JPG"/>
+<img src="./wiring-diagram.jpg"/>
 
 This powers the RPi through 5V pin and shares ground.
 
