@@ -4,7 +4,9 @@ import RPi.GPIO as GPIO
 import time
 
 class Dpad:
-  def __init__(self):
+  def __init__(self, dmenu):
+    self.display = dmenu
+
     # GPIO should be set by steppers already
     GPIO.setmode(GPIO.BCM) # match stepper mode
     GPIO.setup(0, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # UP
@@ -18,13 +20,18 @@ class Dpad:
     while True:
       if GPIO.input(24) == GPIO.HIGH:
         print("RIGHT")
+        self.display.draw_text(0, 0, "RIGHT")
       if GPIO.input(0) == GPIO.HIGH:
         print("UP")
+        self.display.draw_text(0, 0, "UP")
       if GPIO.input(5) == GPIO.HIGH:
         print("CENTER")
+        self.display.draw_text(0, 0, "CENTER")
       if GPIO.input(7) == GPIO.HIGH:
         print("LEFT")
+        self.display.draw_text(0, 0, "LEFT")
       if GPIO.input(1) == GPIO.HIGH:
         print("DOWN")
+        self.display.draw_text(0, 0, "DOWN")
 
       time.sleep(0.05)
