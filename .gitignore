@@ -1,4 +1,5 @@
 # files
-.pyc
+*.pyc
 
 # folders
+__pycache__
