@@ -7,6 +7,5 @@ from display_menu.display_menu import DisplayMenu
 from dpad.dpad import Dpad
 
 dmenu = DisplayMenu()
-dmenu.draw_text(0, 0, 'huh')
 control = Dpad()
 control.start(dmenu)
