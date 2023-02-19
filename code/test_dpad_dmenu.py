@@ -7,5 +7,5 @@ from display_menu.display_menu import DisplayMenu
 from dpad.dpad import Dpad
 
 dmenu = DisplayMenu()
-control = Dpad()
-control.start(dmenu)
+control = Dpad(dmenu)
+control.start()

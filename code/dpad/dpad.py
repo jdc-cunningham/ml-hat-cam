@@ -3,8 +3,8 @@
 import RPi.GPIO as GPIO
 import time
 
-class Dpad(dmenu):
-  def __init__(self):
+class Dpad():
+  def __init__(self, dmenu):
     self.display = dmenu
 
     # GPIO should be set by steppers already
