@@ -13,16 +13,16 @@ Try to avoid using `GPIO 1` this affects the camera (not detected).
 It can be avoided if you don't have a shared ground connected but requires a switch until after boot.
 
 ### Progress
-- [ ] physical body
+- [x] physical body (02/19/2023)
   - [x] usable lens focus/tele assembly (01/27/2023)
   - [x] display and dpad (02/17/2023)
-  - [ ] full design (attachable to hat)
+  - [x] full design (attachable to hat) (02/19/2023)
 - [ ] functionality code
   - [x] steppers and position tracking (02/09/2023)
     - [x] motion (01/28/2023)
     - [x] track in db for boot resume (02/09/2023)
   - [ ] menu design
-  - [ ] dpad bindings
+  - [x] dpad bindings (02/18/2023)
 - [x] auto focus (02/12/2023)
   - [x] some method like comparing frames, more blurry go other way
     - used laplace variance
