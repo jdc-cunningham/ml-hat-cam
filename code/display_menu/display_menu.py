@@ -39,8 +39,9 @@ class DisplayMenu():
     self.text_color = colors['white']
 
   def clear(self):
-    self.image = Image.new('RGB', (self.disp.width, self.disp.height), 0)
     self.disp.clear()
+    self.image = Image.new('RGB', (self.disp.width, self.disp.height), 0)
+    self.draw = ImageDraw.Draw(self.image)
 
   def draw_text(self, x, y, text, font = fonts['font_2'], color = colors['white']):
     self.clear()
