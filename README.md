@@ -4,8 +4,6 @@ An auto-zoom hat-mounted camera using an Arducam IMX477 with 8-50mm lens and ML 
 
 <img src="hat-camera.JPG"/>
 
-<img src="mlhatcam-4.JPG"/>
-
 <img src="mlhatcam-1.JPG"/>
 
 ### Note
