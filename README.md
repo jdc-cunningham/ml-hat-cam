@@ -2,6 +2,8 @@
 
 An auto-zoom hat-mounted camera using an Arducam IMX477 with 8-50mm lens and ML for rc plane detection
 
+<img src="hat-camera.JPG"/>
+
 <img src="mlhatcam-4.JPG"/>
 
 <img src="mlhatcam-1.JPG"/>
