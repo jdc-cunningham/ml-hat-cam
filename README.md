@@ -47,7 +47,7 @@ It can be avoided if you don't have a shared ground connected but requires a swi
 | GPIO 22     | GPIO 23     |
 | 3.3V        | GPIO 24 [I] |
 | GPIO 10 [D] | Ground      |
-| GPIO 9 [D] | GPIO 25 [D] |
+| GPIO 9 [D]  | GPIO 25 [D] |
 | GPIO 11 [D] | GPIO 8  [D] |
 | Ground      | GPIO 7  [I] |
 | GPIO 0  [I] | GPIO 1  [I] |
@@ -67,3 +67,7 @@ Legend
 ### Disclaimer
 
 Most of the physical dimensions on part models are not 100% accurate. They are for modeling the major dimensions for mounting/fitting in terms of volume.
+
+This project might be a fail just because of how heavy/cumbersome it is.
+
+A different approach is to use a tripod, ground-based tracker. Whether it tracks on its own or you aim with your head. The self-tracking sounds more interesting.
