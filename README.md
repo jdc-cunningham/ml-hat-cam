@@ -14,6 +14,11 @@ It can be avoided if you don't have a shared ground connected but requires a swi
 
 No
 
+### System block diagram
+<img src="ml-hat-cam-system-diagram-wip.png"/>
+
+(needs work)
+
 ### Raspberry Pi 4B GPIO pin usage
 
 | Left        | Right       |
