@@ -18,3 +18,9 @@
 - [ ] machine learning
   - train small shots of plane sillhouette against wall
   - record actual flying footage, label samples, train model
+
+
+- [ ] record microphone sound
+- [ ] voice control to start things (some kind of model)
+- [ ] battery db tracking
+  - [ ] show prompt on menu, if need to charge/play sound too
