@@ -10,7 +10,7 @@ import traceback
 from lib.waveshare_OLED import OLED_1in5_rgb
 from PIL import Image, ImageDraw, ImageFont
 
-base_dir = os.getcwd()
+base_dir = '/home/pi/ml-hat-cam/code'
 
 colors = {
   'red': 'RED',
