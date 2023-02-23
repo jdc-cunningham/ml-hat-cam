@@ -2,7 +2,7 @@
 
 I used Google SketchUp (free) to design the parts in inches using calipers
 
-I used an STL exporter plugin and 3D mesh check plugin
+I used an STL exporter plugin and solid inspector plugin
 
 You can use Cura to slice the parts and print
 
