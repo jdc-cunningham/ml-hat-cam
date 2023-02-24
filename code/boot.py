@@ -14,29 +14,21 @@ def draw_splash_screen():
 def draw_charged_menu():
   dmenu.clear()
   dmenu.draw_text(0, 46, 'Charged?')
-  dmenu.draw_text(0, 68, '  Yes         No')
-  dmenu.draw_line([64, 68], [64, 88])   # left
-  dmenu.draw_line([64, 88], [127, 88])  # bottom
-  dmenu.draw_line([127, 68], [127, 88]) # right
-  dmenu.draw_line([64, 68], [127, 68])  # top
+  dmenu.draw_text(0, 68, 'Yes')
+  dmenu.draw_text(68, 68, 'No', '', 'CYAN')
 
-def draw_left_box():
-  # hide existing white box
-  dmenu.draw_line([64, 68], [64, 88], "BLACK")
-  dmenu.draw_line([64, 88], [127, 88], "BLACK")
-  dmenu.draw_line([127, 68], [127, 88], "BLACK")
-  dmenu.draw_line([64, 68], [127, 68], "BLACK")
+def highlight_yes():
+  dmenu.draw_text(68, 68, 'No', '', 'WHITE')
+  dmenu.draw_text(0, 68, 'Yes', '', 'CYAN')
 
-  dmenu.draw_line([0, 68], [0, 88])
-  dmenu.draw_line([0, 88], [64, 88])
-  dmenu.draw_line([64, 68], [64, 88])
-  dmenu.draw_line([0, 68], [64, 68])
+# def highlight_no():
+#   #
 
 draw_splash_screen()
 time.sleep(3)
 draw_charged_menu()
 time.sleep(1)
-draw_left_box()
+highlight_yes()
 
 control = Dpad(dmenu)
 control.start()
