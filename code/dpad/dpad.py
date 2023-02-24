@@ -6,6 +6,7 @@ import time
 class Dpad():
   def __init__(self, dmenu):
     self.display = dmenu
+    self.exit = False
 
     # GPIO should be set by steppers already
     GPIO.setmode(GPIO.BCM) # match stepper mode
@@ -18,6 +19,8 @@ class Dpad():
   # listen for input
   def start(self):
     while True:
+      if self.exit: return False
+
       if GPIO.input(24) == GPIO.HIGH:
         print("RIGHT")
         self.display.draw_text(0, 0, "RIGHT")

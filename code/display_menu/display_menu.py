@@ -44,11 +44,9 @@ class DisplayMenu():
     self.draw = ImageDraw.Draw(self.image)
 
   def draw_text(self, x, y, text, font = fonts['font_2'], color = colors['white']):
-    self.clear()
     self.draw.text((x,y), text, font = font, fill = color)
     self.disp.ShowImage(self.disp.getbuffer(self.image))
 
   def draw_line(self, start_coord, end_coord, fill = colors['white']):
-    self.clear()
-    self.draw.line([(start_coord[0],start_coord[1]),(end_coord[0],end_coord[1])], color)
+    self.draw.line([(start_coord[0],start_coord[1]),(end_coord[0],end_coord[1])], fill)
     self.disp.ShowImage(self.disp.getbuffer(self.image))
