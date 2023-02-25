@@ -31,8 +31,8 @@ def parse_output(output):
   global zoom_level
 
   # tele vs. zoom
-  # 0, 330
-  # 150, 220
+  # 0, 270
+  # 150, 160
   # 300, 0
 
   if (output == 'ZoomIn' and zoom_level < 4):
@@ -41,12 +41,12 @@ def parse_output(output):
 
     if (tele_pos == 0): # to 150
       tele_ring.zoom_in(150)
-      focus_ring.focus_far(220)
+      focus_ring.focus_far(160)
       player.play_sound_file('sound/files/aws_polly_medium-zoom.mp3')
 
     if (tele_pos == 150): # to 300
       tele_ring.zoom_in(150)
-      focus_ring.focus_near(220) # get to 220
+      focus_ring.focus_near(160) # get to 220
       player.play_sound_file('sound/files/aws_polly_max-zoom.mp3')
 
   if (output == 'ZoomOut' and zoom_level > 0):
@@ -55,12 +55,12 @@ def parse_output(output):
 
     if (tele_pos == 300): # to 150
       tele_ring.zoom_out(150)
-      focus_ring.focus_far(220)
+      focus_ring.focus_far(160)
       player.play_sound_file('sound/files/aws_polly_medium-zoom.mp3')
 
     if (tele_pos == 150): # to 0
       tele_ring.zoom_out(150)
-      focus_ring.focus_far(330)
+      focus_ring.focus_far(110)
       player.play_sound_file('sound/files/aws_polly_wide-open.mp3')
 
 def start_voice_listening():
