@@ -60,4 +60,4 @@ class BattDatabase:
     if (res is None):
       return "100%"
     
-    return str(round((res[0] / res[1]) * 100, 2)) + "%"
+    return str(round(100 - ((res[0] / res[1]) * 100, 2))) + "%"
