@@ -1,10 +1,11 @@
 import os
 import sys
 import time
-from subprocess import Popen, PIPE, STDOUT
+import subprocess
+# from subprocess import Popen, PIPE, STDOUT
 
 # https://stackoverflow.com/questions/51133407/capture-stdout-and-stderr-of-process-that-runs-an-infinite-loop
-
+# https://stackoverflow.com/questions/803265/getting-realtime-output-using-subprocess
 
 class SpeechIntent():
 	def __init__(self, zoom_in_fcn, zoom_out_fcn):
@@ -15,25 +16,11 @@ class SpeechIntent():
 	def start_listening(self):
 		self.active = True
 		picovoice_ai_key = os.environ.get('picovoice_ai_access_key', os.getcwd())
-		cmd_string = 'rhino_demo_mic --access_key ' + picovoice_ai_key + ' --context_path Zooming_en_raspberry-pi_v2_1_0.rhn --audio_device_index 1'
-		args = (sys.executable, '-u', cmd_string)
-		cmd = ' '.join(args)
-		p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
+		cmd = 'rhino_demo_mic --access_key ' + picovoice_ai_key + ' --context_path Zooming_en_raspberry-pi_v2_1_0.rhn --audio_device_index 1'
+		p = subprocess.Popen(cmd, stdout=subprocess.PIPE, bufsize=1)
 		
-		lines = iter(p.stdout.readline, '')
-		
-		for line in lines:
-			line = line.rstrip()
+		for line in iter(p.stdout.readline, b''):
 			print(line)
-
-		# while (self.active):
-			# lines = (p.stdout.readline, '')
-			# print(lines)
-			# line = lines[len(lines) - 1]
-			# line = line.rstrip()
-			# print(line.rstrip())
-			# time.sleep(0.5)
-
-    # for line in iter(p.stdout.readline,''):
-      # line = line.rstrip()
-      # print(line)
+			
+		p.stdout.close()
+		p.wait()
