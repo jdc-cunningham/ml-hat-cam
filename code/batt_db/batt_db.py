@@ -51,7 +51,7 @@ class BattDatabase:
     if (res is None):
       res = 0
 
-    new_val = res + 5
+    new_val = res[0] + 5
 
     cur.execute("UPDATE battery_status SET uptime = ?, pos = ? WHERE name = ?", [new_val])
     con.commit()
