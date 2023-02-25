@@ -50,5 +50,5 @@ def start_voice_listening():
     output_callback=parse_output
   ).run()
 
-Thread(target=start_camera).start()
 Thread(target=start_voice_listening).start()
+start_camera()
