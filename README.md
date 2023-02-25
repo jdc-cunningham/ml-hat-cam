@@ -4,11 +4,20 @@ An auto-zoom hat-mounted camera using an Arducam IMX477 with 8-50mm lens and ML 
 
 <img src="ml-hat-cam-v1.JPG"/>
 
-### Note
+### Unit cost $235+
 
-Try to avoid using `GPIO 1` this affects the camera (not detected).
+Major parts (more than $1 each)
 
-It can be avoided if you don't have a shared ground connected but requires a switch until after boot.
+| Name                           | Cost             |
+| ------------------------------ | ---------------- |
+| RPi 4B 4GB                     | $55 (originally) |
+| Arducam 12.3MP IMX477          | $74.99           |
+| Arducam 8-50mm lens            | $49.99           |
+| 2x 28BYJ-48 Stepper            | $3 ea.           |
+| 1.5in Waveshare OLED           | $18.59           |
+| 2x Panasonic NCR18650B 3400mAh | $8.99 ea.        |
+| Adafruit Speaker               | $5.95            |
+| mEZD41503A-A step-up converter | $14.33           |
 
 ### ML Capable Yet?
 
@@ -49,6 +58,12 @@ Legend
 - Steppers [S]
 - Display [D] (uses 3.3V Linear Regulator for power)
 - dpad [I] (input)
+
+### Note
+
+Avoid using `GPIO 1` this affects the camera (not detected).
+
+It can be avoided if you don't have a shared ground connected but requires a switch until after boot.
 
 ### Disclaimer
 
