@@ -17,7 +17,6 @@ from threading import Thread
 import pvrhino
 from pvrecorder import PvRecorder
 
-
 class RhinoDemo(Thread):
     """
     Microphone Demo for Rhino Speech-to-Intent engine. It creates an input audio stream from a microphone, monitors
@@ -33,8 +32,9 @@ class RhinoDemo(Thread):
             context_path,
             endpoint_duration_sec,
             require_endpoint,
-            audio_device_index=None,
-            output_path=None):
+            audio_device_index=1,
+            output_path=None,
+            output_callback=None):
         """
         Constructor.
 
@@ -66,6 +66,7 @@ class RhinoDemo(Thread):
         self._endpoint_duration_sec = endpoint_duration_sec
         self._require_endpoint = require_endpoint
         self._audio_device_index = audio_device_index
+        self.output_callback = output_callback
 
         self._output_path = output_path
 
@@ -112,13 +113,14 @@ class RhinoDemo(Thread):
                 if is_finalized:
                     inference = rhino.get_inference()
                     if inference.is_understood:
-                        print('{')
-                        print("  intent : '%s'" % inference.intent)
-                        print('  slots : {')
-                        for slot, value in inference.slots.items():
-                            print("    %s : '%s'" % (slot, value))
-                        print('  }')
-                        print('}\n')
+                        self.output_callback(inference.intent)
+                        # print('{')
+                        # print("  intent : '%s'" % inference.intent)
+                        # print('  slots : {')
+                        # for slot, value in inference.slots.items():
+                        #     print("    %s : '%s'" % (slot, value))
+                        # print('  }')
+                        # print('}\n')
                     else:
                         print("Didn't understand the command.\n")
         except pvrhino.RhinoInvalidArgumentError as e:
@@ -239,5 +241,5 @@ def main():
             output_path=args.output_path).run()
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()

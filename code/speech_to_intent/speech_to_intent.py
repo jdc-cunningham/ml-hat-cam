@@ -4,6 +4,9 @@ import time
 import subprocess
 from subprocess import Popen, PIPE, STDOUT
 
+import pvrhino
+from picovoice_ai_rhino_mic_demo import RhinoDemo
+
 # https://stackoverflow.com/questions/51133407/capture-stdout-and-stderr-of-process-that-runs-an-infinite-loop
 # https://stackoverflow.com/questions/803265/getting-realtime-output-using-subprocess
 
@@ -12,14 +15,21 @@ class SpeechIntent():
 		self.active = False
 		self.zoom_in = zoom_in_fcn
 		self.zoom_out = zoom_out_fcn
+		
+	def parse_output(self, output):
+		print(output)
 
 	def start_listening(self):
-		self.active = True
 		picovoice_ai_key = os.environ.get('picovoice_ai_access_key', os.getcwd())
-		cmd = 'picovoice_ai_rhino_mic_demo.py --access_key ' + picovoice_ai_key + ' --context_path Zooming_en_raspberry-pi_v2_1_0.rhn --audio_device_index 1'
-		p = Popen(cmd, stdout = STDOUT, stderr = STDOUT, shell = True)
-		
-		while self.active:
-			line = p.stdout.readline()
-			print(line)
-			time.sleep(0.5)
+
+		RhinoDemo(
+      access_key=picovoice_ai_key,
+      library_path=pvrhino.LIBRARY_PATH,
+      model_path=pvrhino.MODEL_PATH,
+      context_path='Zooming_en_raspberry-pi_v2_1_0.rhn',
+      endpoint_duration_sec=1,
+      require_endpoint=False,
+      audio_device_index=1,
+      output_path=None,
+      output_callback=self.parse_output
+    ).run()
