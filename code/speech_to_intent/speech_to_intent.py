@@ -11,13 +11,15 @@ class SpeechIntent():
 
 	def start_listening(self):
 		self.active = True
-		picovoice_ai_key = os.environ['picovoice_ai_access_key']
+		picovoice_ai_key = os.environ.get('picovoice_ai_access_key', os.getcwd())
 		cmd_string = 'rhino_demo_mic --access_key ' + picovoice_ai_key + ' --context_path Zooming_en_raspberry-pi_v2_1_0.rhn --audio_device_index 1'
 		args = (sys.executable, '-u', cmd_string)
 		cmd = ' '.join(args)
 		p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
 
 		while (self.active):
-			line = line.rstrip()
-			print(line.rstrip())
-			time.sleep(0.5)
+                  lines = (p.stdout.readline,'')
+                  line = lines[len(lines) -1]
+                  line = line.rstrip()
+	          print(line.rstrip())
+	          time.sleep(0.5)
