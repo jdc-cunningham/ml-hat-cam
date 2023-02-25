@@ -14,6 +14,7 @@ from batt_db.batt_db import BattDatabase
 batt_db = BattDatabase()
 batt_db.update_batt_uptime()
 dmenu = DisplayMenu()
+dmenu.init()
 
 batt_status = batt_db.get_batt_status()
 dmenu.draw_text(0, 0, 'batt: ' + batt_status, 'font_1', 'WHITE')
