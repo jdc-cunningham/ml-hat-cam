@@ -7,7 +7,14 @@ import sys
 
 sys.path.append('/home/pi/ml-hat-cam/code') # need this to resolve deps
 
+from display_menu.display_menu import DisplayMenu
 from batt_db.batt_db import BattDatabase
 
 batt_db = BattDatabase()
 batt_db.update_batt_uptime()
+dmenu = DisplayMenu()
+
+batt_status = batt_db.get_batt_status()
+dmenu.draw_text(0, 0, 'batt: ' + batt_status, 'font_1', 'WHITE')
+
+# hmm... need long-running service access even from cron/systemd
