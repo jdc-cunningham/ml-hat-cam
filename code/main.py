@@ -27,14 +27,35 @@ zoom_level = 1 # 1, 2, 3 = close, middle, far
 def parse_output(output):
   global zoom_level
 
-  if (output == 'ZoomIn' and zoom_level < 3):
-    zoom_level += 1
-    tele_ring.zoom_in(150)
+  # tele vs. zoom
+  # 0, 330
+  # 150, 220
+  # 300, 0
 
-  if (output == 'ZoomOut' and zoom_level > 1):
+  if (output == 'ZoomIn' and zoom_level < 4):
+    zoom_level += 1
+    tele_pos = tele_ring.get_pos()
+
+    if (tele_pos == 0): # to 150
+      tele_ring.zoom_in(150)
+      focus_ring.focus_far(220)
+
+    if (tele_pos == 150): # to 300
+      tele_ring.zoom_in(150)
+      focus_ring.focus_near(220) # get to 220
+
+  if (output == 'ZoomOut' and zoom_level > 0):
     zoom_level -= 1
-    tele_ring.zoom_out(150)
-    
+    tele_pos = tele_ring.get_pos()
+
+    if (tele_pos == 300): # to 150
+      tele_ring.zoom_out(150)
+      focus_ring.focus_far(220)
+
+    if (tele_pos == 150): # to 0
+      tele_ring.zoom_out(150)
+      focus_ring.focus_far(330)
+
 def start_voice_listening():
   picovoice_ai_key = os.getenv('PV_AI_ACCESS_KEY')
 
