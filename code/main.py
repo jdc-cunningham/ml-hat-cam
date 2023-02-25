@@ -5,6 +5,9 @@ from camera.camera import start_web_stream
 from dotenv import load_dotenv
 from speech_to_intent.speech_to_intent import RhinoDemo
 from threading import Thread
+from sound.sound import Sound
+
+player = Sound()
 
 load_dotenv(os.getcwd() + "/speech_to_intent/.env")
 
@@ -39,10 +42,12 @@ def parse_output(output):
     if (tele_pos == 0): # to 150
       tele_ring.zoom_in(150)
       focus_ring.focus_far(220)
+      player.play_sound_file('sound/files/aws_polly_medium-zoom.mp3')
 
     if (tele_pos == 150): # to 300
       tele_ring.zoom_in(150)
       focus_ring.focus_near(220) # get to 220
+      player.play_sound_file('sound/files/aws_polly_max-zoom.mp3')
 
   if (output == 'ZoomOut' and zoom_level > 0):
     zoom_level -= 1
@@ -51,10 +56,12 @@ def parse_output(output):
     if (tele_pos == 300): # to 150
       tele_ring.zoom_out(150)
       focus_ring.focus_far(220)
+      player.play_sound_file('sound/files/aws_polly_medium-zoom.mp3')
 
     if (tele_pos == 150): # to 0
       tele_ring.zoom_out(150)
       focus_ring.focus_far(330)
+      player.play_sound_file('sound/files/aws_polly_wide-open.mp3')
 
 def start_voice_listening():
   picovoice_ai_key = os.getenv('PV_AI_ACCESS_KEY')
