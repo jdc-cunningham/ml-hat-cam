@@ -35,9 +35,10 @@ def parse_output(output):
   # 150, 210
   # 300, 0
 
+  tele_pos = tele_ring.get_pos()
+
   if (output == 'ZoomIn' and zoom_level < 4):
     zoom_level += 1
-    tele_pos = tele_ring.get_pos()
 
     focus_ring.focus_far(330)
 
