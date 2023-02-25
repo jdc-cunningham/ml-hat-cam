@@ -22,3 +22,7 @@ Then I execute this as a thread with references(callbacks) to functions fired by
 See image for context
 
 <img src="../../devlog/images/picovoice-ai.png"/>
+
+### About the implementation in this project
+
+I installed the demo and I'm just using that demo comand line call and listening to the CLI out
