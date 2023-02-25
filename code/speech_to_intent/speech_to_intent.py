@@ -25,6 +25,7 @@ class SpeechIntent():
 
 		while (self.active):
 			lines = (p.stdout.readline, '')
+			print(lines)
 			line = lines[len(lines) - 1]
 			line = line.rstrip()
 			print(line.rstrip())
