@@ -28,7 +28,7 @@ def highlight_yes():
 
 def draw_batt_status():
   batt_status = batt_db.get_batt_status()
-  dmenu.draw_text(0, 0, 'batt: ' + batt_status, '', 'WHITE')
+  dmenu.draw_text(0, 0, 'batt: ' + batt_status, 'font_1', 'WHITE')
 
 draw_splash_screen()
 time.sleep(3)
