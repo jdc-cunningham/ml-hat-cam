@@ -28,12 +28,14 @@ def highlight_yes():
 
 def draw_batt_status():
   batt_status = batt_db.get_batt_status()
+  dmenu.draw_text(0, 0, 'batt: ' + batt_status, '', 'WHITE')
 
 draw_splash_screen()
 time.sleep(3)
 draw_charged_menu()
 time.sleep(1)
 highlight_yes()
+draw_batt_status()
 
 control = Dpad(dmenu)
 control.start()
