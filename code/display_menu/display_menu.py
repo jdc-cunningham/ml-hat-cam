@@ -33,7 +33,6 @@ class DisplayMenu():
   def __init__(self):
     self.disp = OLED_1in5_rgb.OLED_1in5_rgb()
     self.disp.Init()
-    self.disp.clear()
     self.image = Image.new('RGB', (self.disp.width, self.disp.height), 0)
     self.draw = ImageDraw.Draw(self.image)
     self.text_color = colors['white']
