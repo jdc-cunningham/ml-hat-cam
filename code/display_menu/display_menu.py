@@ -32,15 +32,15 @@ fonts = {
 class DisplayMenu():
   def __init__(self):
     self.disp = OLED_1in5_rgb.OLED_1in5_rgb()
+    self.text_color = colors['white']
+
+  def init(self):
     self.disp.Init()
     self.image = Image.new('RGB', (self.disp.width, self.disp.height), 0)
     self.draw = ImageDraw.Draw(self.image)
-    self.text_color = colors['white']
 
   def clear(self):
     self.disp.clear()
-    self.image = Image.new('RGB', (self.disp.width, self.disp.height), 0)
-    self.draw = ImageDraw.Draw(self.image)
 
   def draw_text(self, x, y, text, font = '', color = colors['white']):
     use_font = fonts['font_2']

@@ -9,6 +9,7 @@ from batt_db.batt_db import BattDatabase
 
 batt_db = BattDatabase()
 dmenu = DisplayMenu()
+dmenu.init()
 
 def draw_splash_screen():
   dmenu.draw_text(0, 55, 'ML Hat Cam v1')
