@@ -25,6 +25,8 @@ def zoom_out():
 zoom_level = 1 # 1, 2, 3 = close, middle, far
 
 def parse_output(output):
+  global zoom_level
+
   if (output == 'ZoomIn' and zoom_level < 3):
     zoom_level += 1
     tele_ring.zoom_in(150)
