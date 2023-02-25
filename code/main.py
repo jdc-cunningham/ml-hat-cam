@@ -27,8 +27,8 @@ def zoom_out():
 
 zoom_level = 1 # 1, 2, 3 = close, middle, far
 
-# prezoom wide open
-tele_pos = tele_ring.get_pos()
+# zoom for wideopen
+focus_ring.focus_far(330)
 
 def parse_output(output):
   global zoom_level
@@ -40,8 +40,7 @@ def parse_output(output):
 
   if (output == 'ZoomIn' and zoom_level < 4):
     zoom_level += 1
-
-    focus_ring.focus_far(330)
+    tele_pos = tele_ring.get_pos()
 
     if (tele_pos == 0): # to 150
       tele_ring.zoom_in(150)
