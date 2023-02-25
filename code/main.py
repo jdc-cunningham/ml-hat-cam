@@ -28,7 +28,7 @@ def zoom_out():
 zoom_level = 1 # 1, 2, 3 = close, middle, far
 
 # zoom for wideopen
-focus_ring.focus_far(330)
+focus_ring.focus_far(320)
 
 def parse_output(output):
   global zoom_level
