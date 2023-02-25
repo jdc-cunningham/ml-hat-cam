@@ -38,15 +38,15 @@ class BattDatabase:
     res = uptime.fetchone()
 
     if (res is None):
-      return 0
+      return [0, 345] # disconnect with seed
     
-    return res[0]
+    return res
 
   def update_batt_uptime(self):
     con = self.get_con()
     cur = self.get_cursor()
     prev_uptime = self.get_uptime_info()
-    res = prev_uptime.fetchone()
+    res = prev_uptime
     
     if (res is None):
       res = 0
