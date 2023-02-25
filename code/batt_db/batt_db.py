@@ -32,16 +32,26 @@ class BattDatabase:
         print("create table error")
         traceback.print_exc()
 
-  def update_batt_uptime(self, uptime):
+  def get_uptime_info(self):
+    cur = self.get_cursor()
+    uptime = cur.execute("SELECT uptime, max_uptime FROM battery_status LIMIT 1")
+    res = uptime.fetchone()
+
+    if (res is None):
+      return 0
+    
+    return res[0]
+
+  def update_batt_uptime(self):
     con = self.get_con()
     cur = self.get_cursor()
-    prev_uptime = cur.execute("SELECT uptime FROM battery_pos LIMIT 1")
+    prev_uptime = self.get_uptime_info()
     res = prev_uptime.fetchone()
     
     if (res is None):
       res = 0
 
-    new_val = res + uptime
+    new_val = res + 5
 
     cur.execute("UPDATE battery_status SET uptime = ?, pos = ? WHERE name = ?", [new_val])
     con.commit()
@@ -53,14 +63,12 @@ class BattDatabase:
     con.commit()
 
   def get_batt_status(self):
-    cur = self.get_cursor()
-    uptime = cur.execute("SELECT uptime, max_uptime FROM battery_status LIMIT 1")
-    res = uptime.fetchone()
+    uptime = self.get_uptime_info()
 
-    if (res is None):
+    if (uptime is None):
       return "100%"
     
-    used_per = (res[0] / res[1]) * 100
+    used_per = (uptime[0] / uptime[1]) * 100
     left_over = round(100 - used_per, 2)
 
     return str(left_over) + "%"
