@@ -4,8 +4,10 @@ lib_dir = os.getcwd() + '/display_menu'
 sys.path.append(lib_dir)
 
 from display_menu.display_menu import DisplayMenu
-from dpad.dpad import Dpad  
+from dpad.dpad import Dpad
+from batt_db.batt_db import BattDatabase
 
+batt_db = BattDatabase()
 dmenu = DisplayMenu()
 
 def draw_splash_screen():
@@ -23,6 +25,9 @@ def highlight_yes():
 
 # def highlight_no():
 #   #
+
+def draw_batt_status():
+  batt_status = batt_db.get_batt_status()
 
 draw_splash_screen()
 time.sleep(3)

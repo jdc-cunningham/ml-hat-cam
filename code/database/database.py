@@ -1,12 +1,9 @@
-import time
 import sqlite3
 import traceback
 
-from threading import Thread
-
 class Database:
   def __init__(self):
-    self.con = sqlite3.connect("ml_hat_cam.db", check_same_thread=False)
+    self.con = sqlite3.connect("ml_hat_cam_stepper.db", check_same_thread=False)
     self.init_stepper_pos_table()
     self.init_stepper_pos('tele')
     self.init_stepper_pos('focus')
