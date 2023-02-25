@@ -25,7 +25,8 @@ class BattDatabase:
 
     if (not(table_exists)):
       try:
-        cur.execute("CREATE TABLE battery_status(uptime, max_uptime)") # minute units
+        # ids could be useful if switching batteries
+        cur.execute("CREATE TABLE battery_status(id, uptime, max_uptime)") # minute units
         cur.execute("INSERT INTO battery_status VALUES(?, ?)", [0, 345])
         con.commit()
       except Exception:
@@ -34,7 +35,7 @@ class BattDatabase:
 
   def get_uptime_info(self):
     cur = self.get_cursor()
-    uptime = cur.execute("SELECT uptime, max_uptime FROM battery_status LIMIT 1")
+    uptime = cur.execute("SELECT uptime, max_uptime FROM battery_status WHERE id=1")
     res = uptime.fetchone()
 
     if (res is None):
@@ -53,13 +54,13 @@ class BattDatabase:
 
     new_val = res[0] + 5
 
-    cur.execute("UPDATE battery_status SET uptime = ?, pos = ? WHERE name = ?", [new_val])
+    cur.execute("UPDATE battery_status SET uptime = ? WHERE id=1", [new_val])
     con.commit()
 
   def reset_uptime(self):
     con = self.get_con()
     cur = self.get_cursor()
-    cur.execute("UPDATE battery_status SET uptime = ?, pos = ? WHERE name = ?", [0])
+    cur.execute("UPDATE battery_status SET uptime = ? WHERE id=1", [0])
     con.commit()
 
   def get_batt_status(self):
