@@ -36,8 +36,6 @@ class DisplayMenu():
 
   def init(self):
     self.disp.Init()
-    self.image = Image.new('RGB', (self.disp.width, self.disp.height), 0)
-    self.draw = ImageDraw.Draw(self.image)
 
   def clear(self):
     self.disp.clear()
