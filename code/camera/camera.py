@@ -63,6 +63,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
   # - find which direction increases next values
   # - find max value, stop
   def check_focus(self, frame_buffer):
+    return
     global prev_var, next_var, max_var, dir_near, reverse_dir, max_found, prev_vars, wait_time, cur_wait
 
     step_size = 5
