@@ -27,7 +27,7 @@ class BattDatabase:
       try:
         # ids could be useful if switching batteries
         cur.execute("CREATE TABLE battery_status(id, uptime, max_uptime)") # minute units
-        cur.execute("INSERT INTO battery_status VALUES(?, ?)", [0, 345])
+        cur.execute("INSERT INTO battery_status VALUES(?, ?, ?)", [1, 0, 345])
         con.commit()
       except Exception:
         print("create table error")
