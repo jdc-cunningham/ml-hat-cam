@@ -3,9 +3,10 @@
 # shouldn't let it get that high that's absolutely exhausted where battery protection
 # kicks in for my particular batteries
 
-import sys
+import os, sys
 
-sys.path.append('/home/pi/ml-hat-cam/code') # need this to resolve deps
+lib_dir = os.getcwd() + '/display_menu'
+sys.path.append(lib_dir)
 
 from display_menu.display_menu import DisplayMenu
 from batt_db.batt_db import BattDatabase
