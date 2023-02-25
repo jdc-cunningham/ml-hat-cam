@@ -1,5 +1,6 @@
 # files
 *.pyc
+*.rhn
 
 # folders
 __pycache__
