@@ -16,7 +16,7 @@ class SpeechIntent():
 	def start_listening(self):
 		self.active = True
 		picovoice_ai_key = os.environ.get('picovoice_ai_access_key', os.getcwd())
-		cmd = 'rhino_demo_mic --access_key ' + picovoice_ai_key + ' --context_path Zooming_en_raspberry-pi_v2_1_0.rhn --audio_device_index 1'
+		cmd = 'picovoice_ai_rhino_mic_demo.py --access_key ' + picovoice_ai_key + ' --context_path Zooming_en_raspberry-pi_v2_1_0.rhn --audio_device_index 1'
 		p = subprocess.Popen(cmd, stdout=subprocess.PIPE, bufsize=1)
 		
 		for line in iter(p.stdout.readline, b''):
