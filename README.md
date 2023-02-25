@@ -10,7 +10,7 @@ Major parts (more than $1 each)
 
 | Name                           | Cost             |
 | ------------------------------ | ---------------- |
-| RPi 4B                         | $55 (originally) |
+| RPi 4B 4GB                     | $55 (originally) |
 | Arducam 12.3MP IMX477          | $74.99           |
 | Arducam 8-50mm lens            | $49.99           |
 | 2x 28BYJ-48 Stepper            | $3 ea.           |
