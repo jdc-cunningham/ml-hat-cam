@@ -13,6 +13,7 @@ dmenu.init()
 
 def draw_splash_screen():
   dmenu.draw_text(0, 55, 'ML Hat Cam v1')
+  dmenu.clear()
 
 def draw_charged_menu():
   dmenu.clear()
