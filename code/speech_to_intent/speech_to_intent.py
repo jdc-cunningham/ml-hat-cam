@@ -19,11 +19,12 @@ class SpeechIntent():
 		args = (sys.executable, '-u', cmd_string)
 		cmd = ' '.join(args)
 		p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
-
-    lines = iter(p.stdout.readline, '')
-    for line in lines:
-      line = line.rstrip()
-      print(line)
+		
+		lines = iter(p.stdout.readline, '')
+		
+		for line in lines:
+			line = line.rstrip()
+			print(line)
 
 		# while (self.active):
 			# lines = (p.stdout.readline, '')
