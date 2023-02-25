@@ -17,7 +17,7 @@ class SpeechIntent():
 		self.active = True
 		picovoice_ai_key = os.environ.get('picovoice_ai_access_key', os.getcwd())
 		cmd = 'picovoice_ai_rhino_mic_demo.py --access_key ' + picovoice_ai_key + ' --context_path Zooming_en_raspberry-pi_v2_1_0.rhn --audio_device_index 1'
-		p = Popen('svnadmin verify /var/svn/repos/config', stdout = PIPE, stderr = STDOUT, shell = True)
+		p = Popen(cmd, stdout = STDOUT, stderr = STDOUT, shell = True)
 		
 		while self.active:
 			line = p.stdout.readline()
