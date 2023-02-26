@@ -24,8 +24,9 @@ def highlight_yes():
   dmenu.draw_text(68, 68, 'No', '', 'WHITE')
   dmenu.draw_text(0, 68, 'Yes', '', 'CYAN')
 
-# def highlight_no():
-#   #
+def highlight_no():
+  dmenu.draw_text(0, 68, 'Yes', '', 'WHITE')
+  dmenu.draw_text(68, 68, 'No', '', 'CYAN')
 
 def draw_batt_status():
   batt_status = batt_db.get_batt_status()
@@ -38,5 +39,11 @@ time.sleep(1)
 highlight_yes()
 draw_batt_status()
 
-control = Dpad(dmenu)
+def parse_dpad(button_pressed):
+  if (button_pressed == "LEFT"):
+    highlight_yes()
+  if (button_pressed == "RIGHT"):
+    highlight_no()
+
+control = Dpad(dmenu, parse_dpad)
 control.start()
