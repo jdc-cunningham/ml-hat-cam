@@ -37,9 +37,8 @@ def draw_batt_status():
   dmenu.draw_text(0, 0, 'batt: ' + batt_status, 'font_1', 'WHITE')
 
 draw_splash_screen()
-time.sleep(3)
+time.sleep(2)
 draw_charged_menu()
-time.sleep(1)
 draw_batt_status()
 
 batt_charged = False
@@ -72,7 +71,8 @@ def poll_battery_status():
     if (batt_level[0] >= batt_level[1]):
       player.play_sound_file('sound/files/aws_polly_low-battery.mp3')
 
-    time.sleep(310) # after every 5 minutes
+    time.sleep(60)
+    # time.sleep(310) # after every 5 minutes
 
 Thread(target=poll_battery_status).start()
 
