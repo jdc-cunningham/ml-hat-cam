@@ -59,6 +59,8 @@ def parse_dpad(button_pressed):
       batt_db.reset_uptime()
       dmenu.clear()
       draw_batt_status()
+    else:
+      dmenu.clear()
 
 def poll_battery_status():
   while True:
