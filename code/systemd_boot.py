@@ -37,7 +37,7 @@ def draw_batt_status():
   dmenu.draw_text(0, 0, 'batt: ' + batt_status, 'font_1', 'WHITE')
 
 draw_splash_screen()
-time.sleep(2)
+time.sleep(3)
 draw_charged_menu()
 draw_batt_status()
 
