@@ -7,6 +7,8 @@ class BattDatabase:
     self.init_batt_table()
 
   def get_con(self):
+    self.con.close()
+    self.con = sqlite3.connect("ml_hat_cam_batt.db", check_same_thread=False)
     return self.con
   
   def get_cursor(self):
@@ -24,6 +26,7 @@ class BattDatabase:
       table_exists = False
 
     if (not(table_exists)):
+      print('table does not exist')
       try:
         # ids could be useful if switching batteries
         cur.execute("CREATE TABLE battery_status(uptime, max_uptime)") # minute units
@@ -35,8 +38,12 @@ class BattDatabase:
 
   def get_uptime_info(self):
     cur = self.get_cursor()
-    uptime = cur.execute("SELECT uptime, max_uptime FROM battery_status WHERE rowid=1")
+    # this is dumb, but having issues where id column even non-rowid can't be found by CRON update call
+    uptime = cur.execute("SELECT uptime, max_uptime FROM battery_status LIMIT 1")
     res = uptime.fetchone()
+
+    print('get uptime')
+    print(res)
 
     if (res is None):
       return [0, 300] # disconnect with seed
@@ -48,23 +55,30 @@ class BattDatabase:
     cur = self.get_cursor()
     prev_uptime = self.get_uptime_info()
     res = prev_uptime
+
+    print('update batt uptime')
+    print(res)
     
     if (res is None):
       res = 0
 
     new_val = res[0] + 5
 
-    cur.execute("UPDATE battery_status SET uptime = ? WHERE rowid=1", [new_val])
+    print(new_val)
+
+    cur.execute("UPDATE battery_status SET uptime = ? WHERE rowid = 1", [new_val])
     con.commit()
 
   def reset_uptime(self):
     con = self.get_con()
     cur = self.get_cursor()
-    cur.execute("UPDATE battery_status SET uptime = ? WHERE rowid=1", [0])
+    cur.execute("UPDATE battery_status SET uptime = ? WHERE rowid = 1", [0])
     con.commit()
 
   def get_batt_status(self):
     uptime = self.get_uptime_info()
+
+    print(uptime)
 
     if (uptime is None):
       return "100%"
