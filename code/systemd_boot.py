@@ -19,7 +19,6 @@ def draw_splash_screen():
   dmenu.clear()
 
 def draw_charged_menu():
-  dmenu.clear()
   dmenu.draw_text(0, 46, 'Charged?')
   dmenu.draw_text(0, 68, 'Yes')
   dmenu.draw_text(68, 68, 'No', '', 'CYAN')
@@ -34,6 +33,7 @@ def highlight_no():
 
 def draw_batt_status():
   batt_status = batt_db.get_batt_status()
+  dmenu.clear_battery_status()
   dmenu.draw_text(0, 0, 'batt: ' + batt_status, 'font_1', 'WHITE')
 
 draw_splash_screen()

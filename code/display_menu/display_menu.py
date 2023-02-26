@@ -42,6 +42,9 @@ class DisplayMenu():
     self.image = Image.new('RGB', (self.disp.width, self.disp.height), 0)
     self.draw = ImageDraw.Draw(self.image)
 
+  def clear_battery_status(self):
+    self.draw.line([(0, 0), (128, 0)], "BLACK", width = 24)
+
   def draw_text(self, x, y, text, font = '', color = colors['white']):
     use_font = fonts['font_2']
     if font: use_font = fonts[font]
