@@ -1,5 +1,7 @@
 import os, sys, time
 
+from threading import Thread
+
 lib_dir = os.getcwd() + '/display_menu'
 sys.path.append(lib_dir)
 
@@ -36,14 +38,32 @@ draw_splash_screen()
 time.sleep(3)
 draw_charged_menu()
 time.sleep(1)
-highlight_yes()
 draw_batt_status()
 
+batt_charged = False
+
 def parse_dpad(button_pressed):
+  global batt_charged
+
   if (button_pressed == "LEFT"):
     highlight_yes()
+    batt_charged = True
+
   if (button_pressed == "RIGHT"):
     highlight_no()
+
+  if (button_pressed == "CENTER"):
+    if (batt_charged == True):
+      batt_db.reset_uptime()
+      dmenu.clear()
+      draw_batt_status()
+
+def poll_battery_status():
+  while True:
+    draw_batt_status()
+    time.sleep(310) # after every 5 minutes
+
+Thread(target=poll_battery_status).start()
 
 control = Dpad(dmenu, parse_dpad)
 control.start()
