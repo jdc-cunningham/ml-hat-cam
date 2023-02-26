@@ -27,10 +27,8 @@ No
 
 [see task list](/tasks.md)
 
-### System block diagram
+### System block diagram (needs to be updated when final state determined)
 <img src="ml-hat-cam-system-diagram-wip.png"/>
-
-(needs work)
 
 ### Raspberry Pi 4B GPIO pin usage
 
