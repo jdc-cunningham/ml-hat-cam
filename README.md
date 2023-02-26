@@ -23,6 +23,10 @@ Major parts (more than $1 each)
 
 No
 
+### Development progress
+
+[see task list](/tasks.md)
+
 ### System block diagram
 <img src="ml-hat-cam-system-diagram-wip.png"/>
 

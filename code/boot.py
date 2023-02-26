@@ -8,7 +8,9 @@ sys.path.append(lib_dir)
 from display_menu.display_menu import DisplayMenu
 from dpad.dpad import Dpad
 from batt_db.batt_db import BattDatabase
+from sound.sound import Sound
 
+player = Sound()
 batt_db = BattDatabase()
 dmenu = DisplayMenu()
 
@@ -61,6 +63,12 @@ def parse_dpad(button_pressed):
 def poll_battery_status():
   while True:
     draw_batt_status()
+
+    batt_level = batt_db.get_uptime_info()
+
+    if (batt_level[0] >= batt_level[1]):
+      player.play_sound_file('sound/files/aws_polly_low-battery.mp3')
+
     time.sleep(310) # after every 5 minutes
 
 Thread(target=poll_battery_status).start()

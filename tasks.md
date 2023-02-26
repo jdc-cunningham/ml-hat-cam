@@ -21,6 +21,7 @@
 
 
 - [ ] record microphone sound
-- [ ] voice control to start things (some kind of model)
-- [ ] battery db tracking
-  - [ ] show prompt on menu, if need to charge/play sound too
+- [x] voice control to start things (some kind of model) (02/26/2023)
+  - uses picovoice ai rhino speech to intent, only used `Zoom in` and `Zoom out`
+- [x] battery db tracking (02/27/2023)
+  - [x] show prompt on menu, if need to charge/play sound too
