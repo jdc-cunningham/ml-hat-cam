@@ -35,7 +35,7 @@ class BattDatabase:
 
   def get_uptime_info(self):
     cur = self.get_cursor()
-    uptime = cur.execute("SELECT uptime, max_uptime FROM battery_status WHERE id=1")
+    uptime = cur.execute("SELECT uptime, max_uptime FROM battery_status WHERE rowid=1")
     res = uptime.fetchone()
 
     if (res is None):
@@ -54,13 +54,13 @@ class BattDatabase:
 
     new_val = res[0] + 5
 
-    cur.execute("UPDATE battery_status SET uptime = ? WHERE id=1", [new_val])
+    cur.execute("UPDATE battery_status SET uptime = ? WHERE rowid=1", [new_val])
     con.commit()
 
   def reset_uptime(self):
     con = self.get_con()
     cur = self.get_cursor()
-    cur.execute("UPDATE battery_status SET uptime = ? WHERE id=1", [0])
+    cur.execute("UPDATE battery_status SET uptime = ? WHERE rowid=1", [0])
     con.commit()
 
   def get_batt_status(self):
