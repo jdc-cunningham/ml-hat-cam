@@ -21,3 +21,11 @@ Restart=no
 [Install]
 WantedBy=multi-user.target
 ```
+
+Commands for myself
+
+```
+$sudo nano /etc/systemd/system/boot_ml-hat-cam.service
+$sudo systemctl daemon-reload
+$sudo systemctl restart boot_ml-hat-cam.service
+```
