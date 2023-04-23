@@ -19,6 +19,7 @@ utils = Utils()
 def draw_splash_screen():
   dmenu.draw_text(0, 55, 'ML Hat Cam v1')
   dmenu.draw_text(0, 75, 'ip: ' + utils.get_ip(), 'font_1')
+  time.sleep(3)
   dmenu.clear()
 
 def draw_charged_menu():
@@ -40,7 +41,7 @@ def draw_batt_status():
   dmenu.draw_text(0, 0, 'batt: ' + batt_status, 'font_1', 'WHITE')
 
 draw_splash_screen()
-time.sleep(5)
+time.sleep(3)
 draw_charged_menu()
 draw_batt_status()
 
