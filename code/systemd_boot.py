@@ -18,7 +18,7 @@ utils = Utils()
 
 def draw_splash_screen():
   dmenu.draw_text(0, 55, 'ML Hat Cam v1')
-  dmenu.draw_text(0, 75, 'ip: ' + utils.get_ip())
+  dmenu.draw_text(0, 75, 'ip: ' + utils.get_ip(), 'font_1')
   dmenu.clear()
 
 def draw_charged_menu():
