@@ -1,4 +1,5 @@
 # https://www.geeksforgeeks.org/python-program-find-ip-address
+# https://stackoverflow.com/a/57355707/2710227
 import socket
 
 class Utils:
@@ -7,4 +8,4 @@ class Utils:
 
   def get_ip(self):
     hostname = socket.gethostname()
-    return socket.gethostbyname(hostname)
+    return socket.gethostbyname(hostname + ".local")
