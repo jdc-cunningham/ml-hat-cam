@@ -9,13 +9,16 @@ from display_menu.display_menu import DisplayMenu
 from dpad.dpad import Dpad
 from batt_db.batt_db import BattDatabase
 from sound.sound import Sound
+from utils.utils import Utils
 
 player = Sound()
 batt_db = BattDatabase()
 dmenu = DisplayMenu()
+utils = Utils()
 
 def draw_splash_screen():
   dmenu.draw_text(0, 55, 'ML Hat Cam v1')
+  dmenu.draw_text(0, 75, 'ip: ' + utils.get_ip())
   dmenu.clear()
 
 def draw_charged_menu():
@@ -37,7 +40,7 @@ def draw_batt_status():
   dmenu.draw_text(0, 0, 'batt: ' + batt_status, 'font_1', 'WHITE')
 
 draw_splash_screen()
-time.sleep(3)
+time.sleep(5)
 draw_charged_menu()
 draw_batt_status()
 
