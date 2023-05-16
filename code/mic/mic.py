@@ -55,13 +55,13 @@ class Mic:
       self.stop_recording(True)
 
   def stop_recording(self, keep_recording = False):
-    if (not keep_recording):
-      self.stop = True
-
     # stop the stream, close it, and terminate the pyaudio instantiation
     self.stream.stop_stream()
     self.stream.close()
-    self.audio.terminate()
+
+    if (not keep_recording):
+      self.stop = True
+      self.audio.terminate()
 
     wav_output_filename = self.recordpath + self.filename + '.wav'
 
