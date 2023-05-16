@@ -18,9 +18,9 @@ player = Sound()
 batt_db = BattDatabase()
 dmenu = DisplayMenu() # 128 x 128
 utils = Utils()
-video = Video('/mnt')
+video = Video('/mnt/')
 video_thread = None # oof
-mic = Mic('/mnt')
+mic = Mic('/mnt/')
 mic_thread = None
 
 usb_storage = UsbStorage()
