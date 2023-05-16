@@ -116,7 +116,7 @@ batt_charged = False
 def parse_dpad(button_pressed):
   global batt_charged, batt_checked
 
-  print(record_state['active_menu'])
+  print(batt_checked)
   print(record_state['active_menu'])
   print(record_state['zoom_level'])
 
