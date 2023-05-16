@@ -18,7 +18,7 @@ utils = Utils()
 
 record_state = {
   'recording': False,
-  'zoom_level': 'near',
+  'zoom_level': '',
   'active_menu': 'recording'
 }
 
@@ -30,6 +30,9 @@ def check_recording_state(button_press):
   if (record_state['active_menu'] == 'recording'):
     if (button_press == 'CENTER'):
       record_state['recording'] = not record_state['recording']
+
+    if (button_press == 'DOWN'):
+      record_state['active_menu'] = 'zoom_level'
 
   # these will not require a second click eg. CENTER just changing activates it
   if (record_state['active_menu'] == 'zoom_level'):
@@ -48,6 +51,9 @@ def check_recording_state(button_press):
           record_state['zoom_level'] = 'mid'
         else:
           record_state['zoom_level'] = 'far'
+    
+    if (button_press == 'UP'):
+      record_state['active_menu'] = 'recording'
 
   dmenu.clear()
   draw_recording_state()
@@ -79,10 +85,12 @@ def draw_batt_status():
   dmenu.draw_text(0, 0, 'batt: ' + batt_status, 'font_1', 'WHITE')
 
 def draw_recording_state():
+  record_menu = record_state['active_menu']
+
   if (record_state['recording']):
-    dmenu.draw_text(0, 48, 'Stop recording', '', 'WHITE')
+    dmenu.draw_text(0, 48, 'Stop recording', '', 'CYAN' if record_menu else 'WHITE')
   else:
-    dmenu.draw_text(0, 48, 'Start recording', '', 'WHITE')
+    dmenu.draw_text(0, 48, 'Start recording', '', 'CYAN' if record_menu else 'WHITE')
 
 def draw_zoom_state():
   if (record_state['zoom_level'] == 'near'):
