@@ -10,9 +10,9 @@ from dpad.dpad import Dpad
 from batt_db.batt_db import BattDatabase
 from sound.sound import Sound
 from utils.utils import Utils
-from usb_storage import UsbStorage
-from mic import Mic
-from video import Video
+from usb_storage.usb_storage import UsbStorage
+from mic.mic import Mic
+from video.video import Video
 
 player = Sound()
 batt_db = BattDatabase()
