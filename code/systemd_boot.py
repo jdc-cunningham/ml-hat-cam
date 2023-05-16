@@ -55,15 +55,15 @@ def draw_zoom_state():
   if (record_state['zoom_level'] == 'close'):
     dmenu.draw_text(0, 68, 'close', '', 'CYAN')
     dmenu.draw_text(40, 68, 'mid', '', 'WHITE')
-    dmenu.draw_text(900, 68, 'far', '', 'WHITE')
+    dmenu.draw_text(90, 68, 'far', '', 'WHITE')
   elif (record_state['zoom_level'] == 'mid'):
     dmenu.draw_text(0, 68, 'close', '', 'WHITE')
     dmenu.draw_text(40, 68, 'mid', '', 'CYAN')
-    dmenu.draw_text(900, 68, 'far', '', 'WHITE')
+    dmenu.draw_text(90, 68, 'far', '', 'WHITE')
   else:
     dmenu.draw_text(0, 68, 'close', '', 'WHITE')
     dmenu.draw_text(40, 68, 'mid', '', 'WHITE')
-    dmenu.draw_text(900, 68, 'far', '', 'CYAN')
+    dmenu.draw_text(90, 68, 'far', '', 'CYAN')
 
 draw_splash_screen()
 time.sleep(3)
