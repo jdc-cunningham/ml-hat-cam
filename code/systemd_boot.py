@@ -69,8 +69,6 @@ draw_splash_screen()
 time.sleep(3)
 draw_charged_menu()
 draw_batt_status()
-draw_recording_state()
-draw_zoom_state()
 
 batt_charged = False
 
@@ -92,6 +90,8 @@ def parse_dpad(button_pressed):
       dmenu.clear()
 
     draw_batt_status()
+    draw_recording_state()
+    draw_zoom_state()
 
 def poll_battery_status():
   while True:
