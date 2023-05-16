@@ -54,6 +54,13 @@ class Mic:
       self.record_count += 1
       self.stop_recording(True)
 
+  def check_filename(self, str):
+    if ("_" in str):
+      return str.split("_")[0]
+    else:
+      return str
+
+
   def stop_recording(self, keep_recording = False):
     # stop the stream, close it, and terminate the pyaudio instantiation
     self.stream.stop_stream()
@@ -74,4 +81,4 @@ class Mic:
     wavefile.close()
 
     if (keep_recording):
-      self.start_recording(self.filename + "_" + str(self.record_count))
+      self.start_recording(self.check_filename(self.filename) + "_" + str(self.record_count))
