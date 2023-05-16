@@ -18,7 +18,8 @@ utils = Utils()
 
 record_state = {
   'recording': False,
-  'zoom_level': 'near'
+  'zoom_level': 'near',
+  'active_menu': 'start_recording'
 }
 
 def draw_splash_screen():
@@ -47,23 +48,23 @@ def draw_batt_status():
 
 def draw_recording_state():
   if (record_state['recording']):
-    dmenu.draw_text(0, 48, 'Start recording', '', 'WHITE')
-  else:
     dmenu.draw_text(0, 48, 'Stop recording', '', 'WHITE')
+  else:
+    dmenu.draw_text(0, 48, 'Start recording', '', 'WHITE')
 
 def draw_zoom_state():
   if (record_state['zoom_level'] == 'near'):
     dmenu.draw_text(0, 68, 'near', '', 'CYAN')
-    dmenu.draw_text(40, 68, 'mid', '', 'WHITE')
-    dmenu.draw_text(90, 68, 'far', '', 'WHITE')
+    dmenu.draw_text(55, 68, 'mid', '', 'WHITE')
+    dmenu.draw_text(95, 68, 'far', '', 'WHITE')
   elif (record_state['zoom_level'] == 'mid'):
     dmenu.draw_text(0, 68, 'near', '', 'WHITE')
-    dmenu.draw_text(40, 68, 'mid', '', 'CYAN')
-    dmenu.draw_text(90, 68, 'far', '', 'WHITE')
+    dmenu.draw_text(55, 68, 'mid', '', 'CYAN')
+    dmenu.draw_text(95, 68, 'far', '', 'WHITE')
   else:
     dmenu.draw_text(0, 68, 'near', '', 'WHITE')
-    dmenu.draw_text(40, 68, 'mid', '', 'WHITE')
-    dmenu.draw_text(90, 68, 'far', '', 'CYAN')
+    dmenu.draw_text(55, 68, 'mid', '', 'WHITE')
+    dmenu.draw_text(95, 68, 'far', '', 'CYAN')
 
 draw_splash_screen()
 time.sleep(3)
