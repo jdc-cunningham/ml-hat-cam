@@ -19,8 +19,40 @@ utils = Utils()
 record_state = {
   'recording': False,
   'zoom_level': 'near',
-  'active_menu': 'start_recording'
+  'active_menu': 'recording'
 }
+
+batt_checked = False
+
+def check_recording_state(button_press):
+  global record_state
+
+  if (record_state['active_menu'] == 'recording'):
+    if (button_press == 'CENTER'):
+      record_state['recording'] = not record_state['recording']
+
+  # these will not require a second click eg. CENTER just changing activates it
+  if (record_state['active_menu'] == 'zoom_level'):
+    cur_zoom = record_state['zoom_level']
+
+    if (button_press == 'LEFT'): # this should be an easy array cycle
+      if (cur_zoom != 'near'):
+        if (cur_zoom == 'far'):
+          record_state['zoom_level'] = 'mid'
+        else:
+          record_state['zoom_level'] = 'near'
+
+    if (button_press == 'RIGHT'):
+      if (cur_zoom != 'far'):
+        if (cur_zoom == 'near'):
+          record_state['zoom_level'] = 'mid'
+        else:
+          record_state['zoom_level'] = 'far'
+
+
+  draw_recording_state()
+  draw_zoom_state()
+
 
 def draw_splash_screen():
   dmenu.draw_text(0, 55, 'ML Hat Cam v1')
@@ -74,25 +106,30 @@ draw_batt_status()
 batt_charged = False
 
 def parse_dpad(button_pressed):
-  global batt_charged
+  global batt_charged, batt_checked
 
-  if (button_pressed == "LEFT"):
-    highlight_yes()
-    batt_charged = True
+  if batt_checked:
+    check_recording_state()
+  else:
+    if (button_pressed == "LEFT"):
+      highlight_yes()
+      batt_charged = True
 
-  if (button_pressed == "RIGHT"):
-    highlight_no()
+    if (button_pressed == "RIGHT"):
+      highlight_no()
 
-  if (button_pressed == "CENTER"):
-    if (batt_charged == True):
-      batt_db.reset_uptime()
-      dmenu.clear()
-    else:
-      dmenu.clear()
+    if (button_pressed == "CENTER"):
+      if (batt_charged == True):
+        batt_db.reset_uptime()
+        dmenu.clear()
+      else:
+        dmenu.clear()
 
-    draw_batt_status()
-    draw_recording_state()
-    draw_zoom_state()
+      batt_checked = True
+
+      draw_batt_status()
+      draw_recording_state()
+      draw_zoom_state()
 
 def poll_battery_status():
   while True:
