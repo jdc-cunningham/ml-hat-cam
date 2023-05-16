@@ -49,7 +49,7 @@ def check_recording_state(button_press):
 
       if (record_state['recording']):
         print('record')
-        filename = str(time.time())
+        filename = str(int(time.time()))
         audio_thread = Thread(target=mic.start_recording, args=(filename,))
         audio_thread.start()
         # mic.start_recording(filename)
