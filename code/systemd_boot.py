@@ -93,7 +93,7 @@ def draw_recording_state():
     dmenu.draw_text(0, 48, 'Start recording', '', 'CYAN' if record_row_active else 'WHITE')
 
 def draw_zoom_state():
-  zoom_row_active = record_state['zoom_level'] == 'zoom_level'
+  zoom_row_active = record_state['active_menu'] == 'zoom_level'
 
   if (record_state['zoom_level'] == 'near'):
     dmenu.draw_text(0, 68, 'near', '', 'CYAN' if zoom_row_active else 'WHITE')
