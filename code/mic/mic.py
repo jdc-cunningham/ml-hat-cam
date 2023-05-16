@@ -16,6 +16,12 @@ class Mic:
     self.record_secs = 60 # record by the minute
     self.dev_index = 1 # get_device()
     self.record_count = 0 # keeps incrementing until recording stopped
+    self.audio = pyaudio.PyAudio() # create pyaudio instantiation
+
+    # create pyaudio stream
+    self.stream = self.audio.open(format = self.form_1, rate = self.samp_rate, channels = self.chans, \
+                        input_device_index = self.dev_index, input = True, \
+                        frames_per_buffer = self.chunk)
 
   def scan_devices(self):
     p = pyaudio.PyAudio()
@@ -27,15 +33,7 @@ class Mic:
 
   def start_recording(self, file_name):
     self.filename = file_name
-    self.audio = pyaudio.PyAudio() # create pyaudio instantiation
-
-    # create pyaudio stream
-    self.stream = self.audio.open(format = self.form_1, rate = self.samp_rate, channels = self.chans, \
-                        input_device_index = self.dev_index, input = True, \
-                        frames_per_buffer = self.chunk)
-    
     self.recording = True
-
     self.frames = []
 
     # loop through stream and append audio chunks to frame array
