@@ -46,17 +46,17 @@ def draw_batt_status():
   dmenu.draw_text(0, 0, 'batt: ' + batt_status, 'font_1', 'WHITE')
 
 def draw_recording_state():
-  if (record_state.recording):
+  if (record_state['recording']):
     dmenu.draw_text(0, 68, 'Start recording', '', 'WHITE')
   else:
     dmenu.draw_text(0, 68, 'Stop recording', '', 'WHITE')
 
 def draw_zoom_state():
-  if (record_state.zoom_level == 'close'):
+  if (record_state['zoom_level'] == 'close'):
     dmenu.draw_text(0, 68, 'close', '', 'CYAN')
     dmenu.draw_text(40, 68, 'mid', '', 'WHITE')
     dmenu.draw_text(900, 68, 'far', '', 'WHITE')
-  elif (record_state.zoom_level == 'mid'):
+  elif (record_state['zoom_level'] == 'mid'):
     dmenu.draw_text(0, 68, 'close', '', 'WHITE')
     dmenu.draw_text(40, 68, 'mid', '', 'CYAN')
     dmenu.draw_text(900, 68, 'far', '', 'WHITE')
