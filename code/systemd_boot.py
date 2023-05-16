@@ -47,9 +47,9 @@ def draw_batt_status():
 
 def draw_recording_state():
   if (record_state['recording']):
-    dmenu.draw_text(0, 68, 'Start recording', '', 'WHITE')
+    dmenu.draw_text(0, 48, 'Start recording', '', 'WHITE')
   else:
-    dmenu.draw_text(0, 68, 'Stop recording', '', 'WHITE')
+    dmenu.draw_text(0, 48, 'Stop recording', '', 'WHITE')
 
 def draw_zoom_state():
   if (record_state['zoom_level'] == 'close'):
@@ -102,10 +102,11 @@ def poll_battery_status():
     if (batt_level[0] >= batt_level[1]):
       player.play_sound_file('sound/files/aws_polly_low-battery.mp3')
 
-    time.sleep(60)
+    # time.sleep(60)
     # time.sleep(310) # after every 5 minutes
 
-Thread(target=poll_battery_status).start()
+# turn this off for now
+# Thread(target=poll_battery_status).start()
 
 control = Dpad(dmenu, parse_dpad)
 control.start()
