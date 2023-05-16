@@ -13,7 +13,6 @@ class Video:
     encoder = H264Encoder(bitrate=10000000)
     self.camera.resolution = (640, 480)
     self.camera.start_recording(encoder, self.recordpath + self.filename + '.h264')
-    time.sleep(21600)
 
   def stop_recording(self):
     self.camera.stop_recording()

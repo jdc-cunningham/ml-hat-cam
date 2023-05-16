@@ -6,6 +6,7 @@ class Mic:
   def __init__(self,  usb_path):
     self.recordpath = usb_path
     self.recording = False
+    self.stop_recording = False
     self.stream = None
     self.audio = None
     self.form_1 = pyaudio.paInt16 # 16-bit resolution
@@ -38,6 +39,11 @@ class Mic:
 
     # loop through stream and append audio chunks to frame array
     for ii in range(0,int((self.samp_rate/self.chunk)*self.record_secs)):
+      if (self.stop_recording):
+        self.recording = False
+        self.stop_recording()
+        return
+
       data = self.stream.read(self.chunk)
       self.frames.append(data)
 

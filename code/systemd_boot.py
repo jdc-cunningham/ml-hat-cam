@@ -51,7 +51,7 @@ def check_recording_state(button_press):
         video.start_recording(filename)
       else:
         print('stop')
-        mic.stop_recording()
+        mic.stop_recording = True
         video.stop_recording()
 
     if (button_press == 'DOWN'):
