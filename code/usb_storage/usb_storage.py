@@ -18,4 +18,5 @@ class UsbStorage():
       tryb = subprocess.check_output('mount /dev/sda1 /mnt', shell=True) == 0
 
     self.mounted = trya == 0 or tryb == 0 # what
+
     return self.mounted

@@ -20,9 +20,12 @@ dmenu = DisplayMenu() # 128 x 128
 utils = Utils()
 
 usb_storage = UsbStorage()
+usb_mounted = usb_storage.check_mounted()
 
-print('mounted')
-print(usb_storage.check_mounted())
+if (not usb_mounted):
+  # force USB usage so SD card lasts longer
+  dmenu.draw_text(0, 55, 'No USB drive')
+  sys.exit("USB not mounted")
 
 mic = Mic('/mnt')
 video = Video('/mnt')
