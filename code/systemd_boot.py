@@ -109,7 +109,7 @@ def parse_dpad(button_pressed):
   global batt_charged, batt_checked
 
   if batt_checked:
-    check_recording_state()
+    check_recording_state(button_pressed)
   else:
     if (button_pressed == "LEFT"):
       highlight_yes()
