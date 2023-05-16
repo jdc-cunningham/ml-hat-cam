@@ -27,13 +27,12 @@ if (not usb_mounted):
   dmenu.draw_text(0, 55, 'No USB drive')
   sys.exit("USB not mounted")
 
-mic = Mic('/mnt')
-video = Video('/mnt')
-
 record_state = {
   'recording': False,
   'zoom_level': 'near',
-  'active_menu': 'recording'
+  'active_menu': 'recording',
+  'video': Video('/mnt'),
+  'audio': Mic('/mnt')
 }
 
 batt_checked = False
@@ -44,6 +43,14 @@ def check_recording_state(button_press):
   if (record_state['active_menu'] == 'recording'):
     if (button_press == 'CENTER'):
       record_state['recording'] = not record_state['recording']
+
+      if (record_state['recording']):
+        filename = time()
+        record_state['audio'].start_recording(filename)
+        record_state['video'].start_recording(filename)
+      else:
+        record_state['audio'].stop_recording(filename)
+        record_state['video'].stop_recording(filename)
 
     if (button_press == 'DOWN'):
       record_state['active_menu'] = 'zoom_level'
