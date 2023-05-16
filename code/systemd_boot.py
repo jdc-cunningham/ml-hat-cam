@@ -45,7 +45,7 @@ def check_recording_state(button_press):
       record_state['recording'] = not record_state['recording']
 
       if (record_state['recording']):
-        filename = time()
+        filename = time.time()
         mic.start_recording(filename)
         video.start_recording(filename)
       else:
