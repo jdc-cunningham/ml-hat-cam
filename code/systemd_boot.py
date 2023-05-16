@@ -85,26 +85,28 @@ def draw_batt_status():
   dmenu.draw_text(0, 0, 'batt: ' + batt_status, 'font_1', 'WHITE')
 
 def draw_recording_state():
-  record_menu = record_state['active_menu']
+  record_row_active = record_state['active_menu']
 
   if (record_state['recording']):
-    dmenu.draw_text(0, 48, 'Stop recording', '', 'CYAN' if record_menu else 'WHITE')
+    dmenu.draw_text(0, 48, 'Stop recording', '', 'CYAN' if record_row_active else 'WHITE')
   else:
-    dmenu.draw_text(0, 48, 'Start recording', '', 'CYAN' if record_menu else 'WHITE')
+    dmenu.draw_text(0, 48, 'Start recording', '', 'CYAN' if record_row_active else 'WHITE')
 
 def draw_zoom_state():
+  zoom_row_active = record_state['zoom_level']
+
   if (record_state['zoom_level'] == 'near'):
-    dmenu.draw_text(0, 68, 'near', '', 'CYAN')
+    dmenu.draw_text(0, 68, 'near', '', 'CYAN' if zoom_row_active else 'WHITE')
     dmenu.draw_text(55, 68, 'mid', '', 'WHITE')
     dmenu.draw_text(100, 68, 'far', '', 'WHITE')
   elif (record_state['zoom_level'] == 'mid'):
     dmenu.draw_text(0, 68, 'near', '', 'WHITE')
-    dmenu.draw_text(55, 68, 'mid', '', 'CYAN')
+    dmenu.draw_text(55, 68, 'mid', '', 'CYAN' if zoom_row_active else 'WHITE')
     dmenu.draw_text(100, 68, 'far', '', 'WHITE')
   else:
     dmenu.draw_text(0, 68, 'near', '', 'WHITE')
     dmenu.draw_text(55, 68, 'mid', '', 'WHITE')
-    dmenu.draw_text(100, 68, 'far', '', 'CYAN')
+    dmenu.draw_text(100, 68, 'far', '', 'CYAN' if zoom_row_active else 'WHITE')
 
 draw_splash_screen()
 time.sleep(3)
@@ -115,10 +117,6 @@ batt_charged = False
 
 def parse_dpad(button_pressed):
   global batt_charged, batt_checked
-
-  print(batt_checked)
-  print(record_state['active_menu'])
-  print(record_state['zoom_level'])
 
   if batt_checked:
     check_recording_state(button_pressed)
