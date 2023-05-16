@@ -6,7 +6,7 @@ class Mic:
   def __init__(self,  usb_path):
     self.recordpath = usb_path
     self.recording = False
-    self.stop_recording = False
+    self.stop = False
     self.stream = None
     self.audio = None
     self.form_1 = pyaudio.paInt16 # 16-bit resolution
@@ -39,9 +39,8 @@ class Mic:
 
     # loop through stream and append audio chunks to frame array
     for ii in range(0,int((self.samp_rate/self.chunk)*self.record_secs)):
-      if (self.stop_recording):
+      if (self.stop):
         self.recording = False
-        self.stop_recording()
         return
 
       # https://stackoverflow.com/questions/10733903/pyaudio-input-overflowed
@@ -49,6 +48,7 @@ class Mic:
       self.frames.append(data)
 
   def stop_recording(self):
+    self.stop = True
     # stop the stream, close it, and terminate the pyaudio instantiation
     self.stream.stop_stream()
     self.stream.close()
