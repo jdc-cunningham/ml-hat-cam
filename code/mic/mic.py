@@ -44,7 +44,8 @@ class Mic:
         self.stop_recording()
         return
 
-      data = self.stream.read(self.chunk)
+      # https://stackoverflow.com/questions/10733903/pyaudio-input-overflowed
+      data = self.stream.read(self.chunk, exception_on_overflow = False)
       self.frames.append(data)
 
   def stop_recording(self):
