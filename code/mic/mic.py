@@ -53,7 +53,6 @@ class Mic:
     if (not self.stop):
       self.record_count += 1
       self.stop_recording(True)
-      self.start_recording(self.filename + "_" + str(self.record_count))
 
   def stop_recording(self, keep_recording = False):
     if (not keep_recording):
@@ -73,3 +72,6 @@ class Mic:
     wavefile.setframerate(self.samp_rate)
     wavefile.writeframes(b''.join(self.frames))
     wavefile.close()
+
+    if (keep_recording):
+      self.start_recording(self.filename + "_" + str(self.record_count))
