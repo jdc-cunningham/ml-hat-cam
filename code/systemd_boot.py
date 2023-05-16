@@ -13,8 +13,13 @@ from utils.utils import Utils
 
 player = Sound()
 batt_db = BattDatabase()
-dmenu = DisplayMenu()
+dmenu = DisplayMenu() # 128 x 128
 utils = Utils()
+
+record_state = {
+  'recording': False,
+  'zoom_level': 'close'  
+}
 
 def draw_splash_screen():
   dmenu.draw_text(0, 55, 'ML Hat Cam v1')
@@ -40,10 +45,32 @@ def draw_batt_status():
   dmenu.clear_battery_status()
   dmenu.draw_text(0, 0, 'batt: ' + batt_status, 'font_1', 'WHITE')
 
+def draw_recording_state():
+  if (record_state.recording):
+    dmenu.draw_text(0, 68, 'Start recording', '', 'WHITE')
+  else:
+    dmenu.draw_text(0, 68, 'Stop recording', '', 'WHITE')
+
+def draw_zoom_state():
+  if (record_state.zoom_level == 'close'):
+    dmenu.draw_text(0, 68, 'close', '', 'CYAN')
+    dmenu.draw_text(40, 68, 'mid', '', 'WHITE')
+    dmenu.draw_text(900, 68, 'far', '', 'WHITE')
+  elif (record_state.zoom_level == 'mid'):
+    dmenu.draw_text(0, 68, 'close', '', 'WHITE')
+    dmenu.draw_text(40, 68, 'mid', '', 'CYAN')
+    dmenu.draw_text(900, 68, 'far', '', 'WHITE')
+  else:
+    dmenu.draw_text(0, 68, 'close', '', 'WHITE')
+    dmenu.draw_text(40, 68, 'mid', '', 'WHITE')
+    dmenu.draw_text(900, 68, 'far', '', 'CYAN')
+
 draw_splash_screen()
 time.sleep(3)
 draw_charged_menu()
 draw_batt_status()
+draw_recording_state()
+draw_zoom_state()
 
 batt_charged = False
 
