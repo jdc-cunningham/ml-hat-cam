@@ -47,6 +47,8 @@ class Mic:
         self.record_count = 0
         return
 
+    print('>>> min loop done')
+
     # start new chunk
     if (not self.stop):
       self.record_count += 1
