@@ -44,6 +44,7 @@ def check_recording_state(button_press):
 
   if (record_state['active_menu'] == 'recording'):
     if (button_press == 'CENTER'):
+      print('center')
       record_state['recording'] = not record_state['recording']
 
       if (record_state['recording']):
