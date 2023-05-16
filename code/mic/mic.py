@@ -13,7 +13,7 @@ class Mic:
     self.chans = 1 # 1 channel
     self.samp_rate = 44100 # 44.1kHz sampling rate
     self.chunk = 4096 # 2^12 samples for buffer
-    self.record_secs = 21600 # seconds to record, insane here 6 hours
+    self.record_secs = 10 # 21600 # seconds to record, insane here 6 hours
     self.dev_index = 1 # get_device()
 
   def scan_devices(self):
@@ -46,6 +46,8 @@ class Mic:
       if (self.stop):
         self.recording = False
         return
+      
+    self.stop_recording()
 
   def stop_recording(self):
     self.stop = True
