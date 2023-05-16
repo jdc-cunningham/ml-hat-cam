@@ -18,7 +18,7 @@ utils = Utils()
 
 record_state = {
   'recording': False,
-  'zoom_level': '',
+  'zoom_level': 'near',
   'active_menu': 'recording'
 }
 
