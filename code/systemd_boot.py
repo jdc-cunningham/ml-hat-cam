@@ -49,8 +49,8 @@ def check_recording_state(button_press):
         record_state['audio'].start_recording(filename)
         record_state['video'].start_recording(filename)
       else:
-        record_state['audio'].stop_recording(filename)
-        record_state['video'].stop_recording(filename)
+        record_state['audio'].stop_recording()
+        record_state['video'].stop_recording()
 
     if (button_press == 'DOWN'):
       record_state['active_menu'] = 'zoom_level'
