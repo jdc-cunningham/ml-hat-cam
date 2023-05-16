@@ -19,7 +19,9 @@ batt_db = BattDatabase()
 dmenu = DisplayMenu() # 128 x 128
 utils = Utils()
 video = Video('/mnt')
+video_thread = None # oof
 mic = Mic('/mnt')
+mic_thread = None
 
 usb_storage = UsbStorage()
 usb_mounted = usb_storage.check_mounted()
@@ -38,7 +40,7 @@ record_state = {
 batt_checked = False
 
 def check_recording_state(button_press):
-  global record_state
+  global record_state, video_thread, audio_thread
 
   if (record_state['active_menu'] == 'recording'):
     if (button_press == 'CENTER'):
@@ -47,12 +49,15 @@ def check_recording_state(button_press):
       if (record_state['recording']):
         print('record')
         filename = time.time()
-        mic.start_recording(filename)
-        video.start_recording(filename)
+        audio_thread = Thread(target=mic.start_recording, args=(filename)).start()
+        # mic.start_recording(filename)
+        video_thread = Thread(traget=video.start_recording, args=(filename)).strat()
       else:
         print('stop')
         mic.stop_recording = True
         video.stop_recording()
+        audio_thread.exit()
+        video_thread.exit()
 
     if (button_press == 'DOWN'):
       record_state['active_menu'] = 'zoom_level'
