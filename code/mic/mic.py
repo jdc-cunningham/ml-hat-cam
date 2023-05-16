@@ -39,13 +39,13 @@ class Mic:
 
     # loop through stream and append audio chunks to frame array
     for ii in range(0,int((self.samp_rate/self.chunk)*self.record_secs)):
-      if (self.stop):
-        self.recording = False
-        return
-
       # https://stackoverflow.com/questions/10733903/pyaudio-input-overflowed
       data = self.stream.read(self.chunk, exception_on_overflow = False)
       self.frames.append(data)
+
+      if (self.stop):
+        self.recording = False
+        return
 
   def stop_recording(self):
     self.stop = True
