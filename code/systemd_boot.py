@@ -18,6 +18,8 @@ player = Sound()
 batt_db = BattDatabase()
 dmenu = DisplayMenu() # 128 x 128
 utils = Utils()
+video = Video('/mnt')
+mic = Mic('/mnt')
 
 usb_storage = UsbStorage()
 usb_mounted = usb_storage.check_mounted()
@@ -30,9 +32,7 @@ if (not usb_mounted):
 record_state = {
   'recording': False,
   'zoom_level': 'near',
-  'active_menu': 'recording',
-  'video': Video('/mnt'),
-  'audio': Mic('/mnt')
+  'active_menu': 'recording'
 }
 
 batt_checked = False
@@ -46,11 +46,11 @@ def check_recording_state(button_press):
 
       if (record_state['recording']):
         filename = time()
-        record_state['audio'].start_recording(filename)
-        record_state['video'].start_recording(filename)
+        mic.start_recording(filename)
+        video.start_recording(filename)
       else:
-        record_state['audio'].stop_recording()
-        record_state['video'].stop_recording()
+        mic.stop_recording()
+        video.stop_recording()
 
     if (button_press == 'DOWN'):
       record_state['active_menu'] = 'zoom_level'
