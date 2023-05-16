@@ -49,7 +49,7 @@ def check_recording_state(button_press):
         else:
           record_state['zoom_level'] = 'far'
 
-
+  dmenu.clear()
   draw_recording_state()
   draw_zoom_state()
 
