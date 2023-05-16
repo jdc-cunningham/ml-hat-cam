@@ -52,7 +52,7 @@ def check_recording_state(button_press):
         filename = time.time()
         audio_thread = Thread(target=mic.start_recording, args=(filename,)).start()
         # mic.start_recording(filename)
-        video_thread = Thread(target=video.start_recording, args=(filename,)).strat()
+        video_thread = Thread(target=video.start_recording, args=(filename,)).start()
       else:
         print('stop')
         mic.stop_recording = True
