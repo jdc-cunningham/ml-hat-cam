@@ -52,7 +52,12 @@ class Mic:
     # start new chunk
     if (not self.stop):
       self.record_count += 1
-      self.stop_recording(True)
+      
+      try:
+        self.stop_recording(True)
+      except:
+        # OSError: [Errno -9999] Unanticipated host error
+        print('The usual alsa error due to not finishing fixed recording time')
 
   def check_filename(self, str):
     if ("_" in str):
