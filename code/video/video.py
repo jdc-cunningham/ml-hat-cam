@@ -13,7 +13,7 @@ class Video:
 
   def start_recording(self, file_name):
     self.filename = file_name
-    self.camera.start_recording(self.encoder, self.recordpath + self.filename + '.h264')
+    self.camera.start_recording(self.encoder, self.record_path + self.filename + '.h264')
 
   def stop_recording(self):
     self.camera.stop_recording()
