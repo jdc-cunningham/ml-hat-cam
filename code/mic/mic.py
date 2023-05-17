@@ -64,20 +64,13 @@ class Mic:
   def stop_recording(self, keep_recording = False):
     # stop the stream, close it, and terminate the pyaudio instantiation
     self.stream.stop_stream()
-
-    try:
-      self.stream.close()
-    except:
-      # OSError: [Errno -9999] Unanticipated host error
-      print('The usual alsa error due to not finishing fixed recording time')
-    finally:
-      # fire off keyboard interrupt
-      # https://forums.raspberrypi.com/viewtopic.php?t=70589
-      raise(KeyboardInterrupt)
+    self.stream.close()
 
     if (not keep_recording):
       self.stop = True
       self.audio.terminate()
+      # https://forums.raspberrypi.com/viewtopic.php?t=70589
+      raise(KeyboardInterrupt)
 
     # try:
     #   self.stop_recording(True)
