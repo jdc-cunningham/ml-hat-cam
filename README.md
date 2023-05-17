@@ -4,6 +4,13 @@ An auto-zoom hat-mounted camera using an Arducam IMX477 with 8-50mm lens and ML 
 
 <img src="ml-hat-cam-v1.JPG"/>
 
+### Current capabilities
+- record video, write to USB
+- record audio, write to USB
+- dpad with display (basic menus)
+- zoom and position (db)
+- battery life tracking
+
 ### Unit cost $235+
 
 Major parts (more than $1 each)
