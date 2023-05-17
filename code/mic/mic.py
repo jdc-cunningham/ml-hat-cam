@@ -42,17 +42,16 @@ class Mic:
       data = self.stream.read(self.chunk, exception_on_overflow = False)
       self.frames.append(data)
 
-      if (self.stop):
-        self.recording = False
-        self.record_count = 0
-        self.stop_recording()
-
     print('>>> min loop done')
 
     # start new chunk
     if (not self.stop):
       self.record_count += 1
       self.stop_recording(True)
+    else:
+      self.recording = False
+      self.record_count = 0
+      self.stop_recording()
 
   def check_filename(self, str):
     if ("_" in str):
