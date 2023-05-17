@@ -1,6 +1,7 @@
 # https://makersportal.com/blog/2018/8/23/recording-audio-on-the-raspberry-pi-with-python-and-a-usb-microphone
 import pyaudio
 import wave
+import signal
 
 class Mic:
   def __init__(self,  usb_path):
@@ -70,6 +71,10 @@ class Mic:
     except:
       # OSError: [Errno -9999] Unanticipated host error
       print('The usual alsa error due to not finishing fixed recording time')
+    finally:
+      # fire off keyboard interrupt
+      # https://stackoverflow.com/questions/53497836/what-is-the-best-way-to-generate-ctrlc-event-in-python
+      signal.CTRL_C_EVENT # oof
 
     if (not keep_recording):
       self.stop = True
