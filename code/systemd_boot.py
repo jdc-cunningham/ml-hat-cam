@@ -65,7 +65,7 @@ def check_recording_state(button_press):
         video_thread.start()
       else:
         video.stop_recording()
-        mic.stop_recording()
+        mic.stop = True
 
     if (button_press == 'DOWN'):
       record_state['active_menu'] = 'zoom_level'

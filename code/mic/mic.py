@@ -13,7 +13,7 @@ class Mic:
     self.chans = 1 # 1 channel
     self.samp_rate = 44100 # 44.1kHz sampling rate
     self.chunk = 4096 # 2^12 samples for buffer
-    self.record_secs = 60 # record by the minute
+    self.record_secs = 10 # record by the minute
     self.dev_index = 1 # get_device()
     self.record_count = 0 # keeps incrementing until recording stopped
     self.audio = pyaudio.PyAudio() # create pyaudio instantiation
@@ -45,7 +45,7 @@ class Mic:
       if (self.stop):
         self.recording = False
         self.record_count = 0
-        return
+        self.stop_recording()
 
     print('>>> min loop done')
 
@@ -69,8 +69,6 @@ class Mic:
     if (not keep_recording):
       self.stop = True
       self.audio.terminate()
-      # https://forums.raspberrypi.com/viewtopic.php?t=70589
-      raise(KeyboardInterrupt)
 
     # try:
     #   self.stop_recording(True)
