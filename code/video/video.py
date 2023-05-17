@@ -10,11 +10,11 @@ class Video:
     self.record_path = usb_path
     # 1080P@60fps
     # 4056, 3040 max lower fps, possibly not possible with rpi
-    self.camera.create_video_configuration()
+    self.camera.configure(self.camera.create_video_configuration())
 
   def start_recording(self, file_name):
     self.filename = file_name
-    self.camera.start_recording(self.encoder, self.record_path + self.filename + '.h264', quality=Quality.VERY_HIGH)
+    self.camera.start_recording(self.encoder, self.record_path + self.filename + '.h264', quality=Quality.HIGH)
 
   def stop_recording(self):
     self.camera.stop_recording()
