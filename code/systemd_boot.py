@@ -93,7 +93,7 @@ def check_recording_state(button_press):
           tele_ring.zoom_in(150)
         else:
           record_state['zoom_level'] = 'far'
-          focus_ring.focus_near(90)
+          focus_ring.focus_near(140)
           tele_ring.zoom_in(150)
     
     if (button_press == 'UP'):
