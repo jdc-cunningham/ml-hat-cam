@@ -30,7 +30,7 @@ focus_ring = Stepper(6, 13, 19, 26, 'focus', 350, db)
 tele_ring = Stepper(12, 16, 20, 21, 'tele', 300, db)
 
 # set to near focus
-focus_ring.focus_far(300)
+focus_ring.focus_far(290)
 tele_ring.zoom_out(0) # should be at 0 already, autozero's on boot
 
 usb_storage = UsbStorage()
@@ -82,14 +82,14 @@ def check_recording_state(button_press):
           tele_ring.zoom_out(150)
         else:
           record_state['zoom_level'] = 'near'
-          focus_ring.focus_far(90)
+          focus_ring.focus_far(80)
           tele_ring.zoom_out(150)
 
     if (button_press == 'RIGHT'):
       if (cur_zoom != 'far'):
         if (cur_zoom == 'near'):
           record_state['zoom_level'] = 'mid'
-          focus_ring.focus_near(90)
+          focus_ring.focus_near(80)
           tele_ring.zoom_in(150)
         else:
           record_state['zoom_level'] = 'far'
