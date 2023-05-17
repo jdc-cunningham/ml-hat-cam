@@ -5,14 +5,14 @@ import time
 class Video:
   def __init__(self, usb_path):
     self.camera = None
-    self.recordpath = usb_path
+    self.camera = Picamera2()
+    self.encoder = H264Encoder(bitrate=10000000)
+    # 1080P@60fps
+    self.camera.resolution = (1920, 1080) # 4056, 3040 max lower fps, possibly not possible with rpi
 
   def start_recording(self, file_name):
     self.filename = file_name
-    self.camera = Picamera2()
-    encoder = H264Encoder(bitrate=10000000)
-    self.camera.resolution = (640, 480)
-    self.camera.start_recording(encoder, self.recordpath + self.filename + '.h264')
+    self.camera.start_recording(self.encoder, self.recordpath + self.filename + '.h264')
 
   def stop_recording(self):
     self.camera.stop_recording()
