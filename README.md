@@ -11,6 +11,7 @@ An auto-zoom hat-mounted camera using an Arducam IMX477 with 8-50mm lens and ML 
 - zoom and position (db)
 - autofocus (variance, needs work)
 - battery life tracking
+- TTS statuses
 
 ### Unit cost $235+
 
