@@ -16,7 +16,7 @@ class Mic:
     self.record_secs = 10 # record by the minute
     self.dev_index = 1 # get_device()
     self.record_count = 0 # keeps incrementing until recording stopped
-    self.audio = pyaudio.PyAudio() # create pyaudio instantiation
+    self.audio = None
 
   def scan_devices(self):
     p = pyaudio.PyAudio()
@@ -27,6 +27,7 @@ class Mic:
         return i
 
   def start_recording(self, file_name):
+    self.audio = pyaudio.PyAudio() # create pyaudio instantiation
     # create pyaudio stream
     self.stream = self.audio.open(format = self.form_1, rate = self.samp_rate, channels = self.chans, \
                         input_device_index = self.dev_index, input = True, \
@@ -66,14 +67,7 @@ class Mic:
     self.stream.close()
 
     if (not keep_recording):
-      self.stop = True
       self.audio.terminate()
-
-    # try:
-    #   self.stop_recording(True)
-    # except:
-    #   # OSError: [Errno -9999] Unanticipated host error
-    #   print('The usual alsa error due to not finishing fixed recording time')
 
     wav_output_filename = self.recordpath + self.filename + '.wav'
 
