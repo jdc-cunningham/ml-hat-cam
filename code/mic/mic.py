@@ -70,8 +70,6 @@ class Mic:
       self.stop = True
       self.audio.terminate()
 
-    print('past here')
-
     # try:
     #   self.stop_recording(True)
     # except:
@@ -86,6 +84,7 @@ class Mic:
     wavefile.setsampwidth(self.audio.get_sample_size(self.form_1))
     wavefile.setframerate(self.samp_rate)
     wavefile.writeframes(b''.join(self.frames))
+    print('past here')
     wavefile.close()
 
     if (keep_recording):
