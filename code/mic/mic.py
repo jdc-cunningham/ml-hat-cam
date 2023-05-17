@@ -64,8 +64,9 @@ class Mic:
   def stop_recording(self, keep_recording = False):
     # stop the stream, close it, and terminate the pyaudio instantiation
     self.stream.stop_stream()
-    print('past here')
     self.stream.close()
+
+    print('past here')
 
     if (not keep_recording):
       self.stop = True
