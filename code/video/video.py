@@ -7,6 +7,7 @@ class Video:
     self.camera = None
     self.camera = Picamera2()
     self.encoder = H264Encoder(bitrate=10000000)
+    self.record_path = usb_path
     # 1080P@60fps
     self.camera.resolution = (1920, 1080) # 4056, 3040 max lower fps, possibly not possible with rpi
 
