@@ -8,6 +8,8 @@ sys.path.append(lib_dir)
 from display_menu.display_menu import DisplayMenu
 from dpad.dpad import Dpad
 from batt_db.batt_db import BattDatabase
+from database.database import Database
+from lens_stepper.stepper import Stepper
 from sound.sound import Sound
 from utils.utils import Utils
 from usb_storage.usb_storage import UsbStorage
@@ -22,6 +24,14 @@ video = Video('/mnt/')
 video_thread = None # oof
 mic = Mic('/mnt/')
 mic_thread = None
+db = Database()
+
+focus_ring = Stepper(6, 13, 19, 26, 'focus', 350, db)
+tele_ring = Stepper(12, 16, 20, 21, 'tele', 300, db)
+
+# set to near focus
+focus_ring.focus_far(290)
+tele_ring.zoom_out(0) # should be at 0 already, autozero's on boot
 
 usb_storage = UsbStorage()
 usb_mounted = usb_storage.check_mounted()
@@ -44,11 +54,9 @@ def check_recording_state(button_press):
 
   if (record_state['active_menu'] == 'recording'):
     if (button_press == 'CENTER'):
-      print('center')
       record_state['recording'] = not record_state['recording']
 
       if (record_state['recording']):
-        print('record')
         filename = str(int(time.time()))
         audio_thread = Thread(target=mic.start_recording, args=(filename,))
         audio_thread.start()
@@ -56,7 +64,6 @@ def check_recording_state(button_press):
         video_thread = Thread(target=video.start_recording, args=(filename,))
         video_thread.start()
       else:
-        print('stop')
         video.stop_recording()
         mic.stop_recording()
 
@@ -71,15 +78,23 @@ def check_recording_state(button_press):
       if (cur_zoom != 'near'):
         if (cur_zoom == 'far'):
           record_state['zoom_level'] = 'mid'
+          focus_ring.focus_far(140)
+          tele_ring.zoom_out(150)
         else:
           record_state['zoom_level'] = 'near'
+          focus_ring.focus_far(120)
+          tele_ring.zoom_out(150)
 
     if (button_press == 'RIGHT'):
       if (cur_zoom != 'far'):
         if (cur_zoom == 'near'):
           record_state['zoom_level'] = 'mid'
+          focus_ring.focus_near(120)
+          tele_ring.zoom_in(150)
         else:
           record_state['zoom_level'] = 'far'
+          focus_ring.focus_near(90)
+          tele_ring.zoom_in(150)
     
     if (button_press == 'UP'):
       record_state['active_menu'] = 'recording'
