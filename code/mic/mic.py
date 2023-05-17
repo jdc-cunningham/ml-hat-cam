@@ -64,6 +64,7 @@ class Mic:
   def stop_recording(self, keep_recording = False):
     # stop the stream, close it, and terminate the pyaudio instantiation
     self.stream.stop_stream()
+    print('past here')
     self.stream.close()
 
     if (not keep_recording):
@@ -84,7 +85,6 @@ class Mic:
     wavefile.setsampwidth(self.audio.get_sample_size(self.form_1))
     wavefile.setframerate(self.samp_rate)
     wavefile.writeframes(b''.join(self.frames))
-    print('past here')
     wavefile.close()
 
     if (keep_recording):
