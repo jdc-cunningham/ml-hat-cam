@@ -11,7 +11,7 @@ from batt_db.batt_db import BattDatabase
 from database.database import Database
 from lens_stepper.stepper import Stepper
 from sound.sound import Sound
-from utils.utils import Utils
+# from utils.utils import Utils
 from usb_storage.usb_storage import UsbStorage
 from mic.mic import Mic
 from video.video import Video
@@ -19,7 +19,7 @@ from video.video import Video
 player = Sound()
 batt_db = BattDatabase()
 dmenu = DisplayMenu() # 128 x 128
-utils = Utils()
+# utils = Utils()
 video = Video('/mnt/')
 video_thread = None # oof
 mic = Mic('/mnt/')
@@ -111,7 +111,7 @@ def check_recording_state(button_press):
 def draw_splash_screen():
   dmenu.draw_text(0, 55, 'ML Hat Cam v1')
   # dmenu.draw_text(0, 75, 'ip: ' + utils.get_ip(), 'font_1')
-  dmenu.draw_text(0, 75, 'ip: 0.0.0.0','font_1')
+  dmenu.draw_text(0, 75, 'ip: 0.0.0.0', 'font_1')
   time.sleep(3)
   dmenu.clear()
 
