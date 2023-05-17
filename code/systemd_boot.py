@@ -110,7 +110,8 @@ def check_recording_state(button_press):
 
 def draw_splash_screen():
   dmenu.draw_text(0, 55, 'ML Hat Cam v1')
-  dmenu.draw_text(0, 75, 'ip: ' + utils.get_ip(), 'font_1')
+  # dmenu.draw_text(0, 75, 'ip: ' + utils.get_ip(), 'font_1')
+  dmenu.draw_text(0, 75, 'ip: 0.0.0.0','font_1')
   time.sleep(3)
   dmenu.clear()
 
