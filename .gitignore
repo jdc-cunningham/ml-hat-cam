@@ -1,0 +1,8 @@
+# files
+.env
+*.pyc
+*.rhn
+
+# folders
+__pycache__
+/code/speech-to-text/model

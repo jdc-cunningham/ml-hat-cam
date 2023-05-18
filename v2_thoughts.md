@@ -1,0 +1,3 @@
+- bump sensors for steppers
+- rotate steppers so they're below lens
+- IMU for determining sampling rate (motion = faster sampling)
