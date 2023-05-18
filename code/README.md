@@ -14,7 +14,7 @@ After=multi-user.target
 [Service]
 Type=idle
 WorkingDirectory=/home/pi/ml-hat-cam/code
-User=pi
+User=root
 ExecStart=/usr/bin/python3 /home/pi/ml-hat-cam/code/boot.py
 Restart=no
 
