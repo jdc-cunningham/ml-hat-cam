@@ -40,3 +40,14 @@ still_during_video.py this could be something
 
 I feel like I should be able to take the web stream code and pull the server aspect out... write to USB instead (while intercepting frames in another thread)
 
+hmm... maybe I do want to just pull frames out while recording not sure of performance
+
+5:28 PM
+
+I'm thinking something like this for the video recording autofocus control loop
+
+<img src="./video-focus-control-loop.JPG"/>
+
+there's the recording bit, then a sampling thread that's checking variance with access to stepper control (focus ring)
+
+my variance algo sucked so I still have to come up with something for that

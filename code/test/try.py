@@ -8,8 +8,7 @@ from picamera2.encoders import H264Encoder
 # Encode a VGA stream, and capture a higher resolution still image half way through.
 
 picam2 = Picamera2()
-half_resolution = [dim // 2 for dim in picam2.sensor_resolution]
-main_stream = {"size": half_resolution}
+main_stream = {"size": (1280, 720)}
 lores_stream = {"size": (640, 480)}
 video_config = picam2.create_video_configuration(main_stream, lores_stream, encode="lores")
 picam2.configure(video_config)
