@@ -39,4 +39,5 @@ class Video:
       time.sleep(1)
 
   def stop_recording(self):
+    self.stop_recording = True
     self.camera.stop_recording()
