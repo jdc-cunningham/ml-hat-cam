@@ -4,8 +4,8 @@
 *.rhn
 
 # sqlite
-ml_hat_cam_batt.db
-ml_hat_cam_stepper.db
+code/ml_hat_cam_batt.db
+code/ml_hat_cam_stepper.db
 
 # folders
 __pycache__
