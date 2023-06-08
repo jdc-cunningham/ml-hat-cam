@@ -12,6 +12,7 @@ class Video:
     self.record_path = usb_path
     self.focus_stepper = focus_stepper
     self.stop_recording = True
+    self.pause_autofocus = False
     # 1080P@60fps
     # 4056, 3040 max lower fps, possibly not possible with rpi
     main_stream_res = {"size": (1280, 720)}
@@ -33,9 +34,10 @@ class Video:
 
   def start_sampling(self):
     while self.stop_recording != True:
-      frame = self.camera.capture_request()
-      variance = self.get_variance(frame)
-      print(variance)
+      if (self.pause_autofocus != True):
+        frame = self.camera.capture_request()
+        variance = self.get_variance(frame)
+        print(variance)
       time.sleep(1)
 
   def stop_recording(self):

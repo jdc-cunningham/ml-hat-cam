@@ -51,3 +51,20 @@ I'm thinking something like this for the video recording autofocus control loop
 there's the recording bit, then a sampling thread that's checking variance with access to stepper control (focus ring)
 
 my variance algo sucked so I still have to come up with something for that
+
+5:49 PM
+
+ugh... something wrong with my usb drive status 32
+
+will use gparted maybe...
+
+I don't like this how the USB is problematic, it worked fine last time but that's a show stopper
+
+Can't write to USB... can write to SD card but reduces life span
+
+Ohh... I forgot you need sudo to use the USB drive... will write a try catch error message with that for a reminder
+
+5:59 PM
+
+just had a thought while I was having a snacky snack, there needs to be a variance interrupt thing while changing zoom levels eg. near/mid/far, so the focus zoom set for each of those ranges isn't interrupted
+
