@@ -22,3 +22,21 @@ I've seen an example of picamera2 though with video recording where it had a buf
 
 struggling...
 
+4:54 PM
+
+hmm... looks like audio recording is built into picamera2 will see, that would be convenient
+
+looks like the boot script blocks camera access
+
+5:01 PM
+
+dumb... don't open YouTube distraction
+
+hmm broken pipe tried recording sample with audio
+
+still_during_video.py this could be something
+
+5:07 PM
+
+I feel like I should be able to take the web stream code and pull the server aspect out... write to USB instead (while intercepting frames in another thread)
+
