@@ -68,3 +68,13 @@ Ohh... I forgot you need sudo to use the USB drive... will write a try catch err
 
 just had a thought while I was having a snacky snack, there needs to be a variance interrupt thing while changing zoom levels eg. near/mid/far, so the focus zoom set for each of those ranges isn't interrupted
 
+6:04 PM
+
+installing opencv
+
+weird that it's not on here already...
+
+6:23 PM
+
+distracted by PT2 not working
+
