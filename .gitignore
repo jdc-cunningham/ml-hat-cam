@@ -3,6 +3,10 @@
 *.pyc
 *.rhn
 
+# sqlite
+ml_hat_cam_batt.db
+ml_hat_cam_stepper.db
+
 # folders
 __pycache__
 /code/speech-to-text/model
