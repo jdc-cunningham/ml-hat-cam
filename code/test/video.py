@@ -24,7 +24,7 @@ class Video:
   def start_recording(self, file_name):
     self.recording = True
     self.filename = file_name
-    self.camera.start_recording(self.encoder, self.record_path + self.filename + '.h264', quality=Quality.HIGH)
+    self.camera.start_recording(self.encoder, self.record_path + self.filename + '.h264')
     Thread(target=self.start_sampling).start()
 
   def get_variance(self, np_arr):
