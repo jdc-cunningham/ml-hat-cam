@@ -26,16 +26,15 @@ class Video:
     self.camera.start_recording(self.encoder, self.record_path + self.filename + '.h264', quality=Quality.HIGH)
     Thread(target=self.start_sampling).start()
 
-  def get_variance(self, frame_buffer):
-    frame = np.fromstring(frame_buffer, np.uint8)
-    img = cv.imdecode(frame, cv.IMREAD_COLOR)
+  def get_variance(self, np_arr):
+    img = cv.imdecode(np_arr, cv.IMREAD_ANYCOLOR)
     var = round(cv.Laplacian(img, cv.CV_64F).var(), 2)
     return var
 
   def start_sampling(self):
     while self.stop_recording != True:
       if (self.pause_autofocus != True):
-        frame = self.camera.capture_request()
+        frame = self.camera.capture_array("raw")
         variance = self.get_variance(frame)
         print(variance)
       time.sleep(1)

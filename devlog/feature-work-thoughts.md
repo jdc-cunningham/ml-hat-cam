@@ -78,3 +78,13 @@ weird that it's not on here already...
 
 distracted by PT2 not working
 
+6:57 PM
+
+man... I'm losing it, the drive, distracted by PT2, should not have looked at it
+
+7:08 PM
+
+okay... I do have an issue `capture_request` wants to write to a file but I want to have a buffer
+
+I'll use the `capture_array` I think... then decode it into an img with opencv
+
