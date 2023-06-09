@@ -35,8 +35,9 @@ class Video:
     return var
 
   def start_sampling(self):
+    prev_var = 0
+
     while self.recording:
-      prev_var = 0
       var_samples = []
       focus_far = True # first dir
 
@@ -46,16 +47,17 @@ class Video:
         
         if (prev_var == 0):
           prev_var = variance
+          self.focus_stepper.focus_far(25)
         else:
-          if (variance > prev_var):
-            self.focus_stepper.focus_far(1)
-            time.sleep(0.008) # per step
+          if (variance > prev_var or variance < 100):
+            self.focus_stepper.focus_far(25)
           else:
-            self.focus_stepper.focus_near(1)
-            time.sleep(0.008)
-          prev_var = variance
+            self.focus_stepper.focus_near(25)
 
-      time.sleep(1)
+      print(prev_var)
+
+      prev_var = variance
+      time.sleep(0.04) # 24fps
 
   def stop_recording(self):
     self.recording = False
