@@ -31,6 +31,7 @@ class Video:
     # https://stackoverflow.com/a/32264327/2710227
     pil_img = im.fromarray(np.uint8(np_arr))
     cv_img = cv.cvtColor(np.array(pil_img), cv.COLOR_RGB2BGR)
+    cv.imwrite(str(int(time.time())), cv_img)
     var = round(cv.Laplacian(cv_img, cv.CV_64F).var(), 2)
     return var
 
@@ -46,6 +47,7 @@ class Video:
         
         if (prev_var == 0):
           prev_var = variance
+          self.focus_stepper.focus_far(1)
         else:
           if (variance > prev_var):
             self.focus_stepper.focus_far(1)

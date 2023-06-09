@@ -136,3 +136,75 @@ hmm I just realized something too, not sure of the speed I'm using on the steppe
 
 looks like it's using `0.001` second per step and there are 8 of them
 
+8:20 PM
+
+seems like the 1s sampling is not fast enough
+
+I will try for 24fps
+
+8:25 PM
+
+oof... my guy with the `sudo rm rf...` yikes
+
+folders gone lol from `/home/pi`
+
+VERSION CONTROL...
+
+oh no... the OLED library is gone
+
+oof
+
+8:31 PM
+
+yeah.......... everything's gone... good job Jacob
+
+why did this happen? because I was moving video files from usb to sd for sftp to win 10 desktop
+
+the files are written in root so can't delete them as pi, can change ownership
+
+8:36 PM
+
+I did realize the steppers have built in delay as they move
+
+so far the auto focus is not working
+
+ahh my old code was stepping in 5 increments
+
+the time to move 25 steps is too short...
+
+```
+1686275244.2401679
+1686275244.4660704
+```
+
+let's see...
+
+it does only take 0.2 seconds hmm
+
+let me time it a full rotation
+
+oh  damn... I built in a focal length method into the stepper class huh
+
+yeah... that seems right 2.8 seconds for 350 steps
+
+8:57 PM
+
+hmm... I wonder if the variance is bad because the image is bad
+
+in the recorded video I see it getting better but the variance is not changing by much
+
+9:02 PM
+
+oh yeah these images are f'd lol
+
+<img src="./broken.JPG"/>
+
+So yeah... got the code to run but not working with right image... I had a suspicion since the answers were using greyscale
+
+9:33 PM
+
+just soldered up some new batteries for tomorrow
+
+this variance thing needs work, I think I need to do major steps in some direction to get a large variance change then narrow it down
+
+based on the initial settings
