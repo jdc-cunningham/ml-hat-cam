@@ -1,7 +1,7 @@
 from database.database import Database
 from usb_storage.usb_storage import UsbStorage
 from stepper.stepper import Stepper
-from video import Video
+from video.tmp_video import Video
 import time
 
 db = Database()
