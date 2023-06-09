@@ -88,3 +88,11 @@ okay... I do have an issue `capture_request` wants to write to a file but I want
 
 I'll use the `capture_array` I think... then decode it into an img with opencv
 
+7:30 PM
+
+you are failing doctor... can't get this `np_array` to be read by cv for the variance check
+
+7:44 PM
+
+oh man I think I got it
+

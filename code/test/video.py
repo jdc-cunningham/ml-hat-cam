@@ -1,6 +1,7 @@
 from threading import Thread
 from picamera2.encoders import H264Encoder, Quality
 from picamera2 import Picamera2
+from PIL import Image as im
 import time
 import cv2 as cv
 import numpy as np
@@ -11,7 +12,7 @@ class Video:
     self.encoder = H264Encoder()
     self.record_path = usb_path
     self.focus_stepper = focus_stepper
-    self.stop_recording = True
+    self.recording = False
     self.pause_autofocus = False
     # 1080P@60fps
     # 4056, 3040 max lower fps, possibly not possible with rpi
@@ -21,24 +22,26 @@ class Video:
     self.camera.configure(vid_config)
 
   def start_recording(self, file_name):
-    self.stop_recording = False
+    self.recording = True
     self.filename = file_name
     self.camera.start_recording(self.encoder, self.record_path + self.filename + '.h264', quality=Quality.HIGH)
     Thread(target=self.start_sampling).start()
 
   def get_variance(self, np_arr):
-    img = cv.imdecode(np_arr, cv.IMREAD_ANYCOLOR)
-    var = round(cv.Laplacian(img, cv.CV_64F).var(), 2)
+    # https://stackoverflow.com/a/32264327/2710227
+    pil_img = im.fromarray(np.uint8(np_arr))
+    cv_img = cv.cvtColor(np.array(pil_img), cv.COLOR_RGB2BGR)
+    var = round(cv.Laplacian(cv_img, cv.CV_64F).var(), 2)
     return var
 
   def start_sampling(self):
-    while self.stop_recording != True:
+    while self.recording:
       if (self.pause_autofocus != True):
-        frame = self.camera.capture_array("raw")
-        variance = self.get_variance(frame)
+        np_arr = self.camera.capture_array("lores")
+        variance = self.get_variance(np_arr)
         print(variance)
       time.sleep(1)
 
   def stop_recording(self):
-    self.stop_recording = True
+    self.recording = False
     self.camera.stop_recording()
