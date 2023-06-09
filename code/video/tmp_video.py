@@ -17,8 +17,7 @@ class Video:
     # 1080P@60fps
     # 4056, 3040 max lower fps, possibly not possible with rpi
     main_stream_res = {"size": (1280, 720)}
-    sample_stream_res = {"size": (640, 480)}
-    vid_config = self.camera.create_video_configuration(main_stream_res, sample_stream_res, encode="lores")
+    vid_config = self.camera.create_video_configuration(main_stream_res)
     self.camera.configure(vid_config)
 
   def start_recording(self, file_name):
@@ -31,33 +30,34 @@ class Video:
     # https://stackoverflow.com/a/32264327/2710227
     pil_img = im.fromarray(np.uint8(np_arr))
     cv_img = cv.cvtColor(np.array(pil_img), cv.COLOR_RGB2BGR)
-    cv.imwrite(str(int(time.time())), cv_img)
+    cv.imwrite(str(int(time.time())) + '.jpg', cv_img)
     var = round(cv.Laplacian(cv_img, cv.CV_64F).var(), 2)
     return var
 
   def start_sampling(self):
+    prev_var = 0
+
     while self.recording:
-      prev_var = 0
       var_samples = []
       focus_far = True # first dir
 
       if (self.pause_autofocus != True):
-        np_arr = self.camera.capture_array("lores")
+        np_arr = self.camera.capture_array("main")
         variance = self.get_variance(np_arr)
-        
+
         if (prev_var == 0):
           prev_var = variance
-          self.focus_stepper.focus_far(1)
+          self.focus_stepper.focus_far(5)
         else:
-          if (variance > prev_var):
-            self.focus_stepper.focus_far(1)
-            time.sleep(0.008) # per step
+          if (variance < prev_var or variance < 50):
+            self.focus_stepper.focus_far(5)
           else:
-            self.focus_stepper.focus_near(1)
-            time.sleep(0.008)
-          prev_var = variance
+            self.focus_stepper.focus_near(5)
 
-      time.sleep(1)
+      print(prev_var)
+
+      prev_var = variance
+      time.sleep(0.04) # 24fps
 
   def stop_recording(self):
     self.recording = False
