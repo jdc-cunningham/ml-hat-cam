@@ -1,6 +1,6 @@
 from database.database import Database
 from usb_storage.usb_storage import UsbStorage
-from stepper.stepper import Stepper
+from lens_stepper.lens_stepper import Stepper
 from video.tmp_video import Video
 import time
 
