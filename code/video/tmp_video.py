@@ -36,12 +36,25 @@ class Video:
 
   def start_sampling(self):
     while self.recording:
-      samples = []
+      prev_var = 0
+      var_samples = []
+      focus_far = True # first dir
 
       if (self.pause_autofocus != True):
         np_arr = self.camera.capture_array("lores")
         variance = self.get_variance(np_arr)
-        print(variance)
+        
+        if (prev_var == 0):
+          prev_var = variance
+        else:
+          if (variance > prev_var):
+            self.focus_stepper.focus_far(1)
+            time.sleep(0.008) # per step
+          else:
+            self.focus_stepper.focus_near(1)
+            time.sleep(0.008)
+          prev_var = variance
+
       time.sleep(1)
 
   def stop_recording(self):

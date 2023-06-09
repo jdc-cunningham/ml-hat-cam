@@ -96,3 +96,43 @@ you are failing doctor... can't get this `np_array` to be read by cv for the var
 
 oh man I think I got it
 
+7:57 PM
+
+I should be able to do the auto focus and record bit here shortly
+
+I'll do 3 samples (stepper values)
+
+8:05 PM
+
+ugh... this is where my code starts to get nasty
+
+```
+def start_sampling(self):
+    while self.recording:
+      prev_var = 0
+      var_samples = []
+      focus_far = True # first dir
+
+      if (self.pause_autofocus != True):
+        np_arr = self.camera.capture_array("lores")
+        variance = self.get_variance(np_arr)
+        
+        if (prev_var == 0):
+          prev_var = variance
+        else:
+          if (variance > prev_var):
+            self.focus_stepper.focus_far(1)
+          else:
+
+
+      time.sleep(1)
+```
+
+this sampling/deciding which way to go then staying at the ideal focus
+
+it will probably rarely ever just sit still
+
+hmm I just realized something too, not sure of the speed I'm using on the steppers
+
+looks like it's using `0.001` second per step and there are 8 of them
+
