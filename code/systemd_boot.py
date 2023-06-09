@@ -1,3 +1,5 @@
+return False
+
 import os, sys, time
 
 from threading import Thread
