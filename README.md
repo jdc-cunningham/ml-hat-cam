@@ -4,6 +4,8 @@ An auto-zoom hat-mounted camera using an Arducam IMX477 with 8-50mm lens and ML 
 
 <img src="ml-hat-cam-v1.JPG"/>
 
+[Focusing calibration video](https://youtu.be/QS5gliyjalo?si=H5IM7UlINm3g-GTi&t=10)
+
 ### Current capabilities
 - record video, write to USB
 - record audio, write to USB
@@ -83,3 +85,4 @@ Most of the physical dimensions on part models are not 100% accurate. They are f
 This project might be a fail just because of how heavy/cumbersome it is.
 
 A different approach is to use a tripod, ground-based tracker. Whether it tracks on its own or you aim with your head. The self-tracking sounds more interesting.
+
